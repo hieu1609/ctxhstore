@@ -1,11 +1,14 @@
 package com.ltudttbdd.project.activity;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -38,11 +41,27 @@ public class ProductDetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_detail);
-        Anhxa();
+        Mappings();
         ActionToolbar();
         GetInformation();
         CatchEventSpinner();
         EventButton();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menucart:
+                Intent intent = new Intent(getApplicationContext(), CartActivity.class);
+                startActivity(intent);
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private void EventButton() {
@@ -115,7 +134,7 @@ public class ProductDetailActivity extends AppCompatActivity {
         });
     }
 
-    private void Anhxa() {
+    private void Mappings() {
         toolbarproductdetail = findViewById(R.id.toolbarproductdetail);
         imgproductdetail = findViewById(R.id.imageviewproductdetail);
         txtname = findViewById(R.id.textviewnameproductdetail);

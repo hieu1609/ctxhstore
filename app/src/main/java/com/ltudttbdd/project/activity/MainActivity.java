@@ -1,5 +1,6 @@
 package com.ltudttbdd.project.activity;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -10,6 +11,8 @@ import androidx.appcompat.widget.Toolbar;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -64,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Anhxa();
+        Mappings();
         if(CheckConnection.haveNetworkConnection(getApplicationContext())) {
             ActionBar();
             ActionViewFlipper();
@@ -105,6 +108,22 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menucart:
+                Intent intent = new Intent(getApplicationContext(), CartActivity.class);
+                startActivity(intent);
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private void GetDataNewProduct() {
@@ -211,7 +230,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void Anhxa() {
+    private void Mappings() {
         toolbar = findViewById(R.id.toolbarmanhinhchinh);
         viewFlipper = (ViewFlipper) findViewById(R.id.viewflipper);
         recyclerViewmanhinhchinh = (RecyclerView) findViewById(R.id.recyclerview);

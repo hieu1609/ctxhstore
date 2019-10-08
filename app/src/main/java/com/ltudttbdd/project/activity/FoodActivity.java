@@ -10,6 +10,8 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
@@ -53,7 +55,7 @@ public class FoodActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_food);
-        Anhxa();
+        Mappings();
         if(CheckConnection.haveNetworkConnection(getApplicationContext())) {
             GetIdProductCategory();
             ActionToolbar();
@@ -65,6 +67,23 @@ public class FoodActivity extends AppCompatActivity {
             finish();
         }
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menucart:
+                Intent intent = new Intent(getApplicationContext(), CartActivity.class);
+                startActivity(intent);
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
     private void LoadMoreData() {
         listviewfood.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -161,7 +180,7 @@ public class FoodActivity extends AppCompatActivity {
         Log.d("giatriloaisanpham", idfood + "");
     }
 
-    private void Anhxa() {
+    private void Mappings() {
         toolbarfood = findViewById(R.id.toolbarfood);
         listviewfood = findViewById(R.id.listviewfood);
         arrayfood = new ArrayList<>();
@@ -187,6 +206,7 @@ public class FoodActivity extends AppCompatActivity {
             super.handleMessage(msg);
         }
     }
+
     public class ThreadData extends Thread {
         @Override
         public void run() {

@@ -22,7 +22,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
             <TextView
-                android:id="@+id/textviewcart"
+                android:id="@+id/textviewnotification"
                 android:textSize="30sp"
                 android:layout_gravity="center"
                 android:text="Giỏ hàng bạn đang trống"
@@ -64,6 +64,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent">
                 <TextView
+                    android:id="@+id/textviewtotalprice"
                     android:textColor="#f20"
                     android:text="Giá trị"
                     android:textSize="30sp"
