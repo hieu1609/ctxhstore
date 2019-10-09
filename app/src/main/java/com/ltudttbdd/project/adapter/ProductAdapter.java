@@ -42,10 +42,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ItemHold
         Product product = arrayProduct.get(position);
         holder.txtProductName.setText(product.getProductName());
         DecimalFormat decimalFormat = new DecimalFormat("###,###,###");
-        holder.txtProductPrice.setText("Giá: " + decimalFormat.format(product.getPrice()) + " VNĐ");
-//        Locale locale = new Locale("vi","VN");
-//        NumberFormat fmt = NumberFormat.getCurrencyInstance(locale);
-//        txtTotalPrice.setText(fmt.format(total));
+        holder.txtProductPrice.setText("Giá: " + decimalFormat.format(product.getPrice()) + " Đ");
         Picasso.get().load(product.getProductImage())
                 .placeholder(R.drawable.noimg)
                 .error(R.drawable.errorimg)
