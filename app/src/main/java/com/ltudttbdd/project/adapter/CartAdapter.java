@@ -10,8 +10,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.ltudttbdd.project.R;
+import com.ltudttbdd.project.activity.CartActivity;
+import com.ltudttbdd.project.activity.MainActivity;
 import com.ltudttbdd.project.model.Cart;
-import com.ltudttbdd.project.model.Product;
 import com.squareup.picasso.Picasso;
 
 import java.text.DecimalFormat;
@@ -49,7 +50,7 @@ public class CartAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int i, View view, ViewGroup viewGroup) {
+    public View getView(final int i, View view, ViewGroup viewGroup) {
         ViewHoler viewHoler = null;
         if (view == null) {
             viewHoler = new ViewHoler();
@@ -69,12 +70,84 @@ public class CartAdapter extends BaseAdapter {
         Cart cart = (Cart) getItem(i);
         viewHoler.txtCartName.setText(cart.getNameproduct());
         DecimalFormat decimalFormat = new DecimalFormat("###,###,###");
-        viewHoler.txtCartPrice.setText(decimalFormat.format(cart.getPriceproduct()) + " VNĐ");
+        viewHoler.txtCartPrice.setText(decimalFormat.format(cart.getPriceproduct()) + " Đ");
         Picasso.get().load(cart.getImageproduct())
                 .placeholder(R.drawable.noimg)
                 .error((R.drawable.errorimg))
                 .into(viewHoler.imgCart);
         viewHoler.btnValues.setText(String.valueOf(cart.getNumberproduct()));
+        int numberProduct = Integer.parseInt(viewHoler.btnValues.getText().toString());
+        if (numberProduct > 9) {
+            viewHoler.btnPlus.setVisibility(View.INVISIBLE);
+            viewHoler.btnMinus.setVisibility(View.VISIBLE);
+            viewHoler.btnValues.setText("10");
+            int newNumber = 10;
+            int nowNumber = MainActivity.arrayCart.get(i).getNumberproduct();
+            long nowPrice = MainActivity.arrayCart.get(i).getPriceproduct();
+            long newPrice = (nowPrice * newNumber) / nowNumber;
+            MainActivity.arrayCart.get(i).setNumberproduct(newNumber);
+            MainActivity.arrayCart.get(i).setPriceproduct(newPrice);
+            DecimalFormat decimal = new DecimalFormat("###,###,###");
+            viewHoler.txtCartPrice.setText(decimal.format(newPrice) + " Đ");
+            CartActivity.EventUtil();
+        }
+        else if (numberProduct <= 1) {
+            viewHoler.btnPlus.setVisibility(View.VISIBLE);
+            viewHoler.btnMinus.setVisibility(View.INVISIBLE);
+        }
+        else if (numberProduct > 1) {
+            viewHoler.btnPlus.setVisibility(View.VISIBLE);
+            viewHoler.btnMinus.setVisibility(View.VISIBLE);
+        }
+        final ViewHoler finalViewHoler = viewHoler;
+        viewHoler.btnPlus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int newNumber = Integer.parseInt(finalViewHoler.btnValues.getText().toString()) + 1;
+                int nowNumber = MainActivity.arrayCart.get(i).getNumberproduct();
+                long nowPrice = MainActivity.arrayCart.get(i).getPriceproduct();
+                long newPrice = (nowPrice * newNumber) / nowNumber;
+                MainActivity.arrayCart.get(i).setNumberproduct(newNumber);
+                MainActivity.arrayCart.get(i).setPriceproduct(newPrice);
+                DecimalFormat decimalFormat = new DecimalFormat("###,###,###");
+                finalViewHoler.txtCartPrice.setText(decimalFormat.format(newPrice) + " Đ");
+                CartActivity.EventUtil();
+                if (newNumber > 9) {
+                    finalViewHoler.btnPlus.setVisibility(View.INVISIBLE);
+                    finalViewHoler.btnMinus.setVisibility(View.VISIBLE);
+                    finalViewHoler.btnValues.setText(String.valueOf(newNumber));
+                }
+                else {
+                    finalViewHoler.btnPlus.setVisibility(View.VISIBLE);
+                    finalViewHoler.btnMinus.setVisibility(View.VISIBLE);
+                    finalViewHoler.btnValues.setText(String.valueOf(newNumber));
+                }
+            }
+        });
+        viewHoler.btnMinus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int newNumber = Integer.parseInt(finalViewHoler.btnValues.getText().toString()) - 1;
+                int nowNumber = MainActivity.arrayCart.get(i).getNumberproduct();
+                long nowPrice = MainActivity.arrayCart.get(i).getPriceproduct();
+                long newPrice = (nowPrice * newNumber) / nowNumber;
+                MainActivity.arrayCart.get(i).setNumberproduct(newNumber);
+                MainActivity.arrayCart.get(i).setPriceproduct(newPrice);
+                DecimalFormat decimalFormat = new DecimalFormat("###,###,###");
+                finalViewHoler.txtCartPrice.setText(decimalFormat.format(newPrice) + " Đ");
+                CartActivity.EventUtil();
+                if (newNumber < 2) {
+                    finalViewHoler.btnPlus.setVisibility(View.VISIBLE);
+                    finalViewHoler.btnMinus.setVisibility(View.INVISIBLE);
+                    finalViewHoler.btnValues.setText(String.valueOf(newNumber));
+                }
+                else {
+                    finalViewHoler.btnPlus.setVisibility(View.VISIBLE);
+                    finalViewHoler.btnMinus.setVisibility(View.VISIBLE);
+                    finalViewHoler.btnValues.setText(String.valueOf(newNumber));
+                }
+            }
+        });
         return view;
     }
 }

@@ -64,7 +64,7 @@ public class PhoneAdapter extends BaseAdapter {
         Product product = (Product) getItem(i);
         viewHoler.txtphonename.setText(product.getProductName());
         DecimalFormat decimalFormat = new DecimalFormat("###,###,###");
-        viewHoler.txtphoneprice.setText("Giá: " + decimalFormat.format(product.getPrice()) + " VNĐ");
+        viewHoler.txtphoneprice.setText("Giá: " + decimalFormat.format(product.getPrice()) + " Đ");
         viewHoler.txtphonedescription.setMaxLines(2);
         viewHoler.txtphonedescription.setEllipsize(TextUtils.TruncateAt.END);
         viewHoler.txtphonedescription.setText(product.getDescription());

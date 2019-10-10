@@ -4,7 +4,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -100,7 +99,7 @@ public class ProductDetailActivity extends AppCompatActivity {
     }
 
     private void CatchEventSpinner() {
-        Integer[] number = new Integer[] {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30};
+        Integer[] number = new Integer[] {1,2,3,4,5,6,7,8,9,10};
         ArrayAdapter<Integer> arrayAdapter = new ArrayAdapter<Integer>(this, android.R.layout.simple_spinner_dropdown_item, number);
         spinner.setAdapter(arrayAdapter);
     }

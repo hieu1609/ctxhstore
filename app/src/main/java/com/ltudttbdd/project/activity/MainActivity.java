@@ -106,8 +106,6 @@ public class MainActivity extends AppCompatActivity {
             CheckConnection.ShowToastShort(getApplicationContext(), "Bạn hãy kiểm tra lại kết nối Internet");
             finish();
         }
-
-
     }
 
     @Override
