@@ -94,7 +94,8 @@ public class MainActivity extends AppCompatActivity {
                             Toast.makeText(MainActivity.this, "item 4", Toast.LENGTH_SHORT).show();
                             break;
                         case 5:
-                            Toast.makeText(MainActivity.this, "item 5", Toast.LENGTH_SHORT).show();
+                            Intent informationIntent = new Intent(MainActivity.this, InformationActivity.class);
+                            startActivity(informationIntent);
                             break;
 
                     }
