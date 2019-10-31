@@ -22,10 +22,12 @@ import android.widget.ListView;
 import android.widget.Toast;
 import android.widget.ViewFlipper;
 
+import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.material.navigation.NavigationView;
 import com.ltudttbdd.project.R;
@@ -79,14 +81,14 @@ public class MainActivity extends AppCompatActivity {
                     switch (i){
                         case 0:
                             break;
-                        case 1:
+                        case 3:
                             Intent phoneIntent = new Intent(MainActivity.this, PhoneActivity.class);
                             startActivity(phoneIntent);
                             break;
                         case 2:
                             Toast.makeText(MainActivity.this, "item 2", Toast.LENGTH_SHORT).show();
                             break;
-                        case 3:
+                        case 1:
                             Intent foodIntent = new Intent(MainActivity.this, FoodActivity.class);
                             startActivity(foodIntent);
                             break;
@@ -164,35 +166,68 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void GetDataProductCategory() {
-        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
-        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Server.urlProductCategory, new Response.Listener<JSONArray>() {
+//        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+//        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Server.urlProductCategory, new Response.Listener<JSONArray>() {
+//            @Override
+//            public void onResponse(JSONArray response) {
+//                if(response != null) {
+//                    for (int i = 0; i < response.length(); i++) {
+//                        try {
+//                            JSONObject jsonObject = response.getJSONObject(i);
+//                            id = jsonObject.getInt("id");
+//                            categoryName = jsonObject.getString("category_name");
+//                            categoryImage = jsonObject.getString("category_image");
+//                            arrayProductCategory.add(new ProductCategory(id, categoryName, categoryImage));
+//                            productCategoryAdapter.notifyDataSetChanged(); //update data
+//                        } catch (JSONException e) {
+//                            e.printStackTrace();
+//                        }
+//                    }
+//                    arrayProductCategory.add(4, new ProductCategory(0, "Liên hệ", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQWq2hS1q3YW7MStkX9jyfEqYg3jMmftZ82J7az5oN-thj0oycsnw"));
+//                    arrayProductCategory.add(5, new ProductCategory(0, "Thông tin", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQmOD06az3sOuJf2IfL4UTSvQkUalSFM-AJjoV8C7CeN-YjtEu9"));
+//                }
+//            }
+//        }, new Response.ErrorListener() {
+//            @Override
+//            public void onErrorResponse(VolleyError error) {
+//                CheckConnection.ShowToastShort(getApplicationContext(), error.toString());
+//                Log.d("Error Response", error.toString());
+//            }
+//        });
+//        requestQueue.add(jsonArrayRequest);
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, Server.urlProductCategory, null, new Response.Listener<JSONObject>() {
             @Override
-            public void onResponse(JSONArray response) {
-                if(response != null) {
-                    for (int i = 0; i < response.length(); i++) {
+            public void onResponse(JSONObject response) {
+                try {
+                    JSONArray data = (JSONArray)response.getJSONArray("data");
+                    for (int i = 0; i< data.length();i++){
                         try {
-                            JSONObject jsonObject = response.getJSONObject(i);
-                            id = jsonObject.getInt("id");
-                            categoryName = jsonObject.getString("category_name");
-                            categoryImage = jsonObject.getString("category_image");
+                            JSONObject category = (JSONObject)data.get(i);
+                            id = category.getInt("id");
+                            categoryName = category.getString("category_name");
+                            categoryImage = category.getString("category_image");
                             arrayProductCategory.add(new ProductCategory(id, categoryName, categoryImage));
                             productCategoryAdapter.notifyDataSetChanged(); //update data
-                        } catch (JSONException e) {
+
+                        }
+                        catch (JSONException e) {
                             e.printStackTrace();
                         }
                     }
-                    arrayProductCategory.add(4, new ProductCategory(0, "Liên hệ", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQWq2hS1q3YW7MStkX9jyfEqYg3jMmftZ82J7az5oN-thj0oycsnw"));
-                    arrayProductCategory.add(5, new ProductCategory(0, "Thông tin", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQmOD06az3sOuJf2IfL4UTSvQkUalSFM-AJjoV8C7CeN-YjtEu9"));
+                    arrayProductCategory.add(data.length(), new ProductCategory(0, "Liên hệ", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQWq2hS1q3YW7MStkX9jyfEqYg3jMmftZ82J7az5oN-thj0oycsnw"));
+                    arrayProductCategory.add(data.length() +1 , new ProductCategory(0, "Thông tin", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQmOD06az3sOuJf2IfL4UTSvQkUalSFM-AJjoV8C7CeN-YjtEu9"));
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                CheckConnection.ShowToastShort(getApplicationContext(), error.toString());
-                Log.d("Error Response", error.toString());
+                Toast.makeText(MainActivity.this, error.toString(), Toast.LENGTH_LONG).show();
             }
         });
-        requestQueue.add(jsonArrayRequest);
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        requestQueue.add(jsonObjectRequest);
     }
 
     private void ActionViewFlipper() {
