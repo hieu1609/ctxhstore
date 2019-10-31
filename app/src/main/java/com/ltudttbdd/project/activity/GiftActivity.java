@@ -24,7 +24,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.ltudttbdd.project.R;
-import com.ltudttbdd.project.adapter.FoodAdapter;
+import com.ltudttbdd.project.adapter.GiftAdapter;
 import com.ltudttbdd.project.model.Product;
 import com.ltudttbdd.project.ultil.CheckConnection;
 import com.ltudttbdd.project.ultil.Server;
@@ -38,11 +38,11 @@ import java.util.HashMap;
 
 public class GiftActivity extends AppCompatActivity {
 
-    Toolbar toolbarfood;
-    ListView listviewfood;
-    FoodAdapter foodAdapter;
-    ArrayList<Product> arrayfood;
-    int idfood = 0;
+    Toolbar toolbargift;
+    ListView listviewgift;
+    GiftAdapter giftAdapter;
+    ArrayList<Product> arraygift;
+    int idgift = 0;
     int page = 1;
     View footerview;
     boolean isLoading = false;
@@ -52,7 +52,7 @@ public class GiftActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_food);
+        setContentView(R.layout.activity_gift);
         Mappings();
         if (CheckConnection.haveNetworkConnection(getApplicationContext())) {
             GetIdProductCategory();
@@ -82,15 +82,15 @@ public class GiftActivity extends AppCompatActivity {
     }
 
     private void LoadMoreData() {
-        listviewfood.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        listviewgift.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent = new Intent(getApplicationContext(), ProductDetailActivity.class);
-                intent.putExtra("thongtinsanpham", arrayfood.get(i));
+                intent.putExtra("thongtinsanpham", arraygift.get(i));
                 startActivity(intent);
             }
         });
-        listviewfood.setOnScrollListener(new AbsListView.OnScrollListener() {
+        listviewgift.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(AbsListView absListView, int i) {
 
@@ -108,61 +108,12 @@ public class GiftActivity extends AppCompatActivity {
     }
 
     private void GetData(int Page) {
-//        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
-//        String url = Server.urlPhone;
-//        StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
-//            @Override
-//            public void onResponse(String response) {
-//                int id = 0;
-//                String productName = "";
-//                int price = 0;
-//                String productImage = "";
-//                String description = "";
-//                int idCategory = 0;
-//                if (response != null && response.length() != 2) {
-//                    listviewfood.removeFooterView(footerview);
-//                    try {
-//                        JSONArray jsonArray = new JSONArray(response);
-//                        for (int i = 0; i < jsonArray.length(); i++) {
-//                            JSONObject jsonObject = jsonArray.getJSONObject(i);
-//                            id = jsonObject.getInt("id");
-//                            productName = jsonObject.getString("product_name");
-//                            price = jsonObject.getInt("price");
-//                            productImage = jsonObject.getString("product_image");
-//                            description = jsonObject.getString("description");
-//                            idCategory = jsonObject.getInt("id_category");
-//                            arrayfood.add(new Product(id, productName, price, productImage, description, idCategory));
-//                            foodAdapter.notifyDataSetChanged();
-//                        }
-//                    } catch (JSONException e) {
-//                        e.printStackTrace();
-//                    }
-//                }
-//                else {
-//                    limitData = true;
-//                    listviewfood.removeFooterView(footerview);
-//                    CheckConnection.ShowToastShort(getApplicationContext(), "Đã hết dữ liệu");
-//                }
-//            }
-//        }, new Response.ErrorListener() {
-//            @Override
-//            public void onErrorResponse(VolleyError error) {
-//
-//            }
-//        }){
-//            @Override
-//            protected Map<String, String> getParams() throws AuthFailureError {
-//                HashMap<String, String> param = new HashMap<String, String>();
-//                param.put("categoryId", "2");
-//                return param;
-//            }
-//        };
-//        requestQueue.add(stringRequest);
+
         final HashMap<String, String> postParams = new HashMap<String, String>();
-        postParams.put("categoryId", "3");
+        postParams.put("categoryId", "5");
         postParams.put("page", String.valueOf(Page));
         final JSONObject jsonObject = new JSONObject(postParams);
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, Server.urlPhone,jsonObject , new Response.Listener<JSONObject>() {
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, Server.urlProduct,jsonObject , new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 int id = 0;
@@ -172,12 +123,12 @@ public class GiftActivity extends AppCompatActivity {
                 String description = "";
                 int idCategory = 0;
                 if (response != null) {
-                    listviewfood.removeFooterView(footerview);
+                    listviewgift.removeFooterView(footerview);
                     try {
                         JSONArray data = (JSONArray) response.getJSONArray("data");
                         if(data.length() == 0){
                             limitData = true;
-                            listviewfood.removeFooterView(footerview);
+                            listviewgift.removeFooterView(footerview);
                             CheckConnection.ShowToastShort(getApplicationContext(), "Đã hết dữ liệu");
                             return;
                         }
@@ -190,8 +141,8 @@ public class GiftActivity extends AppCompatActivity {
                                 productImage = item.getString("product_image");
                                 description = item.getString("description");
                                 idCategory = item.getInt("id_category");
-                                arrayfood.add(new Product(id, productName, price, productImage, description, idCategory));
-                                foodAdapter.notifyDataSetChanged();
+                                arraygift.add(new Product(id, productName, price, productImage, description, idCategory));
+                                giftAdapter.notifyDataSetChanged();
 
                             } catch (JSONException e) {
                                 e.printStackTrace();
@@ -221,9 +172,9 @@ public class GiftActivity extends AppCompatActivity {
     }
 
     private void ActionToolbar() {
-        setSupportActionBar(toolbarfood);
+        setSupportActionBar(toolbargift);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        toolbarfood.setNavigationOnClickListener(new View.OnClickListener() {
+        toolbargift.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
@@ -233,16 +184,16 @@ public class GiftActivity extends AppCompatActivity {
     }
 
     private void GetIdProductCategory() {
-        idfood = getIntent().getIntExtra("idCategory", -1);
-        Log.d("giatriloaisanpham", idfood + "");
+        idgift = getIntent().getIntExtra("idCategory", -1);
+        Log.d("giatriloaisanpham", idgift + "");
     }
 
     private void Mappings() {
-        toolbarfood = findViewById(R.id.toolbarfood);
-        listviewfood = findViewById(R.id.listviewfood);
-        arrayfood = new ArrayList<>();
-        foodAdapter = new FoodAdapter(getApplicationContext(), arrayfood);
-        listviewfood.setAdapter(foodAdapter);
+        toolbargift = findViewById(R.id.toolbargift);
+        listviewgift = findViewById(R.id.listviewgift);
+        arraygift = new ArrayList<>();
+        giftAdapter = new GiftAdapter(getApplicationContext(), arraygift);
+        listviewgift.setAdapter(giftAdapter);
         LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
         footerview = inflater.inflate(R.layout.progress_bar, null);
         myHandler = new MyHandler();
@@ -253,7 +204,7 @@ public class GiftActivity extends AppCompatActivity {
         public void handleMessage(@NonNull Message msg) {
             switch (msg.what) {
                 case 0:
-                    listviewfood.addFooterView(footerview);
+                    listviewgift.addFooterView(footerview);
                     break;
                 case 1:
                     GetData(++page);

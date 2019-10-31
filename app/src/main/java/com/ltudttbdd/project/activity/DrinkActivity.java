@@ -109,61 +109,12 @@ public class DrinkActivity extends AppCompatActivity {
     }
 
     private void GetData(int Page) {
-//        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
-//        String url = Server.urlPhone;
-//        StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
-//            @Override
-//            public void onResponse(String response) {
-//                int id = 0;
-//                String productName = "";
-//                int price = 0;
-//                String productImage = "";
-//                String description = "";
-//                int idCategory = 0;
-//                if (response != null && response.length() != 2) {
-//                    listviewfood.removeFooterView(footerview);
-//                    try {
-//                        JSONArray jsonArray = new JSONArray(response);
-//                        for (int i = 0; i < jsonArray.length(); i++) {
-//                            JSONObject jsonObject = jsonArray.getJSONObject(i);
-//                            id = jsonObject.getInt("id");
-//                            productName = jsonObject.getString("product_name");
-//                            price = jsonObject.getInt("price");
-//                            productImage = jsonObject.getString("product_image");
-//                            description = jsonObject.getString("description");
-//                            idCategory = jsonObject.getInt("id_category");
-//                            arrayfood.add(new Product(id, productName, price, productImage, description, idCategory));
-//                            foodAdapter.notifyDataSetChanged();
-//                        }
-//                    } catch (JSONException e) {
-//                        e.printStackTrace();
-//                    }
-//                }
-//                else {
-//                    limitData = true;
-//                    listviewfood.removeFooterView(footerview);
-//                    CheckConnection.ShowToastShort(getApplicationContext(), "Đã hết dữ liệu");
-//                }
-//            }
-//        }, new Response.ErrorListener() {
-//            @Override
-//            public void onErrorResponse(VolleyError error) {
-//
-//            }
-//        }){
-//            @Override
-//            protected Map<String, String> getParams() throws AuthFailureError {
-//                HashMap<String, String> param = new HashMap<String, String>();
-//                param.put("categoryId", "2");
-//                return param;
-//            }
-//        };
-//        requestQueue.add(stringRequest);
+
         final HashMap<String, String> postParams = new HashMap<String, String>();
-        postParams.put("categoryId", "3");
+        postParams.put("categoryId", "2");
         postParams.put("page", String.valueOf(Page));
         final JSONObject jsonObject = new JSONObject(postParams);
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, Server.urlPhone, jsonObject, new Response.Listener<JSONObject>() {
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, Server.urlProduct, jsonObject, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 int id = 0;

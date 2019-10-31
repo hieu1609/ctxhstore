@@ -18,21 +18,21 @@ import java.util.ArrayList;
 
 public class GiftAdapter extends BaseAdapter {
     Context context;
-    ArrayList<Product> arrayFood;
+    ArrayList<Product> arraygift;
 
-    public GiftAdapter(Context context, ArrayList<Product> arrayFood) {
+    public GiftAdapter(Context context, ArrayList<Product> arraygift) {
         this.context = context;
-        this.arrayFood = arrayFood;
+        this.arraygift = arraygift;
     }
 
     @Override
     public int getCount() {
-        return arrayFood.size();
+        return arraygift.size();
     }
 
     @Override
     public Object getItem(int i) {
-        return arrayFood.get(i);
+        return arraygift.get(i);
     }
 
     @Override
@@ -41,8 +41,8 @@ public class GiftAdapter extends BaseAdapter {
     }
 
     public class ViewHoler {
-        public TextView txtfoodname, txtfoodprice, txtfooddescription;
-        public ImageView imgfood;
+        public TextView txtgiftname, txtgiftprice, txtgiftdescription;
+        public ImageView imggift;
     }
 
     @Override
@@ -51,27 +51,27 @@ public class GiftAdapter extends BaseAdapter {
         if (view == null) {
             viewHoler = new GiftAdapter.ViewHoler();
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            view = inflater.inflate(R.layout.list_food, null);
-            viewHoler.txtfoodname = view.findViewById(R.id.textviewfoodname);
-            viewHoler.txtfoodprice = view.findViewById(R.id.textviewfoodprice);
-            viewHoler.txtfooddescription = view.findViewById(R.id.textviewfooddescription);
-            viewHoler.imgfood = view.findViewById(R.id.imageviewfood);
+            view = inflater.inflate(R.layout.list_gift, null);
+            viewHoler.txtgiftname = view.findViewById(R.id.textviewgiftname);
+            viewHoler.txtgiftprice = view.findViewById(R.id.textviewgiftprice);
+            viewHoler.txtgiftdescription = view.findViewById(R.id.textviewgiftdescription);
+            viewHoler.imggift = view.findViewById(R.id.imageviewgift);
             view.setTag(viewHoler);
         }
         else {
             viewHoler = (GiftAdapter.ViewHoler) view.getTag();
         }
         Product product = (Product) getItem(i);
-        viewHoler.txtfoodname.setText(product.getProductName());
+        viewHoler.txtgiftname.setText(product.getProductName());
         DecimalFormat decimalFormat = new DecimalFormat("###,###,###");
-        viewHoler.txtfoodprice.setText("Giá: " + decimalFormat.format(product.getPrice()) + " Đ");
-        viewHoler.txtfooddescription.setMaxLines(2);
-        viewHoler.txtfooddescription.setEllipsize(TextUtils.TruncateAt.END);
-        viewHoler.txtfooddescription.setText(product.getDescription());
+        viewHoler.txtgiftprice.setText("Giá: " + decimalFormat.format(product.getPrice()) + " VNĐ");
+        viewHoler.txtgiftdescription.setMaxLines(2);
+        viewHoler.txtgiftdescription.setEllipsize(TextUtils.TruncateAt.END);
+        viewHoler.txtgiftdescription.setText(product.getDescription());
         Picasso.get().load(product.getProductImage())
                 .placeholder(R.drawable.noimg)
                 .error((R.drawable.errorimg))
-                .into(viewHoler.imgfood);
+                .into(viewHoler.imggift);
         return view;
     }
 }

@@ -5,18 +5,18 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.PhoneActivity">
+    tools:context=".activity.OtherActivity">
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbarphone"
+        android:id="@+id/toolbarother"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="#716562"
-        app:title="Đồ Uống"
+        app:title="Khác"
         app:titleTextColor="#ffffff">
     </androidx.appcompat.widget.Toolbar>
 
     <ListView
-        android:id="@+id/listviewphone"
+        android:id="@+id/listviewother"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
     </ListView>

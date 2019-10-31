@@ -64,7 +64,7 @@ public class FoodAdapter extends BaseAdapter {
         Product product = (Product) getItem(i);
         viewHoler.txtfoodname.setText(product.getProductName());
         DecimalFormat decimalFormat = new DecimalFormat("###,###,###");
-        viewHoler.txtfoodprice.setText("Giá: " + decimalFormat.format(product.getPrice()) + " Đ");
+        viewHoler.txtfoodprice.setText("Giá: " + decimalFormat.format(product.getPrice()) + " VNĐ");
         viewHoler.txtfooddescription.setMaxLines(2);
         viewHoler.txtfooddescription.setEllipsize(TextUtils.TruncateAt.END);
         viewHoler.txtfooddescription.setText(product.getDescription());

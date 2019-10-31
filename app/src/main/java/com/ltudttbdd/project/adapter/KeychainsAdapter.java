@@ -18,21 +18,21 @@ import java.util.ArrayList;
 
 public class KeychainsAdapter extends BaseAdapter {
     Context context;
-    ArrayList<Product> arrayFood;
+    ArrayList<Product> arraykeychains;
 
-    public KeychainsAdapter(Context context, ArrayList<Product> arrayFood) {
+    public KeychainsAdapter(Context context, ArrayList<Product> arraykeychains) {
         this.context = context;
-        this.arrayFood = arrayFood;
+        this.arraykeychains = arraykeychains;
     }
 
     @Override
     public int getCount() {
-        return arrayFood.size();
+        return arraykeychains.size();
     }
 
     @Override
     public Object getItem(int i) {
-        return arrayFood.get(i);
+        return arraykeychains.get(i);
     }
 
     @Override
@@ -41,8 +41,8 @@ public class KeychainsAdapter extends BaseAdapter {
     }
 
     public class ViewHoler {
-        public TextView txtfoodname, txtfoodprice, txtfooddescription;
-        public ImageView imgfood;
+        public TextView txtkeychainsname, txtkeychainsprice, txtkeychainsdescription;
+        public ImageView imgkeychains;
     }
 
     @Override
@@ -51,27 +51,27 @@ public class KeychainsAdapter extends BaseAdapter {
         if (view == null) {
             viewHoler = new KeychainsAdapter.ViewHoler();
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            view = inflater.inflate(R.layout.list_food, null);
-            viewHoler.txtfoodname = view.findViewById(R.id.textviewfoodname);
-            viewHoler.txtfoodprice = view.findViewById(R.id.textviewfoodprice);
-            viewHoler.txtfooddescription = view.findViewById(R.id.textviewfooddescription);
-            viewHoler.imgfood = view.findViewById(R.id.imageviewfood);
+            view = inflater.inflate(R.layout.list_keychains, null);
+            viewHoler.txtkeychainsname = view.findViewById(R.id.textviewkeychainsname);
+            viewHoler.txtkeychainsprice = view.findViewById(R.id.textviewkeychainsprice);
+            viewHoler.txtkeychainsdescription = view.findViewById(R.id.textviewkeychainsdescription);
+            viewHoler.imgkeychains = view.findViewById(R.id.imageviewkeychains);
             view.setTag(viewHoler);
         }
         else {
             viewHoler = (KeychainsAdapter.ViewHoler) view.getTag();
         }
         Product product = (Product) getItem(i);
-        viewHoler.txtfoodname.setText(product.getProductName());
+        viewHoler.txtkeychainsname.setText(product.getProductName());
         DecimalFormat decimalFormat = new DecimalFormat("###,###,###");
-        viewHoler.txtfoodprice.setText("Giá: " + decimalFormat.format(product.getPrice()) + " Đ");
-        viewHoler.txtfooddescription.setMaxLines(2);
-        viewHoler.txtfooddescription.setEllipsize(TextUtils.TruncateAt.END);
-        viewHoler.txtfooddescription.setText(product.getDescription());
+        viewHoler.txtkeychainsprice.setText("Giá: " + decimalFormat.format(product.getPrice()) + " VNĐ");
+        viewHoler.txtkeychainsdescription.setMaxLines(2);
+        viewHoler.txtkeychainsdescription.setEllipsize(TextUtils.TruncateAt.END);
+        viewHoler.txtkeychainsdescription.setText(product.getDescription());
         Picasso.get().load(product.getProductImage())
                 .placeholder(R.drawable.noimg)
                 .error((R.drawable.errorimg))
-                .into(viewHoler.imgfood);
+                .into(viewHoler.imgkeychains);
         return view;
     }
 }

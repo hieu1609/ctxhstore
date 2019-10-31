@@ -51,11 +51,11 @@ public class DrinkAdapter extends BaseAdapter {
         if (view == null) {
             viewHoler = new DrinkAdapter.ViewHoler();
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            view = inflater.inflate(R.layout.list_food, null);
-            viewHoler.txtdrinkname = view.findViewById(R.id.textviewfoodname);
-            viewHoler.txtdrinkprice = view.findViewById(R.id.textviewfoodprice);
-            viewHoler.txtdrinkdescription = view.findViewById(R.id.textviewfooddescription);
-            viewHoler.imgdrink = view.findViewById(R.id.imageviewfood);
+            view = inflater.inflate(R.layout.list_drink, null);
+            viewHoler.txtdrinkname = view.findViewById(R.id.textviewdrinkname);
+            viewHoler.txtdrinkprice = view.findViewById(R.id.textviewdrinkprice);
+            viewHoler.txtdrinkdescription = view.findViewById(R.id.textviewdrinkdescription);
+            viewHoler.imgdrink = view.findViewById(R.id.imageviewdrink);
             view.setTag(viewHoler);
         }
         else {
@@ -64,7 +64,7 @@ public class DrinkAdapter extends BaseAdapter {
         Product product = (Product) getItem(i);
         viewHoler.txtdrinkname.setText(product.getProductName());
         DecimalFormat decimalFormat = new DecimalFormat("###,###,###");
-        viewHoler.txtdrinkprice.setText("Giá: " + decimalFormat.format(product.getPrice()) + " Đ");
+        viewHoler.txtdrinkprice.setText("Giá: " + decimalFormat.format(product.getPrice()) + " VNĐ");
         viewHoler.txtdrinkdescription.setMaxLines(2);
         viewHoler.txtdrinkdescription.setEllipsize(TextUtils.TruncateAt.END);
         viewHoler.txtdrinkdescription.setText(product.getDescription());

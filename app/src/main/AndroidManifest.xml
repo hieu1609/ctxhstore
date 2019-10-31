@@ -12,6 +12,7 @@
 
     <application
         android:allowBackup="true"
+        android:largeHeap="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
@@ -37,8 +38,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.PhoneActivity" />
+        <activity android:name=".activity.OtherActivity" />
         <activity android:name=".activity.FoodActivity" />
+        <activity android:name=".activity.DrinkActivity" />
+        <activity android:name=".activity.BraceletActivity" />
+        <activity android:name=".activity.GiftActivity" />
+        <activity android:name=".activity.KeyChainsActivity" />
         <activity android:name=".activity.UserDetailActivity" />
         <activity android:name=".activity.CartActivity" />
         <activity android:name=".activity.ProductDetailActivity" />

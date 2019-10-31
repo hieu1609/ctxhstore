@@ -109,7 +109,7 @@ public class CartActivity extends AppCompatActivity {
             totalPrice += MainActivity.arrayCart.get(i).getPriceproduct();
         }
         DecimalFormat decimalFormat = new DecimalFormat("###,###,###");
-        txtTotalPrice.setText(decimalFormat.format(totalPrice) + " Đ");
+        txtTotalPrice.setText(decimalFormat.format(totalPrice) + " VNĐ");
     }
 
     private void CheckData() {

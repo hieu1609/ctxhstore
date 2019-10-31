@@ -92,29 +92,29 @@ public class MainActivity extends AppCompatActivity {
                             startActivity(drinkIntent);
                             break;
                         case 3:
-                            Intent braceletIntent = new Intent(MainActivity.this,BraceletActivity.class);
+                            Intent braceletIntent = new Intent(MainActivity.this, BraceletActivity.class);
                             startActivity(braceletIntent);
                             break;
 
                         case 4:
-                            Intent keychainstIntent = new Intent(MainActivity.this,KeyChainsActivity.class);
+                            Intent keychainstIntent = new Intent(MainActivity.this, KeyChainsActivity.class);
                             startActivity(keychainstIntent);
                             break;
                         case 5:
-                            Intent giftIntent = new Intent(MainActivity.this,GiftActivity.class);
+                            Intent giftIntent = new Intent(MainActivity.this, GiftActivity.class);
                             startActivity(giftIntent);
                             break;
                         case 6:
-                            Intent anotherIntent = new Intent(MainActivity.this,GiftActivity.class);
-                            startActivity(anotherIntent);
+                            Intent otherIntent = new Intent(MainActivity.this, OtherActivity.class);
+                            startActivity(otherIntent);
                             break;
                         case 7:
-                            Intent contactIntent = new Intent(MainActivity.this,KeyChainsActivity.class);
+                            Intent contactIntent = new Intent(MainActivity.this, KeyChainsActivity.class);
                             startActivity(contactIntent);
                             break;
                         case 8:
-                            Intent infomationIntent = new Intent(MainActivity.this,GiftActivity.class);
-                            startActivity(infomationIntent);
+                            Intent informationIntent = new Intent(MainActivity.this, InformationActivity.class);
+                            startActivity(informationIntent);
                             break;
 
 
@@ -180,79 +180,52 @@ public class MainActivity extends AppCompatActivity {
 //            }
 //        });
 //        requestQueue.add(jsonArrayRequest);
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, Server.urlNewProduct, null, new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-                try {
-                    if (response != null) {
-                        int id = 0;
-                        String productName = "";
-                        int price = 0;
-                        String productImage = "";
-                        String description = "";
-                        int idCategory = 0;
-                        JSONArray data = (JSONArray) response.getJSONArray("data");
-                        for (int i = 0; i < data.length(); i++) {
-                            try {
-                                JSONObject newItem = (JSONObject) data.get(i);
-                                id = newItem.getInt("id");
-                                productName = newItem.getString("product_name");
-                                price = newItem.getInt("price");
-                                productImage = newItem.getString("product_image");
-                                description = newItem.getString("description");
-                                idCategory = newItem.getInt("id_category");
-                                arrayProduct.add(new Product(id, productName, price, productImage, description, idCategory));
-                                productAdapter.notifyDataSetChanged();
+        if (arrayProduct.size() == 0) {
+            JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, Server.urlNewProduct, null, new Response.Listener<JSONObject>() {
+                @Override
+                public void onResponse(JSONObject response) {
+                    try {
+                        if (response != null) {
+                            int id = 0;
+                            String productName = "";
+                            int price = 0;
+                            String productImage = "";
+                            String description = "";
+                            int idCategory = 0;
+                            JSONArray data = (JSONArray) response.getJSONArray("data");
+                            for (int i = 0; i < data.length(); i++) {
+                                try {
+                                    JSONObject newItem = (JSONObject) data.get(i);
+                                    id = newItem.getInt("id");
+                                    productName = newItem.getString("product_name");
+                                    price = newItem.getInt("price");
+                                    productImage = newItem.getString("product_image");
+                                    description = newItem.getString("description");
+                                    idCategory = newItem.getInt("id_category");
+                                    arrayProduct.add(new Product(id, productName, price, productImage, description, idCategory));
+                                    productAdapter.notifyDataSetChanged();
 
-                            } catch (JSONException e) {
-                                e.printStackTrace();
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
                             }
                         }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
                     }
-                } catch (JSONException e) {
-                    e.printStackTrace();
                 }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(MainActivity.this, error.toString(), Toast.LENGTH_LONG).show();
-            }
-        });
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
-        requestQueue.add(jsonObjectRequest);
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Toast.makeText(MainActivity.this, error.toString(), Toast.LENGTH_LONG).show();
+                }
+            });
+            RequestQueue requestQueue = Volley.newRequestQueue(this);
+            requestQueue.add(jsonObjectRequest);
+        }
     }
 
     private void GetDataProductCategory() {
-//        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
-//        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Server.urlProductCategory, new Response.Listener<JSONArray>() {
-//            @Override
-//            public void onResponse(JSONArray response) {
-//                if(response != null) {
-//                    for (int i = 0; i < response.length(); i++) {
-//                        try {
-//                            JSONObject jsonObject = response.getJSONObject(i);
-//                            id = jsonObject.getInt("id");
-//                            categoryName = jsonObject.getString("category_name");
-//                            categoryImage = jsonObject.getString("category_image");
-//                            arrayProductCategory.add(new ProductCategory(id, categoryName, categoryImage));
-//                            productCategoryAdapter.notifyDataSetChanged(); //update data
-//                        } catch (JSONException e) {
-//                            e.printStackTrace();
-//                        }
-//                    }
-//                    arrayProductCategory.add(4, new ProductCategory(0, "Liên hệ", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQWq2hS1q3YW7MStkX9jyfEqYg3jMmftZ82J7az5oN-thj0oycsnw"));
-//                    arrayProductCategory.add(5, new ProductCategory(0, "Thông tin", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQmOD06az3sOuJf2IfL4UTSvQkUalSFM-AJjoV8C7CeN-YjtEu9"));
-//                }
-//            }
-//        }, new Response.ErrorListener() {
-//            @Override
-//            public void onErrorResponse(VolleyError error) {
-//                CheckConnection.ShowToastShort(getApplicationContext(), error.toString());
-//                Log.d("Error Response", error.toString());
-//            }
-//        });
-//        requestQueue.add(jsonArrayRequest);
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, Server.urlProductCategory, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
@@ -271,7 +244,7 @@ public class MainActivity extends AppCompatActivity {
                             e.printStackTrace();
                         }
                     }
-                    arrayProductCategory.add(data.length()+1, new ProductCategory(0, "Liên hệ", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQWq2hS1q3YW7MStkX9jyfEqYg3jMmftZ82J7az5oN-thj0oycsnw"));
+                    arrayProductCategory.add(data.length() + 1, new ProductCategory(0, "Liên hệ", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQWq2hS1q3YW7MStkX9jyfEqYg3jMmftZ82J7az5oN-thj0oycsnw"));
                     arrayProductCategory.add(data.length() + 2, new ProductCategory(0, "Thông tin", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQmOD06az3sOuJf2IfL4UTSvQkUalSFM-AJjoV8C7CeN-YjtEu9"));
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -286,6 +259,7 @@ public class MainActivity extends AppCompatActivity {
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(jsonObjectRequest);
     }
+
 
     private void ActionViewFlipper() {
         mangquangcao = new ArrayList<>();
