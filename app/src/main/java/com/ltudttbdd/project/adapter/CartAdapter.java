@@ -70,7 +70,7 @@ public class CartAdapter extends BaseAdapter {
         Cart cart = (Cart) getItem(i);
         viewHoler.txtCartName.setText(cart.getNameproduct());
         DecimalFormat decimalFormat = new DecimalFormat("###,###,###");
-        viewHoler.txtCartPrice.setText(decimalFormat.format(cart.getPriceproduct()) + " Đ");
+        viewHoler.txtCartPrice.setText(decimalFormat.format(cart.getPriceproduct()) + " VNĐ");
         Picasso.get().load(cart.getImageproduct())
                 .placeholder(R.drawable.noimg)
                 .error((R.drawable.errorimg))
@@ -88,7 +88,7 @@ public class CartAdapter extends BaseAdapter {
             MainActivity.arrayCart.get(i).setNumberproduct(newNumber);
             MainActivity.arrayCart.get(i).setPriceproduct(newPrice);
             DecimalFormat decimal = new DecimalFormat("###,###,###");
-            viewHoler.txtCartPrice.setText(decimal.format(newPrice) + " Đ");
+            viewHoler.txtCartPrice.setText(decimal.format(newPrice) + " VNĐ");
             CartActivity.EventUtil();
         }
         else if (numberProduct <= 1) {
@@ -110,7 +110,7 @@ public class CartAdapter extends BaseAdapter {
                 MainActivity.arrayCart.get(i).setNumberproduct(newNumber);
                 MainActivity.arrayCart.get(i).setPriceproduct(newPrice);
                 DecimalFormat decimalFormat = new DecimalFormat("###,###,###");
-                finalViewHoler.txtCartPrice.setText(decimalFormat.format(newPrice) + " Đ");
+                finalViewHoler.txtCartPrice.setText(decimalFormat.format(newPrice) + " VNĐ");
                 CartActivity.EventUtil();
                 if (newNumber > 9) {
                     finalViewHoler.btnPlus.setVisibility(View.INVISIBLE);
@@ -134,7 +134,7 @@ public class CartAdapter extends BaseAdapter {
                 MainActivity.arrayCart.get(i).setNumberproduct(newNumber);
                 MainActivity.arrayCart.get(i).setPriceproduct(newPrice);
                 DecimalFormat decimalFormat = new DecimalFormat("###,###,###");
-                finalViewHoler.txtCartPrice.setText(decimalFormat.format(newPrice) + " Đ");
+                finalViewHoler.txtCartPrice.setText(decimalFormat.format(newPrice) + " VNĐ");
                 CartActivity.EventUtil();
                 if (newNumber < 2) {
                     finalViewHoler.btnPlus.setVisibility(View.VISIBLE);
