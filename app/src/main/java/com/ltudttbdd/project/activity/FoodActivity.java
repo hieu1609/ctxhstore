@@ -164,7 +164,8 @@ public class FoodActivity extends AppCompatActivity {
 //        };
 //        requestQueue.add(stringRequest);
         final HashMap<String, String> postParams = new HashMap<String, String>();
-        postParams.put("categoryId", "1");
+        postParams.put("categoryId", "3");
+        postParams.put("page", String.valueOf(Page));
         final JSONObject jsonObject = new JSONObject(postParams);
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, Server.urlPhone,jsonObject , new Response.Listener<JSONObject>() {
             @Override
@@ -175,10 +176,16 @@ public class FoodActivity extends AppCompatActivity {
                 String productImage = "";
                 String description = "";
                 int idCategory = 0;
-                if (response != null && response.length() != 2) {
+                if (response != null) {
                     listviewfood.removeFooterView(footerview);
                     try {
                         JSONArray data = (JSONArray) response.getJSONArray("data");
+                        if(data.length() == 0){
+                            limitData = true;
+                            listviewfood.removeFooterView(footerview);
+                            CheckConnection.ShowToastShort(getApplicationContext(), "Đã hết dữ liệu");
+                            return;
+                        }
                         for (int i = 0; i < data.length(); i++) {
                             try {
                                 JSONObject item = (JSONObject) data.get(i);
@@ -198,10 +205,6 @@ public class FoodActivity extends AppCompatActivity {
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                } else {
-                    limitData = true;
-                    listviewfood.removeFooterView(footerview);
-                    CheckConnection.ShowToastShort(getApplicationContext(), "Đã hết dữ liệu");
                 }
             }
         }, new Response.ErrorListener() {

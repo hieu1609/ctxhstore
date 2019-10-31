@@ -14,20 +14,18 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.ltudttbdd.project.R;
-import com.ltudttbdd.project.adapter.PhoneAdapter;
+import com.ltudttbdd.project.adapter.DrinkAdapter;
+import com.ltudttbdd.project.adapter.FoodAdapter;
 import com.ltudttbdd.project.model.Product;
 import com.ltudttbdd.project.ultil.CheckConnection;
 import com.ltudttbdd.project.ultil.Server;
@@ -38,15 +36,14 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 
-public class PhoneActivity extends AppCompatActivity {
+public class DrinkActivity extends AppCompatActivity {
 
     Toolbar toolbardrink;
     ListView listviewdrink;
-    PhoneAdapter drinkAdapter;
+    DrinkAdapter drinkAdapter;
     ArrayList<Product> arraydrink;
-    int idphone = 0;
+    int iddrink = 0;
     int page = 1;
     View footerview;
     boolean isLoading = false;
@@ -56,12 +53,12 @@ public class PhoneActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_phone);
+        setContentView(R.layout.activity_food);
         Mappings();
         if (CheckConnection.haveNetworkConnection(getApplicationContext())) {
             GetIdProductCategory();
             ActionToolbar();
-            GetData();
+            GetData(page);
             LoadMoreData();
         } else {
             CheckConnection.ShowToastShort(getApplicationContext(), "Bạn hãy kiểm tra lại kết nối Internet");
@@ -104,14 +101,14 @@ public class PhoneActivity extends AppCompatActivity {
             public void onScroll(AbsListView absListView, int firstItem, int visibleItem, int totalItem) {
                 if (firstItem + visibleItem == totalItem && totalItem != 0 && isLoading == false && limitData == false) {
                     isLoading = true;
-                    ThreadData threadData = new ThreadData();
+                    DrinkActivity.ThreadData threadData = new DrinkActivity.ThreadData();
                     threadData.start();
                 }
             }
         });
     }
 
-    private void GetData() {
+    private void GetData(int Page) {
 //        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
 //        String url = Server.urlPhone;
 //        StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
@@ -163,7 +160,8 @@ public class PhoneActivity extends AppCompatActivity {
 //        };
 //        requestQueue.add(stringRequest);
         final HashMap<String, String> postParams = new HashMap<String, String>();
-        postParams.put("categoryId", "2");
+        postParams.put("categoryId", "3");
+        postParams.put("page", String.valueOf(Page));
         final JSONObject jsonObject = new JSONObject(postParams);
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, Server.urlPhone, jsonObject, new Response.Listener<JSONObject>() {
             @Override
@@ -178,6 +176,12 @@ public class PhoneActivity extends AppCompatActivity {
                     listviewdrink.removeFooterView(footerview);
                     try {
                         JSONArray data = (JSONArray) response.getJSONArray("data");
+                        if (data.length() == 0) {
+                            limitData = true;
+                            listviewdrink.removeFooterView(footerview);
+                            CheckConnection.ShowToastShort(getApplicationContext(), "Đã hết dữ liệu");
+                            return;
+                        }
                         for (int i = 0; i < data.length(); i++) {
                             try {
                                 JSONObject item = (JSONObject) data.get(i);
@@ -197,10 +201,6 @@ public class PhoneActivity extends AppCompatActivity {
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                } else {
-                    limitData = true;
-                    listviewdrink.removeFooterView(footerview);
-                    CheckConnection.ShowToastShort(getApplicationContext(), "Đã hết dữ liệu");
                 }
             }
         }, new Response.ErrorListener() {
@@ -220,58 +220,6 @@ public class PhoneActivity extends AppCompatActivity {
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(jsonObjectRequest);
     }
-//    private void GetData(int Page) {
-//        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
-//        String url = Server.urlPhone;
-//        StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
-//            @Override
-//            public void onResponse(String response) {
-//                int id = 0;
-//                String productName = "";
-//                int price = 0;
-//                String productImage = "";
-//                String description = "";
-//                int idCategory = 0;
-//                if (response != null && response.length() != 2) {
-//                    listviewphone.removeFooterView(footerview);
-//                    try {
-//                        JSONArray jsonArray = new JSONArray(response);
-//                        for (int i = 0; i < jsonArray.length(); i++) {
-//                            JSONObject jsonObject = jsonArray.getJSONObject(i);
-//                            id = jsonObject.getInt("id");
-//                            productName = jsonObject.getString("product_name");
-//                            price = jsonObject.getInt("price");
-//                            productImage = jsonObject.getString("product_image");
-//                            description = jsonObject.getString("description");
-//                            idCategory = jsonObject.getInt("id_category");
-//                            arrayphone.add(new Product(id, productName, price, productImage, description, idCategory));
-//                            phoneAdapter.notifyDataSetChanged();
-//                        }
-//                    } catch (JSONException e) {
-//                        e.printStackTrace();
-//                    }
-//                }
-//                else {
-//                    limitData = true;
-//                    listviewphone.removeFooterView(footerview);
-//                    CheckConnection.ShowToastShort(getApplicationContext(), "Đã hết dữ liệu");
-//                }
-//            }
-//        }, new Response.ErrorListener() {
-//            @Override
-//            public void onErrorResponse(VolleyError error) {
-//
-//            }
-//        }){
-//            @Override
-//            protected Map<String, String> getParams() throws AuthFailureError {
-//                HashMap<String, String> param = new HashMap<String, String>();
-//                param.put("categoryId", String.valueOf(idphone));
-//                return param;
-//            }
-//        };
-//        requestQueue.add(stringRequest);
-//    }
 
     private void ActionToolbar() {
         setSupportActionBar(toolbardrink);
@@ -286,15 +234,15 @@ public class PhoneActivity extends AppCompatActivity {
     }
 
     private void GetIdProductCategory() {
-        idphone = getIntent().getIntExtra("idCategory", -1);
-        Log.d("giatriloaisanpham", idphone + "");
+        iddrink = getIntent().getIntExtra("idCategory", -1);
+        Log.d("giatriloaisanpham", iddrink + "");
     }
 
     private void Mappings() {
-        toolbardrink = findViewById(R.id.toolbarphone);
-        listviewdrink = findViewById(R.id.listviewphone);
+        toolbardrink = findViewById(R.id.toolbarfood);
+        listviewdrink = findViewById(R.id.listviewfood);
         arraydrink = new ArrayList<>();
-        drinkAdapter = new PhoneAdapter(getApplicationContext(), arraydrink);
+        drinkAdapter = new DrinkAdapter(getApplicationContext(), arraydrink);
         listviewdrink.setAdapter(drinkAdapter);
         LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
         footerview = inflater.inflate(R.layout.progress_bar, null);
@@ -306,10 +254,10 @@ public class PhoneActivity extends AppCompatActivity {
         public void handleMessage(@NonNull Message msg) {
             switch (msg.what) {
                 case 0:
-                  //  listviewdrink.addFooterView(footerview);
+                    listviewdrink.addFooterView(footerview);
                     break;
                 case 1:
-                    //GetData();
+                    GetData(++page);
                     isLoading = false;
                     break;
             }
