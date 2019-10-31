@@ -57,12 +57,14 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<ProductCategory> arrayProductCategory;
     ProductCategoryAdapter productCategoryAdapter;
     ArrayList<Product> arrayProduct;
+    ArrayList<String> mangquangcao;
     ProductAdapter productAdapter;
     //khai báo static để tất cả có thể sử dụng, không mất dữ liệu khi chuyển qua activity khác
     public static ArrayList<Cart> arrayCart;
     int id = 0;
     String categoryName = "";
     String categoryImage = "";
+    String adsImage = "";
 
 
     @Override
@@ -70,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Mappings();
-        if(CheckConnection.haveNetworkConnection(getApplicationContext())) {
+        if (CheckConnection.haveNetworkConnection(getApplicationContext())) {
             ActionBar();
             ActionViewFlipper();
             GetDataProductCategory();
@@ -78,34 +80,49 @@ public class MainActivity extends AppCompatActivity {
             listViewmanhinhchinh.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                    switch (i){
+                    switch (i) {
                         case 0:
-                            break;
-                        case 3:
-                            Intent phoneIntent = new Intent(MainActivity.this, PhoneActivity.class);
-                            startActivity(phoneIntent);
-                            break;
-                        case 2:
-                            Toast.makeText(MainActivity.this, "item 2", Toast.LENGTH_SHORT).show();
                             break;
                         case 1:
                             Intent foodIntent = new Intent(MainActivity.this, FoodActivity.class);
                             startActivity(foodIntent);
                             break;
+                        case 2:
+                            Intent drinkIntent = new Intent(MainActivity.this, DrinkActivity.class);
+                            startActivity(drinkIntent);
+                            break;
+                        case 3:
+                            Intent braceletIntent = new Intent(MainActivity.this, BraceletActivity.class);
+                            startActivity(braceletIntent);
+                            break;
+
                         case 4:
-                            Toast.makeText(MainActivity.this, "item 4", Toast.LENGTH_SHORT).show();
+                            Intent keychainstIntent = new Intent(MainActivity.this, KeyChainsActivity.class);
+                            startActivity(keychainstIntent);
                             break;
                         case 5:
+                            Intent giftIntent = new Intent(MainActivity.this, GiftActivity.class);
+                            startActivity(giftIntent);
+                            break;
+                        case 6:
+                            Intent otherIntent = new Intent(MainActivity.this, OtherActivity.class);
+                            startActivity(otherIntent);
+                            break;
+                        case 7:
+                            Intent contactIntent = new Intent(MainActivity.this, KeyChainsActivity.class);
+                            startActivity(contactIntent);
+                            break;
+                        case 8:
                             Intent informationIntent = new Intent(MainActivity.this, InformationActivity.class);
                             startActivity(informationIntent);
                             break;
+
 
                     }
                     drawerLayout.closeDrawer(GravityCompat.START);
                 }
             });
-        }
-        else {
+        } else {
             CheckConnection.ShowToastShort(getApplicationContext(), "Bạn hãy kiểm tra lại kết nối Internet");
             finish();
         }
@@ -128,94 +145,107 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void GetDataNewProduct() {
-        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
-        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Server.urlNewProduct, new Response.Listener<JSONArray>() {
-            @Override
-            public void onResponse(JSONArray response) {
-                if(response != null) {
-                    int id = 0;
-                    String productName = "";
-                    int price = 0;
-                    String productImage = "";
-                    String description = "";
-                    int idCategory = 0;
-                    for (int i = 0; i < response.length(); i++) {
-                        try {
-                            JSONObject jsonObject = response.getJSONObject(i);
-                            id = jsonObject.getInt("id");
-                            productName = jsonObject.getString("product_name");
-                            price = jsonObject.getInt("price");
-                            productImage = jsonObject.getString("product_image");
-                            description = jsonObject.getString("description");
-                            idCategory = jsonObject.getInt("id_category");
-                            arrayProduct.add(new Product(id, productName, price, productImage, description, idCategory));
-                            productAdapter.notifyDataSetChanged();
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-
-            }
-        });
-        requestQueue.add(jsonArrayRequest);
-    }
-
-    private void GetDataProductCategory() {
 //        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
-//        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Server.urlProductCategory, new Response.Listener<JSONArray>() {
+//        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Server.urlNewProduct, new Response.Listener<JSONArray>() {
 //            @Override
 //            public void onResponse(JSONArray response) {
 //                if(response != null) {
+//                    int id = 0;
+//                    String productName = "";
+//                    int price = 0;
+//                    String productImage = "";
+//                    String description = "";
+//                    int idCategory = 0;
 //                    for (int i = 0; i < response.length(); i++) {
 //                        try {
 //                            JSONObject jsonObject = response.getJSONObject(i);
 //                            id = jsonObject.getInt("id");
-//                            categoryName = jsonObject.getString("category_name");
-//                            categoryImage = jsonObject.getString("category_image");
-//                            arrayProductCategory.add(new ProductCategory(id, categoryName, categoryImage));
-//                            productCategoryAdapter.notifyDataSetChanged(); //update data
+//                            productName = jsonObject.getString("product_name");
+//                            price = jsonObject.getInt("price");
+//                            productImage = jsonObject.getString("product_image");
+//                            description = jsonObject.getString("description");
+//                            idCategory = jsonObject.getInt("id_category");
+//                            arrayProduct.add(new Product(id, productName, price, productImage, description, idCategory));
+//                            productAdapter.notifyDataSetChanged();
 //                        } catch (JSONException e) {
 //                            e.printStackTrace();
 //                        }
 //                    }
-//                    arrayProductCategory.add(4, new ProductCategory(0, "Liên hệ", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQWq2hS1q3YW7MStkX9jyfEqYg3jMmftZ82J7az5oN-thj0oycsnw"));
-//                    arrayProductCategory.add(5, new ProductCategory(0, "Thông tin", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQmOD06az3sOuJf2IfL4UTSvQkUalSFM-AJjoV8C7CeN-YjtEu9"));
 //                }
 //            }
 //        }, new Response.ErrorListener() {
 //            @Override
 //            public void onErrorResponse(VolleyError error) {
-//                CheckConnection.ShowToastShort(getApplicationContext(), error.toString());
-//                Log.d("Error Response", error.toString());
+//
 //            }
 //        });
 //        requestQueue.add(jsonArrayRequest);
+        if (arrayProduct.size() == 0) {
+            JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, Server.urlNewProduct, null, new Response.Listener<JSONObject>() {
+                @Override
+                public void onResponse(JSONObject response) {
+                    try {
+                        if (response != null) {
+                            int id = 0;
+                            String productName = "";
+                            int price = 0;
+                            String productImage = "";
+                            String description = "";
+                            int idCategory = 0;
+                            JSONArray data = (JSONArray) response.getJSONArray("data");
+                            for (int i = 0; i < data.length(); i++) {
+                                try {
+                                    JSONObject newItem = (JSONObject) data.get(i);
+                                    id = newItem.getInt("id");
+                                    productName = newItem.getString("product_name");
+                                    price = newItem.getInt("price");
+                                    productImage = newItem.getString("product_image");
+                                    description = newItem.getString("description");
+                                    idCategory = newItem.getInt("id_category");
+                                    arrayProduct.add(new Product(id, productName, price, productImage, description, idCategory));
+                                    productAdapter.notifyDataSetChanged();
+
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Toast.makeText(MainActivity.this, error.toString(), Toast.LENGTH_LONG).show();
+                }
+            });
+            RequestQueue requestQueue = Volley.newRequestQueue(this);
+            requestQueue.add(jsonObjectRequest);
+        }
+    }
+
+    private void GetDataProductCategory() {
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, Server.urlProductCategory, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 try {
-                    JSONArray data = (JSONArray)response.getJSONArray("data");
-                    for (int i = 0; i< data.length();i++){
+                    JSONArray data = (JSONArray) response.getJSONArray("data");
+                    for (int i = 0; i < data.length(); i++) {
                         try {
-                            JSONObject category = (JSONObject)data.get(i);
+                            JSONObject category = (JSONObject) data.get(i);
                             id = category.getInt("id");
                             categoryName = category.getString("category_name");
                             categoryImage = category.getString("category_image");
                             arrayProductCategory.add(new ProductCategory(id, categoryName, categoryImage));
                             productCategoryAdapter.notifyDataSetChanged(); //update data
 
-                        }
-                        catch (JSONException e) {
+                        } catch (JSONException e) {
                             e.printStackTrace();
                         }
                     }
-                    arrayProductCategory.add(data.length(), new ProductCategory(0, "Liên hệ", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQWq2hS1q3YW7MStkX9jyfEqYg3jMmftZ82J7az5oN-thj0oycsnw"));
-                    arrayProductCategory.add(data.length() +1 , new ProductCategory(0, "Thông tin", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQmOD06az3sOuJf2IfL4UTSvQkUalSFM-AJjoV8C7CeN-YjtEu9"));
+                    arrayProductCategory.add(data.length() + 1, new ProductCategory(0, "Liên hệ", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQWq2hS1q3YW7MStkX9jyfEqYg3jMmftZ82J7az5oN-thj0oycsnw"));
+                    arrayProductCategory.add(data.length() + 2, new ProductCategory(0, "Thông tin", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQmOD06az3sOuJf2IfL4UTSvQkUalSFM-AJjoV8C7CeN-YjtEu9"));
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -230,26 +260,51 @@ public class MainActivity extends AppCompatActivity {
         requestQueue.add(jsonObjectRequest);
     }
 
+
     private void ActionViewFlipper() {
-        ArrayList<String> mangquangcao = new ArrayList<>();
-        mangquangcao.add("https://cdn.cellphones.com.vn/media/ltsoft/promotion/m_ng-B2S-1600x600.png");
-        mangquangcao.add("https://cdn.cellphones.com.vn/media/ltsoft/promotion/mo_ban_nokia_72.png");
-        mangquangcao.add("https://cdn.cellphones.com.vn/media/ltsoft/promotion/tai-nghe-jbl-T120-_B_---1600x600.png");
-        mangquangcao.add("https://cdn.cellphones.com.vn/media/ltsoft/promotion/samsung-galaxy-s10-plus-1600x600.png");
-        mangquangcao.add("https://cdn.cellphones.com.vn/media/ltsoft/promotion/iphone-xs-_-xs-max-1600x600.png");
-        mangquangcao.add("https://cdn.cellphones.com.vn/media/ltsoft/promotion/MILI.png");
-        for (int i=0; i<mangquangcao.size(); i++) {
-            ImageView imageView = new ImageView(getApplicationContext());
-            Picasso.get().load(mangquangcao.get(i)).into(imageView);
-            imageView.setScaleType(ImageView.ScaleType.FIT_XY);
-            viewFlipper.addView(imageView);
-        }
+        mangquangcao = new ArrayList<>();
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, Server.urlAds, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    JSONArray data = (JSONArray) response.getJSONArray("data");
+                    for (int i = 0; i < data.length(); i++) {
+                        try {
+                            JSONObject ads = (JSONObject) data.get(i);
+                            adsImage = ads.getString("image");
+                            mangquangcao.add(adsImage);
+                            ImageView imageView = new ImageView(getApplicationContext());
+                            Picasso.get().load(mangquangcao.get(i)).into(imageView);
+                            imageView.setScaleType(ImageView.ScaleType.FIT_XY);
+                            viewFlipper.addView(imageView);
+                            productCategoryAdapter.notifyDataSetChanged(); //update data
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(MainActivity.this, error.toString(), Toast.LENGTH_LONG).show();
+            }
+        });
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        requestQueue.add(jsonObjectRequest);
+        //Toast.makeText(MainActivity.this, mangquangcao.get(0), Toast.LENGTH_LONG).show();
+
         viewFlipper.setFlipInterval(5000);
         viewFlipper.setAutoStart(true);
-        Animation animation_slide_in = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.slide_in_right);
-        Animation animation_slide_out = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.slide_out_right);
+        Animation animation_slide_in = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_in_right);
+        Animation animation_slide_out = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_out_right);
         viewFlipper.setInAnimation(animation_slide_in);
         viewFlipper.setOutAnimation(animation_slide_out);
+
     }
 
     private void ActionBar() {
@@ -282,8 +337,7 @@ public class MainActivity extends AppCompatActivity {
         recyclerViewmanhinhchinh.setAdapter(productAdapter);
         if (arrayCart != null) {
 
-        }
-        else {
+        } else {
             arrayCart = new ArrayList<>();
         }
     }

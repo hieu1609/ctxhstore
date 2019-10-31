@@ -16,23 +16,23 @@ import com.squareup.picasso.Picasso;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
-public class PhoneAdapter extends BaseAdapter {
+public class OtherAdapter extends BaseAdapter {
     Context context;
-    ArrayList<Product> arrayPhone;
+    ArrayList<Product> arrayother;
 
-    public PhoneAdapter(Context context, ArrayList<Product> arrayPhone) {
+    public OtherAdapter(Context context, ArrayList<Product> arrayother) {
         this.context = context;
-        this.arrayPhone = arrayPhone;
+        this.arrayother = arrayother;
     }
 
     @Override
     public int getCount() {
-        return arrayPhone.size();
+        return arrayother.size();
     }
 
     @Override
     public Object getItem(int i) {
-        return arrayPhone.get(i);
+        return arrayother.get(i);
     }
 
     @Override
@@ -41,8 +41,8 @@ public class PhoneAdapter extends BaseAdapter {
     }
 
     public class ViewHoler {
-        public TextView txtphonename, txtphoneprice, txtphonedescription;
-        public ImageView imgphone;
+        public TextView txtothername, txtotherprice, txtotherdescription;
+        public ImageView imgother;
     }
 
     @Override
@@ -51,27 +51,27 @@ public class PhoneAdapter extends BaseAdapter {
         if (view == null) {
             viewHoler = new ViewHoler();
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            view = inflater.inflate(R.layout.list_phone, null);
-            viewHoler.txtphonename = view.findViewById(R.id.textviewphonename);
-            viewHoler.txtphoneprice = view.findViewById(R.id.textviewphoneprice);
-            viewHoler.txtphonedescription = view.findViewById(R.id.textviewphonedescription);
-            viewHoler.imgphone = view.findViewById(R.id.imageviewphone);
+            view = inflater.inflate(R.layout.list_other, null);
+            viewHoler.txtothername = view.findViewById(R.id.textviewothername);
+            viewHoler.txtotherprice = view.findViewById(R.id.textviewotherprice);
+            viewHoler.txtotherdescription = view.findViewById(R.id.textviewotherdescription);
+            viewHoler.imgother = view.findViewById(R.id.imageviewother);
             view.setTag(viewHoler);
         }
         else {
             viewHoler = (ViewHoler) view.getTag();
         }
         Product product = (Product) getItem(i);
-        viewHoler.txtphonename.setText(product.getProductName());
+        viewHoler.txtothername.setText(product.getProductName());
         DecimalFormat decimalFormat = new DecimalFormat("###,###,###");
-        viewHoler.txtphoneprice.setText("Giá: " + decimalFormat.format(product.getPrice()) + " Đ");
-        viewHoler.txtphonedescription.setMaxLines(2);
-        viewHoler.txtphonedescription.setEllipsize(TextUtils.TruncateAt.END);
-        viewHoler.txtphonedescription.setText(product.getDescription());
+        viewHoler.txtotherprice.setText("Giá: " + decimalFormat.format(product.getPrice()) + " VNĐ");
+        viewHoler.txtotherdescription.setMaxLines(2);
+        viewHoler.txtotherdescription.setEllipsize(TextUtils.TruncateAt.END);
+        viewHoler.txtotherdescription.setText(product.getDescription());
         Picasso.get().load(product.getProductImage())
                 .placeholder(R.drawable.noimg)
                 .error((R.drawable.errorimg))
-                .into(viewHoler.imgphone);
+                .into(viewHoler.imgother);
         return view;
     }
 }

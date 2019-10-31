@@ -16,20 +16,18 @@ import android.view.View;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 
-import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.StringRequest;
+
 import com.android.volley.toolbox.Volley;
 import com.ltudttbdd.project.R;
-import com.ltudttbdd.project.adapter.FoodAdapter;
+import com.ltudttbdd.project.adapter.OtherAdapter;
 import com.ltudttbdd.project.model.Product;
-import com.ltudttbdd.project.model.ProductCategory;
+
 import com.ltudttbdd.project.ultil.CheckConnection;
 import com.ltudttbdd.project.ultil.Server;
 
@@ -39,15 +37,15 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 
-public class FoodActivity extends AppCompatActivity {
 
-    Toolbar toolbarfood;
-    ListView listviewfood;
-    FoodAdapter foodAdapter;
-    ArrayList<Product> arrayfood;
-    int idfood = 0;
+public class OtherActivity extends AppCompatActivity {
+
+    Toolbar toolbarother;
+    ListView listviewother;
+    OtherAdapter otherAdapter;
+    ArrayList<Product> arrayother;
+    int idother = 0;
     int page = 1;
     View footerview;
     boolean isLoading = false;
@@ -57,7 +55,7 @@ public class FoodActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_food);
+        setContentView(R.layout.activity_other);
         Mappings();
         if (CheckConnection.haveNetworkConnection(getApplicationContext())) {
             GetIdProductCategory();
@@ -87,15 +85,15 @@ public class FoodActivity extends AppCompatActivity {
     }
 
     private void LoadMoreData() {
-        listviewfood.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        listviewother.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent = new Intent(getApplicationContext(), ProductDetailActivity.class);
-                intent.putExtra("thongtinsanpham", arrayfood.get(i));
+                intent.putExtra("thongtinsanpham", arrayother.get(i));
                 startActivity(intent);
             }
         });
-        listviewfood.setOnScrollListener(new AbsListView.OnScrollListener() {
+        listviewother.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(AbsListView absListView, int i) {
 
@@ -105,7 +103,7 @@ public class FoodActivity extends AppCompatActivity {
             public void onScroll(AbsListView absListView, int firstItem, int visibleItem, int totalItem) {
                 if (firstItem + visibleItem == totalItem && totalItem != 0 && isLoading == false && limitData == false) {
                     isLoading = true;
-                    FoodActivity.ThreadData threadData = new FoodActivity.ThreadData();
+                    OtherActivity.ThreadData threadData = new OtherActivity.ThreadData();
                     threadData.start();
                 }
             }
@@ -114,7 +112,7 @@ public class FoodActivity extends AppCompatActivity {
 
     private void GetData(int Page) {
         final HashMap<String, String> postParams = new HashMap<String, String>();
-        postParams.put("categoryId", "1");
+        postParams.put("categoryId", "6");
         postParams.put("page", String.valueOf(Page));
         final JSONObject jsonObject = new JSONObject(postParams);
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, Server.urlProduct, jsonObject, new Response.Listener<JSONObject>() {
@@ -127,12 +125,12 @@ public class FoodActivity extends AppCompatActivity {
                 String description = "";
                 int idCategory = 0;
                 if (response != null) {
-                    listviewfood.removeFooterView(footerview);
+                    listviewother.removeFooterView(footerview);
                     try {
                         JSONArray data = (JSONArray) response.getJSONArray("data");
                         if (data.length() == 0) {
                             limitData = true;
-                            listviewfood.removeFooterView(footerview);
+                            listviewother.removeFooterView(footerview);
                             CheckConnection.ShowToastShort(getApplicationContext(), "Đã hết dữ liệu");
                             return;
                         }
@@ -145,8 +143,8 @@ public class FoodActivity extends AppCompatActivity {
                                 productImage = item.getString("product_image");
                                 description = item.getString("description");
                                 idCategory = item.getInt("id_category");
-                                arrayfood.add(new Product(id, productName, price, productImage, description, idCategory));
-                                foodAdapter.notifyDataSetChanged();
+                                arrayother.add(new Product(id, productName, price, productImage, description, idCategory));
+                                otherAdapter.notifyDataSetChanged();
 
                             } catch (JSONException e) {
                                 e.printStackTrace();
@@ -176,9 +174,9 @@ public class FoodActivity extends AppCompatActivity {
     }
 
     private void ActionToolbar() {
-        setSupportActionBar(toolbarfood);
+        setSupportActionBar(toolbarother);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        toolbarfood.setNavigationOnClickListener(new View.OnClickListener() {
+        toolbarother.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
@@ -188,16 +186,16 @@ public class FoodActivity extends AppCompatActivity {
     }
 
     private void GetIdProductCategory() {
-        idfood = getIntent().getIntExtra("idCategory", -1);
-        Log.d("giatriloaisanpham", idfood + "");
+        idother = getIntent().getIntExtra("idCategory", -1);
+        Log.d("giatriloaisanpham", idother + "");
     }
 
     private void Mappings() {
-        toolbarfood = findViewById(R.id.toolbarfood);
-        listviewfood = findViewById(R.id.listviewfood);
-        arrayfood = new ArrayList<>();
-        foodAdapter = new FoodAdapter(getApplicationContext(), arrayfood);
-        listviewfood.setAdapter(foodAdapter);
+        toolbarother = findViewById(R.id.toolbarother);
+        listviewother = findViewById(R.id.listviewother);
+        arrayother = new ArrayList<>();
+        otherAdapter = new OtherAdapter(getApplicationContext(), arrayother);
+        listviewother.setAdapter(otherAdapter);
         LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
         footerview = inflater.inflate(R.layout.progress_bar, null);
         myHandler = new MyHandler();
@@ -208,7 +206,7 @@ public class FoodActivity extends AppCompatActivity {
         public void handleMessage(@NonNull Message msg) {
             switch (msg.what) {
                 case 0:
-                    listviewfood.addFooterView(footerview);
+                    listviewother.addFooterView(footerview);
                     break;
                 case 1:
                     GetData(++page);
