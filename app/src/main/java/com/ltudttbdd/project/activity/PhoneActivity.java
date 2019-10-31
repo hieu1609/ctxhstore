@@ -113,7 +113,7 @@ public class PhoneActivity extends AppCompatActivity {
 
     private void GetData(int Page) {
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
-        String url = Server.urlPhone + String.valueOf(Page);
+        String url = Server.urlPhone;
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -157,7 +157,7 @@ public class PhoneActivity extends AppCompatActivity {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 HashMap<String, String> param = new HashMap<String, String>();
-                param.put("idCategory", String.valueOf(idphone));
+                param.put("categoryId", String.valueOf(idphone));
                 return param;
             }
         };
