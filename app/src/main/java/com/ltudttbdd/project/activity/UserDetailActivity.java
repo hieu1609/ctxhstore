@@ -31,6 +31,9 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.ltudttbdd.project.activity.MainActivity.isLogin;
+import static com.ltudttbdd.project.activity.MainActivity.user;
+
 public class UserDetailActivity extends AppCompatActivity {
 
     EditText edtName, edtPhone, edtEmail, edtAddress;
@@ -43,6 +46,12 @@ public class UserDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_detail);
         Mappings();
+        if (isLogin == true) {
+            edtName.setText(user.name);
+            edtPhone.setText(user.phone);
+            edtEmail.setText(user.email);
+            edtAddress.setText(user.address);
+        }
         btnreturn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -66,82 +75,17 @@ public class UserDetailActivity extends AppCompatActivity {
                 final String email = edtEmail.getText().toString().trim();
                 final String address = edtAddress.getText().toString().trim();
                 if (name.length() > 0 && phone.length() > 0 && email.length() > 0 && address.length() > 0) {
-                    //truyền gửi dữ liệu ra ngoài (phương thức, đường dẫn, nội dung)
-//                    RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
-//                    StringRequest stringRequest = new StringRequest(Request.Method.POST, Server.urlOrder, new Response.Listener<String>() {
-//                        @Override
-//                        public void onResponse(final String orderId) {
-//                            Log.d("madonhang", orderId);
-//                            if (Integer.parseInt(orderId) > 0) {
-//                                RequestQueue queue =  Volley.newRequestQueue(getApplicationContext());
-//                                StringRequest request = new StringRequest(Request.Method.POST, Server.urlOrderDetail, new Response.Listener<String>() {
-//                                    @Override
-//                                    public void onResponse(String response) {
-//                                        if (response.equals("1")) {
-//                                            MainActivity.arrayCart.clear();
-//                                            CheckConnection.ShowToastShort(getApplicationContext(), "Bạn đã đặt hàng thành công");
-////                                            Intent intent = new Intent();
-////                                            intent.setClass(getApplicationContext(), MainActivity.class);
-////                                            startActivity(intent);
-//                                            finish();
-//                                            CheckConnection.ShowToastShort(getApplicationContext(), "Mời bạn tiếp tục mua hàng");
-//                                        }
-//                                        else {
-//                                            CheckConnection.ShowToastShort(getApplicationContext(), "Dữ liệu giỏ hàng của bạn bị lỗi");
-//                                        }
-//                                    }
-//                                }, new Response.ErrorListener() {
-//                                    @Override
-//                                    public void onErrorResponse(VolleyError error) {
-//                                    }
-//                                }){
-//                                    @Override
-//                                    protected Map<String, String> getParams() throws AuthFailureError {
-//                                        JSONArray jsonArray = new  JSONArray();
-//                                        for (int i = 0; i < MainActivity.arrayCart.size(); i++) {
-//                                            JSONObject jsonObject = new JSONObject();
-//                                            try {
-//                                                jsonObject.put("order_id", orderId);
-//                                                jsonObject.put("product_id", MainActivity.arrayCart.get(i).getIdproduct());
-//                                                jsonObject.put("product_name", MainActivity.arrayCart.get(i).getNameproduct());
-//                                                jsonObject.put("product_price", MainActivity.arrayCart.get(i).getPriceproduct());
-//                                                jsonObject.put("product_number", MainActivity.arrayCart.get(i).getNumberproduct());
-//                                            } catch (JSONException e) {
-//                                                e.printStackTrace();
-//                                            }
-//                                            jsonArray.put(jsonObject);
-//                                        }
-//                                        HashMap <String, String> hashMap = new HashMap<String, String>();
-//                                        hashMap.put("json", jsonArray.toString());
-//                                        return hashMap;
-//                                    }
-//                                };
-//                                queue.add(request);
-//                            }
-//                        }
-//                    }, new Response.ErrorListener() {
-//                        @Override
-//                        public void onErrorResponse(VolleyError error) {
-//
-//                        }
-//                    }){
-//                        @Override
-//                        protected Map<String, String> getParams() throws AuthFailureError {
-//                            //thêm các biến và giá trị để gửi đi
-//                            HashMap<String, String> hashMap = new HashMap<String, String>();
-//                            hashMap.put("name", name);
-//                            hashMap.put("phone", phone);
-//                            hashMap.put("email", email);
-//                            hashMap.put("address", address);
-//                            return hashMap;
-//                        }
-//                    };
-//                    requestQueue.add(stringRequest);
+
                     final HashMap<String, String> postParams = new HashMap<String, String>();
                     postParams.put("name", edtName.getText().toString());
                     postParams.put("phone", edtPhone.getText().toString());
                     postParams.put("address", edtAddress.getText().toString());
                     postParams.put("email", edtEmail.getText().toString());
+                    Log.d("dataPost", edtName.getText().toString());
+                    Log.d("dataPost",  edtPhone.getText().toString());
+                    Log.d("dataPost", edtEmail.getText().toString());
+                    Log.d("dataPost",  edtAddress.getText().toString());
+
 
                     final JSONObject jsonObject = new JSONObject(postParams);
                     JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, Server.urlOrder, jsonObject, new Response.Listener<JSONObject>() {
@@ -151,12 +95,12 @@ public class UserDetailActivity extends AppCompatActivity {
                             try {
                                 JSONArray data = (JSONArray) response.getJSONArray("data");
 
-                                    try {
-                                        JSONObject id = (JSONObject) data.get(0);
-                                        orderId = id.getInt("id");
-                                    } catch (JSONException e) {
-                                        e.printStackTrace();
-                                    }
+                                try {
+                                    JSONObject id = (JSONObject) data.get(0);
+                                    orderId = id.getInt("id");
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
@@ -174,7 +118,7 @@ public class UserDetailActivity extends AppCompatActivity {
                                     @Override
                                     public void onResponse(JSONObject response) {
                                         numRes++;
-                                        Log.d("huhuhuhhtttt",  String.valueOf(numRes));
+                                        Log.d("huhuhuhhtttt", String.valueOf(numRes));
                                         if (MainActivity.arrayCart.size() == numRes) {
                                             MainActivity.arrayCart.clear();
                                             numRes = 0;

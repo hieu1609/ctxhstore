@@ -10,4 +10,6 @@ public class Server {
     public static String urlProduct = "http://" + localhost + "/ctxhstore/public/api/data/getProductByCategoryId";
     public static String urlOrder = "http://" + localhost + "/ctxhstore/public/api/data/postInforUser";
     public static String urlOrderDetail = "http://" + localhost + "/ctxhstore/public/api/data/postOrderDetail";
+    public static String urlLogin = "http://" + localhost + "/ctxhstore/public/api/auth/login";
+    public static String urlRegister = "http://" + localhost + "/ctxhstore/public/api/auth/register";
 }
