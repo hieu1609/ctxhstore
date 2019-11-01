@@ -25,7 +25,7 @@
         <TextView
             android:id="@+id/textviewcartname"
             android:text="Tên sản phẩm"
-            android:textColor="#000000"
+            android:textColor="@color/colorProductName"
             android:textSize="25sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
@@ -33,7 +33,7 @@
             android:id="@+id/textviewcartprice"
             android:text="Giá sản phẩm"
             android:layout_marginTop="3dp"
-            android:textColor="#f20"
+            android:textColor="@color/colorProductPrice"
             android:textSize="15sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
