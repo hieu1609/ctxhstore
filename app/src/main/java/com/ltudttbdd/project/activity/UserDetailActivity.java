@@ -40,6 +40,7 @@ public class UserDetailActivity extends AppCompatActivity {
     Button btnconfirm, btnreturn;
     int numOfItem, orderId;
     int numRes = 0;
+    String userId = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +52,7 @@ public class UserDetailActivity extends AppCompatActivity {
             edtPhone.setText(user.phone);
             edtEmail.setText(user.email);
             edtAddress.setText(user.address);
+            userId = String.valueOf(user.id);
         }
         btnreturn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -81,11 +83,11 @@ public class UserDetailActivity extends AppCompatActivity {
                     postParams.put("phone", edtPhone.getText().toString());
                     postParams.put("address", edtAddress.getText().toString());
                     postParams.put("email", edtEmail.getText().toString());
-                    Log.d("dataPost", edtName.getText().toString());
-                    Log.d("dataPost",  edtPhone.getText().toString());
-                    Log.d("dataPost", edtEmail.getText().toString());
-                    Log.d("dataPost",  edtAddress.getText().toString());
-
+                    postParams.put("user", userId);
+                    edtName.setText("");
+                    edtPhone.setText("");
+                    edtEmail.setText("");
+                    edtAddress.setText("");
 
                     final JSONObject jsonObject = new JSONObject(postParams);
                     JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, Server.urlOrder, jsonObject, new Response.Listener<JSONObject>() {
@@ -118,15 +120,12 @@ public class UserDetailActivity extends AppCompatActivity {
                                     @Override
                                     public void onResponse(JSONObject response) {
                                         numRes++;
-                                        Log.d("huhuhuhhtttt", String.valueOf(numRes));
+
                                         if (MainActivity.arrayCart.size() == numRes) {
                                             MainActivity.arrayCart.clear();
                                             numRes = 0;
-                                            Log.d("huhuhu", "dat thanh cong ");
                                             CheckConnection.ShowToastShort(getApplicationContext(), "Bạn đã đặt hàng thành công");
-                                            Intent intent = new Intent();
-                                            intent.setClass(getApplicationContext(), MainActivity.class);
-                                            startActivity(intent);
+                                            finish();
                                             CheckConnection.ShowToastShort(getApplicationContext(), "Mời bạn tiếp tục mua hàng");
                                         }
                                     }

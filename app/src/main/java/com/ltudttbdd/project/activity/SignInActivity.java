@@ -86,14 +86,18 @@ public class SignInActivity extends AppCompatActivity {
                                 JSONObject data = (JSONObject) response.getJSONObject("data");
                                 try {
                                     JSONObject userres = (JSONObject) data.getJSONObject("user");
+                                    String usertoken = (String) data.getString("token");
                                     int userid = userres.getInt("id");
                                     String useremail = userres.getString("email");
                                     String username = userres.getString("name");
                                     String userphone = userres.getString("phone");
                                     String useraddress = userres.getString("address");
-                                    user = new User(userid,useremail,username,userphone,useraddress);
+
+                                    user = new User(userid,useremail,username,userphone,useraddress,usertoken);
                                     Toast.makeText(SignInActivity.this, "Dang nhap thanh cong", Toast.LENGTH_LONG).show();
                                     isLogin = true;
+                                    Intent login = new Intent(getApplicationContext(), LoggedActivity.class);
+                                    startActivity(login);
                                     finish();
                                 } catch (JSONException e) {
                                     e.printStackTrace();

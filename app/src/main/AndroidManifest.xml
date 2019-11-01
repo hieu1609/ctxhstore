@@ -49,6 +49,8 @@
         <activity android:name=".activity.ProductDetailActivity" />
         <activity android:name=".activity.SignInActivity" />
         <activity android:name=".activity.SignUpActivity" />
+        <activity android:name=".activity.NotLoggedInActivity" />
+        <activity android:name=".activity.LoggedActivity" />
 
 
 

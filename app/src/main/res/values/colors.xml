@@ -3,4 +3,22 @@
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
+    <color name="colorCart">#1E30BD</color>
+    <color name="colorFood">#F51010</color>
+    <color name="colorDrink">#219EDA</color>
+    <color name="colorBracelet">#FDD835</color>
+    <color name="colorGift">#33C039</color>
+    <color name="colorKeychains">#582AAF</color>
+    <color name="colorInformation">#0FA092</color>
+    <color name="colorOrther">#F4511E</color>
+    <color name="colorMain">#1C5DB8</color>
+
+    <color name="colorProductDetail">#1C5DB8</color>
+    <color name="colorBackgroundUserDetail">#0D2257</color>
+
+    <color name="colorProductName">#2D6FAA</color>
+    <color name="colorProductPrice">#f20</color>
+    <color name="color1">#b1d7e0</color>
+    <color name="color2">#ffc608</color>
+    <color name="color3">#bfc2c7</color>
 </resources>

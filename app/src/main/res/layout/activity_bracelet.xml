@@ -10,7 +10,7 @@
         android:id="@+id/toolbarbracelet"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="#716562"
+        android:background="@color/colorBracelet"
         app:title="Vòng tay Handmade"
         app:titleTextColor="#ffffff">
     </androidx.appcompat.widget.Toolbar>

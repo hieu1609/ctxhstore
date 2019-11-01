@@ -35,7 +35,7 @@
                     android:layout_height="wrap_content" />
                 <TextView
                     android:id="@+id/textviewfoodprice"
-                    android:textColor="#F50000"
+                    android:textColor="@color/colorProductPrice"
                     android:text="Giá sản phẩm"
                     android:layout_margin="5dp"
                     android:textSize="18sp"

@@ -123,9 +123,17 @@ public class MainActivity extends AppCompatActivity {
                             startActivity(userInformationIntent);
                             break;
                         case 9:
-                            Intent login = new Intent(getApplicationContext(), SignInActivity.class);
-                            startActivity(login);
-                            break;
+                            if(isLogin == true){
+                                Intent login = new Intent(getApplicationContext(), LoggedActivity.class);
+                                startActivity(login);
+                                break;
+                    }
+                            else{
+                                Intent login = new Intent(getApplicationContext(), NotLoggedInActivity.class);
+                                startActivity(login);
+                                break;
+                            }
+
                     }
                     drawerLayout.closeDrawer(GravityCompat.START);
                 }

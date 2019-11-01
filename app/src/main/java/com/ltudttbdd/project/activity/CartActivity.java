@@ -54,6 +54,7 @@ public class CartActivity extends AppCompatActivity {
                 if (MainActivity.arrayCart.size() > 0) {
                     Intent intent = new Intent(getApplicationContext(), UserDetailActivity.class);
                     startActivity(intent);
+                    finish();
                 }
                 else {
                     CheckConnection.ShowToastShort(getApplicationContext(), "Giỏ hàng của bạn đang trống");

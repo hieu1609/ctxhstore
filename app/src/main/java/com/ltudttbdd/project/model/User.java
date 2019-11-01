@@ -6,13 +6,15 @@ public class User {
     public String name;
     public String phone;
     public String address;
+    public String token;
 
-    public User(int _id, String _email, String _name, String _phone, String _address) {
+    public User(int _id, String _email, String _name, String _phone, String _address,String _token) {
         this.id = _id;
         this.email = _email;
         this.name = _name;
         this.phone = _phone;
         this.address = _address;
+        this.token = _token;
     }
 
     public int getId() {

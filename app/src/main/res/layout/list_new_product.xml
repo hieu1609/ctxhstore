@@ -32,7 +32,7 @@
                 android:id="@+id/textviewgiasanpham"
                 android:layout_gravity="center"
                 android:textSize="17sp"
-                android:textColor="#f20"
+                android:textColor="@color/colorProductPrice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
             <TextView
