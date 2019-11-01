@@ -57,8 +57,6 @@ public class InformationActivity extends AppCompatActivity implements OnMapReady
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-//        mMap.setMyLocationEnabled(true);
-        // Add a marker in Sydney and move the camera
         LatLng ctxhuit = new LatLng(10.870128, 106.803565);
         mMap.addMarker(new MarkerOptions().position(ctxhuit).title("Đội CTXH trường ĐH CNTT").snippet("Khu phố 6, Phường Linh Trung, Quận Thủ Đức, Thành phố Hồ Chí Minh, Việt Nam").icon(BitmapDescriptorFactory.defaultMarker()));
         mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);

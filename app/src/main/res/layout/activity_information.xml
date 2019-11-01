@@ -8,7 +8,7 @@
         android:id="@+id/toolbarinformation"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="#0FA092"
+        android:background="@color/colorInformation"
         app:title="Thông tin"
         app:titleTextColor="#ffffff">
     </androidx.appcompat.widget.Toolbar>

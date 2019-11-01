@@ -9,7 +9,7 @@
     android:weightSum="10">
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbarcart"
-        android:background="#039BE5"
+        android:background="@color/colorCart"
         app:title="Giỏ hàng"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize">
@@ -52,7 +52,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent">
                 <TextView
-                    android:textColor="#f20"
+                    android:textColor="@color/colorProductPrice"
                     android:text="Tổng tiền:"
                     android:textSize="30sp"
                     android:layout_width="wrap_content"
@@ -65,7 +65,7 @@
                 android:layout_height="match_parent">
                 <TextView
                     android:id="@+id/textviewtotalprice"
-                    android:textColor="#f20"
+                    android:textColor="@color/colorProductPrice"
                     android:text="Giá trị"
                     android:textSize="30sp"
                     android:layout_width="wrap_content"
