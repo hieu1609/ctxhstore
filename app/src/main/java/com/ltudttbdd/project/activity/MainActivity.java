@@ -91,7 +91,8 @@ public class MainActivity extends AppCompatActivity {
                             startActivity(foodIntent);
                             break;
                         case 4:
-                            Toast.makeText(MainActivity.this, "item 4", Toast.LENGTH_SHORT).show();
+                            Intent contactIntent = new Intent(MainActivity.this, ContactActivity.class);
+                            startActivity(contactIntent);
                             break;
                         case 5:
                             Intent informationIntent = new Intent(MainActivity.this, InformationActivity.class);
