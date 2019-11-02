@@ -14,19 +14,17 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.ltudttbdd.project.R;
-import com.ltudttbdd.project.adapter.PhoneAdapter;
+import com.ltudttbdd.project.adapter.BraceletAdapter;
 import com.ltudttbdd.project.model.Product;
 import com.ltudttbdd.project.ultil.CheckConnection;
 import com.ltudttbdd.project.ultil.Server;
@@ -37,15 +35,14 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 
-public class PhoneActivity extends AppCompatActivity {
+public class BraceletActivity extends AppCompatActivity {
 
-    Toolbar toolbarphone;
-    ListView listviewphone;
-    PhoneAdapter phoneAdapter;
-    ArrayList<Product> arrayphone;
-    int idphone = 0;
+    Toolbar toolbarbracelet;
+    ListView listviewbracelet;
+    BraceletAdapter braceletAdapter;
+    ArrayList<Product> arraybracelet;
+    int idbracelet = 0;
     int page = 1;
     View footerview;
     boolean isLoading = false;
@@ -55,15 +52,14 @@ public class PhoneActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_phone);
+        setContentView(R.layout.activity_bracelet);
         Mappings();
-        if(CheckConnection.haveNetworkConnection(getApplicationContext())) {
+        if (CheckConnection.haveNetworkConnection(getApplicationContext())) {
             GetIdProductCategory();
             ActionToolbar();
             GetData(page);
             LoadMoreData();
-        }
-        else {
+        } else {
             CheckConnection.ShowToastShort(getApplicationContext(), "Bạn hãy kiểm tra lại kết nối Internet");
             finish();
         }
@@ -86,15 +82,15 @@ public class PhoneActivity extends AppCompatActivity {
     }
 
     private void LoadMoreData() {
-        listviewphone.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        listviewbracelet.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent = new Intent(getApplicationContext(), ProductDetailActivity.class);
-                intent.putExtra("thongtinsanpham", arrayphone.get(i));
+                intent.putExtra("thongtinsanpham", arraybracelet.get(i));
                 startActivity(intent);
             }
         });
-        listviewphone.setOnScrollListener(new AbsListView.OnScrollListener() {
+        listviewbracelet.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(AbsListView absListView, int i) {
 
@@ -104,7 +100,7 @@ public class PhoneActivity extends AppCompatActivity {
             public void onScroll(AbsListView absListView, int firstItem, int visibleItem, int totalItem) {
                 if (firstItem + visibleItem == totalItem && totalItem != 0 && isLoading == false && limitData == false) {
                     isLoading = true;
-                    ThreadData threadData = new ThreadData();
+                    BraceletActivity.ThreadData threadData = new BraceletActivity.ThreadData();
                     threadData.start();
                 }
             }
@@ -112,40 +108,49 @@ public class PhoneActivity extends AppCompatActivity {
     }
 
     private void GetData(int Page) {
-        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
-        String url = Server.urlPhone + String.valueOf(Page);
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+
+        final HashMap<String, String> postParams = new HashMap<String, String>();
+        postParams.put("categoryId", "3");
+        postParams.put("page", String.valueOf(Page));
+        final JSONObject jsonObject = new JSONObject(postParams);
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, Server.urlProduct,jsonObject , new Response.Listener<JSONObject>() {
             @Override
-            public void onResponse(String response) {
+            public void onResponse(JSONObject response) {
                 int id = 0;
                 String productName = "";
                 int price = 0;
                 String productImage = "";
                 String description = "";
                 int idCategory = 0;
-                if (response != null && response.length() != 2) {
-                    listviewphone.removeFooterView(footerview);
+                if (response != null) {
+                    listviewbracelet.removeFooterView(footerview);
                     try {
-                        JSONArray jsonArray = new JSONArray(response);
-                        for (int i = 0; i < jsonArray.length(); i++) {
-                            JSONObject jsonObject = jsonArray.getJSONObject(i);
-                            id = jsonObject.getInt("id");
-                            productName = jsonObject.getString("product_name");
-                            price = jsonObject.getInt("price");
-                            productImage = jsonObject.getString("product_image");
-                            description = jsonObject.getString("description");
-                            idCategory = jsonObject.getInt("id_category");
-                            arrayphone.add(new Product(id, productName, price, productImage, description, idCategory));
-                            phoneAdapter.notifyDataSetChanged();
+                        JSONArray data = (JSONArray) response.getJSONArray("data");
+                        if(data.length() == 0){
+                            limitData = true;
+                            listviewbracelet.removeFooterView(footerview);
+                            CheckConnection.ShowToastShort(getApplicationContext(), "Đã hết dữ liệu");
+                            return;
+                        }
+                        for (int i = 0; i < data.length(); i++) {
+                            try {
+                                JSONObject item = (JSONObject) data.get(i);
+                                id = item.getInt("id");
+                                productName = item.getString("product_name");
+                                price = item.getInt("price");
+                                productImage = item.getString("product_image");
+                                description = item.getString("description");
+                                idCategory = item.getInt("id_category");
+                                arraybracelet.add(new Product(id, productName, price, productImage, description, idCategory));
+                                braceletAdapter.notifyDataSetChanged();
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                }
-                else {
-                    limitData = true;
-                    listviewphone.removeFooterView(footerview);
-                    CheckConnection.ShowToastShort(getApplicationContext(), "Đã hết dữ liệu");
                 }
             }
         }, new Response.ErrorListener() {
@@ -153,21 +158,23 @@ public class PhoneActivity extends AppCompatActivity {
             public void onErrorResponse(VolleyError error) {
 
             }
-        }){
+        }) {
+
             @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                HashMap<String, String> param = new HashMap<String, String>();
-                param.put("idCategory", String.valueOf(idphone));
-                return param;
+            public String getBodyContentType() {
+                return "application/json; charset=utf-8";
             }
+
+
         };
-        requestQueue.add(stringRequest);
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        requestQueue.add(jsonObjectRequest);
     }
 
     private void ActionToolbar() {
-        setSupportActionBar(toolbarphone);
+        setSupportActionBar(toolbarbracelet);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        toolbarphone.setNavigationOnClickListener(new View.OnClickListener() {
+        toolbarbracelet.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
@@ -177,16 +184,16 @@ public class PhoneActivity extends AppCompatActivity {
     }
 
     private void GetIdProductCategory() {
-        idphone = getIntent().getIntExtra("idCategory", -1);
-        Log.d("giatriloaisanpham", idphone + "");
+        idbracelet = getIntent().getIntExtra("idCategory", -1);
+        Log.d("giatriloaisanpham", idbracelet + "");
     }
 
     private void Mappings() {
-        toolbarphone = findViewById(R.id.toolbarphone);
-        listviewphone = findViewById(R.id.listviewphone);
-        arrayphone = new ArrayList<>();
-        phoneAdapter = new PhoneAdapter(getApplicationContext(),arrayphone);
-        listviewphone.setAdapter(phoneAdapter);
+        toolbarbracelet = findViewById(R.id.toolbarbracelet);
+        listviewbracelet = findViewById(R.id.listviewbracelet);
+        arraybracelet = new ArrayList<>();
+        braceletAdapter = new BraceletAdapter(getApplicationContext(), arraybracelet);
+        listviewbracelet.setAdapter(braceletAdapter);
         LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
         footerview = inflater.inflate(R.layout.progress_bar, null);
         myHandler = new MyHandler();
@@ -197,7 +204,7 @@ public class PhoneActivity extends AppCompatActivity {
         public void handleMessage(@NonNull Message msg) {
             switch (msg.what) {
                 case 0:
-                    listviewphone.addFooterView(footerview);
+                    listviewbracelet.addFooterView(footerview);
                     break;
                 case 1:
                     GetData(++page);

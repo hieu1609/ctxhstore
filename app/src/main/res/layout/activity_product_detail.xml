@@ -10,7 +10,7 @@
         android:id="@+id/toolbarproductdetail"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="#F54C7D"
+        android:background="@color/colorProductDetail"
         app:title="Chi tiết sản phẩm"
         app:titleTextColor="#ffffff">
     </androidx.appcompat.widget.Toolbar>
@@ -50,7 +50,7 @@
                 android:layout_marginRight="10dp"
                 android:layout_marginTop="5dp"
                 android:text="Giá sản phẩm"
-                android:textColor="#f20"
+                android:textColor="@color/colorProductPrice"
                 android:textSize="20sp" />
             <Spinner
                 android:id="@+id/spinnerproductdetail"

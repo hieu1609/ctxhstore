@@ -5,17 +5,18 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.FoodActivity">
+    tools:context=".activity.OtherActivity">
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbarfood"
+        android:id="@+id/toolbarother"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@color/colorFood"
-        app:title="Đồ ăn"
+        android:background="@color/colorOrther"
+        app:title="Khác"
         app:titleTextColor="#ffffff">
     </androidx.appcompat.widget.Toolbar>
+
     <ListView
-        android:id="@+id/listviewfood"
+        android:id="@+id/listviewother"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
     </ListView>

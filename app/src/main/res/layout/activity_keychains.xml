@@ -5,17 +5,18 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.FoodActivity">
+    tools:context=".activity.KeyChainsActivity">
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbarfood"
+        android:id="@+id/toolbarkeychains"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@color/colorFood"
-        app:title="Đồ ăn"
+        android:background="@color/colorKeychains"
+        app:title="Móc khóa Handmade"
         app:titleTextColor="#ffffff">
     </androidx.appcompat.widget.Toolbar>
+
     <ListView
-        android:id="@+id/listviewfood"
+        android:id="@+id/listviewkeychains"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
     </ListView>
