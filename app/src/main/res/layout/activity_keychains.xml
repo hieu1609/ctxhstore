@@ -10,7 +10,7 @@
         android:id="@+id/toolbarkeychains"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@color/colorKeychains"
+        android:background="@color/colorInformation"
         app:title="Móc khóa Handmade"
         app:titleTextColor="#ffffff">
     </androidx.appcompat.widget.Toolbar>

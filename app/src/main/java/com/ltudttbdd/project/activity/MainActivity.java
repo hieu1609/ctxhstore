@@ -14,11 +14,13 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ViewFlipper;
 
@@ -49,6 +51,7 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
+    TextView textView;
     Toolbar toolbar;
     ViewFlipper viewFlipper;
     RecyclerView recyclerViewmanhinhchinh;
@@ -74,6 +77,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Mappings();
+        textView = findViewById(R.id.text);
+        Animation mAnimation = new AlphaAnimation(1, 0);
+        mAnimation.setDuration(200);
+        mAnimation.setRepeatCount(Animation.INFINITE);
+        mAnimation.setRepeatMode(Animation.REVERSE);
+        textView.startAnimation(mAnimation);
         if (CheckConnection.haveNetworkConnection(getApplicationContext())) {
             ActionBar();
             ActionViewFlipper();

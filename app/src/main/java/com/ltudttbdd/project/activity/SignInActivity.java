@@ -1,6 +1,7 @@
 package com.ltudttbdd.project.activity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -34,6 +35,7 @@ public class SignInActivity extends AppCompatActivity {
 
     EditText edtPassword, edtEmail;
     Button btnconfirm, btnreturn, btnsignup;
+    private View alphaColorView;
     int numOfItem, orderId;
     int numRes = 0;
 
@@ -42,6 +44,8 @@ public class SignInActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.signin_activity);
         Mappings();
+        alphaColorView = (View)findViewById(R.id.relativelayout);
+        alphaColorView.setBackgroundColor(getColorWithAlpha(Color.WHITE, 0.4f));
         btnreturn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -60,6 +64,15 @@ public class SignInActivity extends AppCompatActivity {
         } else {
             CheckConnection.ShowToastShort(getApplicationContext(), "Bạn hãy kiểm tra lại kết nối Internet");
         }
+    }
+    private int getColorWithAlpha(int color, float ratio) {
+        int newColor = 0;
+        int alpha = Math.round(Color.alpha(color) * ratio);
+        int r = Color.red(color);
+        int g = Color.green(color);
+        int b = Color.blue(color);
+        newColor = Color.argb(alpha, r, g, b);
+        return newColor;
     }
 
     private void EventButton() {

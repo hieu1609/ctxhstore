@@ -1,176 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#0D2257"
+    android:background="@drawable/bg"
     android:orientation="vertical"
     tools:context=".activity.NotLoggedInActivity">
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbarnotlogged"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@color/color2"
-        app:title=""
+        android:background="@color/colorInformation"
+        app:title="Thông tin người dùng"
         app:titleTextColor="#ffffff">
     </androidx.appcompat.widget.Toolbar>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="255dp"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="80dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginBottom="80dp"
-
-        android:background="@color/color3"
-
-        android:gravity="center"
+        android:layout_marginTop="220dp"
+        android:background="@drawable/border2"
+        android:layout_centerHorizontal="true"
         android:orientation="vertical">
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:text="Thông tin người dùng"
-            android:textColor="#000000"
+            android:id="@+id/text"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:gravity="center"
+            android:text="CTXH STORE"
+            android:textColor="#000"
             android:textSize="30sp"
 
             android:textStyle="bold" />
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="0dp"
+        <RelativeLayout
+            android:id="@+id/relativelayout1"
+            android:layout_width="@android:dimen/thumbnail_width"
+            android:layout_marginLeft="3dp"
+            android:layout_height="150dp"
+            android:layout_below="@id/text"
             android:paddingTop="20dp"
             android:paddingBottom="20dp"
-            android:gravity="left"
-            android:background="@color/color2"
+            android:gravity="center"
+            android:background="#F5F5DC"
             android:orientation="horizontal">
-
             <Button
-                android:background="@color/color1"
                 android:id="@+id/login"
-                android:layout_width="300px"
+                android:layout_width="350px"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="30dp"
-                android:layout_marginRight="20dp"
-                android:gravity="start"
+                android:background="@drawable/border2"
                 android:padding="10dp"
-                android:text="Đăng nhập"
-                android:layout_marginBottom="5dp"
-                android:textAlignment="center" />
+                android:text="Đăng nhập" />
+        </RelativeLayout>
+            <RelativeLayout
+                android:layout_toRightOf="@id/relativelayout1"
+                android:layout_width="@android:dimen/thumbnail_width"
+                android:layout_height="150dp"
+                android:layout_below="@id/text"
+                android:paddingTop="20dp"
+                android:paddingBottom="20dp"
+                android:gravity="center"
+                android:background="#F5F5DC">
 
-            <Button
-                android:id="@+id/register"
-                android:layout_width="300px"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:background="@color/color1"
-                android:gravity="start"
-                android:padding="10dp"
-
-                android:text="Đăng ký"
-                android:textAlignment="center"
-                android:textSize="15sp" />
-            <Button
-                android:id="@+id/register"
-                android:layout_width="300px"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:background="@color/color1"
-                android:gravity="start"
-                android:padding="10dp"
-
-                android:text="Đăng ký"
-                android:textAlignment="center"
-                android:textSize="15sp" />
-
-        </LinearLayout>
-<!--        <LinearLayout-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-
-<!--            android:background="@color/color1"-->
-<!--            android:orientation="vertical">-->
-<!--            <LinearLayout-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginTop="50dp"-->
-<!--                android:layout_marginBottom="20dp"-->
-<!--                android:gravity="left"-->
-<!--                android:orientation="vertical">-->
-
-<!--                <Button-->
-<!--                    android:background="@color/color2"-->
-<!--                    android:id="@+id/purchaseorder"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_marginLeft="20dp"-->
-<!--                    android:layout_marginRight="20dp"-->
-<!--                    android:gravity="start"-->
-<!--                    android:padding="10dp"-->
-<!--                    android:text="Đơn Mua"-->
-<!--                    android:layout_marginBottom="5dp"-->
-<!--                    android:textAlignment="textStart" />-->
-<!--                <Button-->
-<!--                    android:id="@+id/myrate"-->
-<!--                    android:background="@color/color2"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_marginLeft="20dp"-->
-<!--                    android:layout_marginRight="20dp"-->
-<!--                    android:padding="10dp"-->
-<!--                    android:text="Đánh giá của tôi"-->
-<!--                    android:textAlignment="textStart"-->
-<!--                    android:gravity="start"-->
-<!--                    android:textSize="15sp" />-->
+                <Button
+                    android:id="@+id/register"
+                    android:layout_width="350px"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/border2"
+                    android:padding="10dp"
+                    android:text="Đăng ký" />
 
 
-<!--            </LinearLayout>-->
+            </RelativeLayout>
 
-<!--            <LinearLayout-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginTop="10dp"-->
-<!--                android:layout_marginBottom="20dp"-->
-<!--                android:gravity="center"-->
-<!--                android:orientation="vertical">-->
+    </RelativeLayout>
 
-<!--                <Button-->
-<!--                    android:id="@+id/configaccount"-->
-<!--                    android:background="@color/color2"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_marginLeft="20dp"-->
-<!--                    android:layout_marginRight="20dp"-->
-<!--                    android:layout_marginBottom="5dp"-->
-<!--                    android:gravity="start"-->
-<!--                    android:padding="10dp"-->
-<!--                    android:text="Thiết lập tài khoản"-->
-<!--                    android:textAlignment="textStart" />-->
-<!--                <Button-->
-<!--                    android:id="@+id/logout"-->
-
-<!--                    android:background="@color/color2"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_marginLeft="20dp"-->
-<!--                    android:layout_marginRight="20dp"-->
-<!--                    android:padding="10dp"-->
-<!--                    android:text="Đăng xuất"-->
-<!--                    android:textAlignment="textStart"-->
-<!--                    android:gravity="start"-->
-<!--                    android:textSize="15sp"-->
-<!--                    android:layout_marginBottom="30dp"-->
-<!--                    />-->
-
-<!--            </LinearLayout>-->
-
-<!--        </LinearLayout>-->
-
-    </LinearLayout>
-
-</LinearLayout>
+</RelativeLayout>

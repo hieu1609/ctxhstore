@@ -5,11 +5,18 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+import android.widget.Toast;
 import android.widget.ViewFlipper;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -19,27 +26,32 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.ltudttbdd.project.R;
+import com.ltudttbdd.project.ultil.Server;
 import com.squareup.picasso.Picasso;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class ContactActivity extends AppCompatActivity implements OnMapReadyCallback {
-    private GoogleMap mMap;
+public class ContactActivity extends AppCompatActivity {
+
     Toolbar toolbarcontact;
     ViewFlipper viewFlipper;
-
+    ImageView imageView;
+    String adsImage = "";
+    ArrayList<String> mangquangcao;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contact);
+        imageView  = findViewById(R.id.ImageView);
+        this.imageView.setImageResource(R.drawable.ctxh);
         viewFlipper = findViewById(R.id.viewflipper);
         ActionViewFlipper();
         toolbarcontact = findViewById(R.id.toolbarcontact);
         ActionBar();
-        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
     }
 
     private void ActionBar() {
@@ -63,38 +75,51 @@ public class ContactActivity extends AppCompatActivity implements OnMapReadyCall
      * it inside the SupportMapFragment. This method will only be triggered once the user has
      * installed Google Play services and returned to the app.
      */
-    @Override
-    public void onMapReady(GoogleMap googleMap) {
-        mMap = googleMap;
-//        mMap.setMyLocationEnabled(true);
-        // Add a marker in Sydney and move the camera
-        LatLng ctxhuit = new LatLng(10.870128, 106.803565);
-        mMap.addMarker(new MarkerOptions().position(ctxhuit).title("Đội CTXH trường ĐH CNTT").snippet("Khu phố 6, Phường Linh Trung, Quận Thủ Đức, Thành phố Hồ Chí Minh, Việt Nam").icon(BitmapDescriptorFactory.defaultMarker()));
-        mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-        CameraPosition cameraPosition = new CameraPosition.Builder().target(ctxhuit).zoom(15).build();
-        mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
-    }
-
     private void ActionViewFlipper() {
-        ArrayList<String> mangquangcao = new ArrayList<>();
-        mangquangcao.add("https://i.ibb.co/R9dwLgT/22047973-1538336126223539-5205918986123174599-o.jpg");
-        mangquangcao.add("https://i.ibb.co/Gnm38D6/69502430-2519373094786499-4438127691371118592-o.jpg");
-        mangquangcao.add("https://i.ibb.co/1LXfxW4/29351659-1748325571891259-912106256589011434-o.png");
-        mangquangcao.add("https://i.ibb.co/zVPzckW/32130359-1793076794082803-1249016866664349696-o.jpg");
-        mangquangcao.add("https://i.ibb.co/0CtZvHv/56483255-2269799063077238-1030531296201277440-o.jpg");
-        for (int i = 0; i < mangquangcao.size(); i++) {
-            ImageView imageView = new ImageView(getApplicationContext());
-            Picasso.get().load(mangquangcao.get(i)).into(imageView);
-            imageView.setScaleType(ImageView.ScaleType.FIT_XY);
-            viewFlipper.addView(imageView);
-        }
+        mangquangcao = new ArrayList<>();
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, Server.urlAds, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    JSONArray data = (JSONArray) response.getJSONArray("data");
+                    for (int i = 0; i < data.length(); i++) {
+                        try {
+                            JSONObject ads = (JSONObject) data.get(i);
+                            adsImage = ads.getString("image");
+                            mangquangcao.add(adsImage);
+                            ImageView imageView = new ImageView(getApplicationContext());
+                            Picasso.get().load(mangquangcao.get(i)).into(imageView);
+                            imageView.setScaleType(ImageView.ScaleType.FIT_XY);
+                            viewFlipper.addView(imageView);//update data
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(ContactActivity.this, error.toString(), Toast.LENGTH_LONG).show();
+            }
+        });
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        requestQueue.add(jsonObjectRequest);
+        //Toast.makeText(MainActivity.this, mangquangcao.get(0), Toast.LENGTH_LONG).show();
+
         viewFlipper.setFlipInterval(5000);
         viewFlipper.setAutoStart(true);
         Animation animation_slide_in = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_in_right);
         Animation animation_slide_out = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_out_right);
         viewFlipper.setInAnimation(animation_slide_in);
         viewFlipper.setOutAnimation(animation_slide_out);
+
     }
+
 }
 
 

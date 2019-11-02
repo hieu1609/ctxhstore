@@ -1,100 +1,106 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_height="match_parent"
     android:layout_width="match_parent"
-    android:orientation="vertical">
+    android:background="#ffffff">
+
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbarcontact"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="#0FA092"
-        app:title="liên hệ"
+        android:layout_height="@android:dimen/app_icon_size"
+        android:background="@color/colorInformation"
+        app:title="Liên hệ"
         app:titleTextColor="#ffffff">
     </androidx.appcompat.widget.Toolbar>
-    <LinearLayout
+    <RelativeLayout
+        android:id="@+id/relativelayout"
+        android:layout_below="@id/toolbarcontact"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/cardview_dark_background"
+        android:layout_height="310dp"
+        android:background="#FFFAFA
+"
         android:orientation="vertical">
+        <ViewFlipper
+            android:id="@+id/viewflipper"
+            android:layout_width="match_parent"
+            android:layout_height="250dp">
+        </ViewFlipper>
+        <RelativeLayout
+            android:id="@+id/relativelayout1"
+            android:layout_width="250dp"
+            android:layout_height="150dp"
+            android:layout_marginTop="170dp"
+            android:background="@drawable/border1"
+           android:layout_centerHorizontal="true">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="10dp"
-            android:text="Thông tin liên hệ"
-            android:textColor="#ffffff"
-            android:textSize="30sp"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:text="Đội Công tác Xã hội UIT"
+            android:textColor="#000"
+            android:textSize="20sp"
             android:textStyle="bold" />
-        <ViewFlipper
-            android:id="@+id/viewflipper"
-            android:layout_width="400dp"
-            android:layout_gravity="center"
-            android:layout_height="150dp">
-        </ViewFlipper>
-        <LinearLayout
-            android:layout_width="370dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_margin="1dp"
-            android:background="@drawable/border"
-            android:gravity="center">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="20dp"
-                android:gravity="center"
-                android:text="Đội công tác xã hội UIT"
-                android:textColor="#000"
-                android:textSize="15dp" />
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="370dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_margin="1dp"
-            android:background="@drawable/border"
-            android:gravity="center">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="20dp"
-                android:gravity="center"
-                android:text="Địa chỉ: Khu phố 6, P.Linh Trung, Q.Thủ Đức, Tp.Hồ Chí Minh"
-                android:textColor="#000"
-                android:textSize="15dp" />
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="370dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_margin="1dp"
-            android:background="@drawable/border"
-            android:gravity="center">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="20dp"
-                android:gravity="center"
-                android:text="Điện thoại liên lạc: 0913361445"
-                android:textColor="#000"
-                android:textSize="15dp" />
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_margin="20dp"
-            android:background="@drawable/border"
-            android:gravity="center">
-            <fragment xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:map="http://schemas.android.com/apk/res-auto"
-                xmlns:tools="http://schemas.android.com/tools"
-                android:id="@+id/map"
-                android:name="com.google.android.gms.maps.SupportMapFragment"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                tools:context=".activity.ContactActivity" />
-        </LinearLayout>
-    </LinearLayout>
-</LinearLayout>
+        </RelativeLayout>
+        <ImageView
+            android:id="@+id/ImageView"
+
+            android:layout_width="110dp"
+            android:layout_height="110dp"
+            android:background="@drawable/test"
+            android:layout_centerInParent="true" />
+    </RelativeLayout>
+    <TextView
+        android:id="@+id/text"
+        android:layout_below="@id/relativelayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/appbar_padding_top"
+        android:layout_margin="10dp"
+        android:drawablePadding="20dp"
+        android:drawableBottom="@drawable/button_top_bottom"
+        android:text="Thông tin"
+        android:textColor="@color/colorInformation"
+        android:textSize="20dp"
+        android:textStyle="bold" />
+    <TextView
+        android:id="@+id/text1"
+        android:layout_below="@id/text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/appbar_padding_top"
+        android:paddingRight="@dimen/appbar_padding_top"
+        android:layout_margin="10dp"
+        android:drawablePadding="20dp"
+        android:drawableBottom="@drawable/button_top_bottom"
+        android:text="Địa chỉ: Khu phố 6, P.Linh Trung, Q.Thủ Đức, Tp.Hồ Chí Minh"
+        android:textColor="#000"
+        android:textSize="18dp" />
+     <TextView
+         android:id="@+id/text2"
+         android:layout_below="@id/text1"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:paddingLeft="@dimen/appbar_padding_top"
+         android:paddingRight="@dimen/appbar_padding_top"
+         android:layout_margin="10dp"
+         android:drawablePadding="20dp"
+         android:drawableBottom="@drawable/button_top_bottom"
+         android:text="Số điện thoại liên hệ: 0913361445"
+         android:textColor="#000"
+         android:textSize="18dp" />
+    <TextView
+        android:id="@+id/text3"
+        android:layout_below="@id/text2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="40dp"
+        android:layout_centerInParent="true"
+        android:text="Cống hiến để Trưởng thành"
+        android:textColor="@color/colorInformation"
+        android:textSize="25dp"
+        android:textStyle="bold|italic"/>
+
+
+</RelativeLayout>
