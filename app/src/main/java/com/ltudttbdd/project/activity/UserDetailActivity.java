@@ -31,18 +31,29 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.ltudttbdd.project.activity.MainActivity.isLogin;
+import static com.ltudttbdd.project.activity.MainActivity.user;
+
 public class UserDetailActivity extends AppCompatActivity {
 
     EditText edtName, edtPhone, edtEmail, edtAddress;
     Button btnconfirm, btnreturn;
     int numOfItem, orderId;
     int numRes = 0;
+    String userId = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_detail);
         Mappings();
+        if (isLogin == true) {
+            edtName.setText(user.name);
+            edtPhone.setText(user.phone);
+            edtEmail.setText(user.email);
+            edtAddress.setText(user.address);
+            userId = String.valueOf(user.id);
+        }
         btnreturn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -66,11 +77,17 @@ public class UserDetailActivity extends AppCompatActivity {
                 final String email = edtEmail.getText().toString().trim();
                 final String address = edtAddress.getText().toString().trim();
                 if (name.length() > 0 && phone.length() > 0 && email.length() > 0 && address.length() > 0) {
+
                     final HashMap<String, String> postParams = new HashMap<String, String>();
                     postParams.put("name", edtName.getText().toString());
                     postParams.put("phone", edtPhone.getText().toString());
                     postParams.put("address", edtAddress.getText().toString());
                     postParams.put("email", edtEmail.getText().toString());
+                    postParams.put("user", userId);
+                    edtName.setText("");
+                    edtPhone.setText("");
+                    edtEmail.setText("");
+                    edtAddress.setText("");
 
                     final JSONObject jsonObject = new JSONObject(postParams);
                     JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, Server.urlOrder, jsonObject, new Response.Listener<JSONObject>() {
@@ -80,12 +97,12 @@ public class UserDetailActivity extends AppCompatActivity {
                             try {
                                 JSONArray data = (JSONArray) response.getJSONArray("data");
 
-                                    try {
-                                        JSONObject id = (JSONObject) data.get(0);
-                                        orderId = id.getInt("id");
-                                    } catch (JSONException e) {
-                                        e.printStackTrace();
-                                    }
+                                try {
+                                    JSONObject id = (JSONObject) data.get(0);
+                                    orderId = id.getInt("id");
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
@@ -103,6 +120,7 @@ public class UserDetailActivity extends AppCompatActivity {
                                     @Override
                                     public void onResponse(JSONObject response) {
                                         numRes++;
+
                                         if (MainActivity.arrayCart.size() == numRes) {
                                             MainActivity.arrayCart.clear();
                                             numRes = 0;
