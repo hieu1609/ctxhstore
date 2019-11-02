@@ -36,6 +36,7 @@ import com.ltudttbdd.project.adapter.ProductCategoryAdapter;
 import com.ltudttbdd.project.model.Cart;
 import com.ltudttbdd.project.model.Product;
 import com.ltudttbdd.project.model.ProductCategory;
+import com.ltudttbdd.project.model.User;
 import com.ltudttbdd.project.ultil.CheckConnection;
 import com.ltudttbdd.project.ultil.Server;
 import com.squareup.picasso.Picasso;
@@ -65,7 +66,8 @@ public class MainActivity extends AppCompatActivity {
     String categoryName = "";
     String categoryImage = "";
     String adsImage = "";
-
+    public static boolean isLogin = false;
+    public static User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -116,7 +118,21 @@ public class MainActivity extends AppCompatActivity {
                             Intent informationIntent = new Intent(MainActivity.this, InformationActivity.class);
                             startActivity(informationIntent);
                             break;
-
+                        case 10:
+                            Intent userInformationIntent = new Intent(MainActivity.this, InformationActivity.class);
+                            startActivity(userInformationIntent);
+                            break;
+                        case 9:
+                            if(isLogin == true){
+                                Intent login = new Intent(getApplicationContext(), LoggedActivity.class);
+                                startActivity(login);
+                                break;
+                    }
+                            else{
+                                Intent login = new Intent(getApplicationContext(), NotLoggedInActivity.class);
+                                startActivity(login);
+                                break;
+                            }
 
                     }
                     drawerLayout.closeDrawer(GravityCompat.START);
@@ -145,41 +161,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void GetDataNewProduct() {
-//        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
-//        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Server.urlNewProduct, new Response.Listener<JSONArray>() {
-//            @Override
-//            public void onResponse(JSONArray response) {
-//                if(response != null) {
-//                    int id = 0;
-//                    String productName = "";
-//                    int price = 0;
-//                    String productImage = "";
-//                    String description = "";
-//                    int idCategory = 0;
-//                    for (int i = 0; i < response.length(); i++) {
-//                        try {
-//                            JSONObject jsonObject = response.getJSONObject(i);
-//                            id = jsonObject.getInt("id");
-//                            productName = jsonObject.getString("product_name");
-//                            price = jsonObject.getInt("price");
-//                            productImage = jsonObject.getString("product_image");
-//                            description = jsonObject.getString("description");
-//                            idCategory = jsonObject.getInt("id_category");
-//                            arrayProduct.add(new Product(id, productName, price, productImage, description, idCategory));
-//                            productAdapter.notifyDataSetChanged();
-//                        } catch (JSONException e) {
-//                            e.printStackTrace();
-//                        }
-//                    }
-//                }
-//            }
-//        }, new Response.ErrorListener() {
-//            @Override
-//            public void onErrorResponse(VolleyError error) {
-//
-//            }
-//        });
-//        requestQueue.add(jsonArrayRequest);
+
         if (arrayProduct.size() == 0) {
             JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, Server.urlNewProduct, null, new Response.Listener<JSONObject>() {
                 @Override
@@ -246,6 +228,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                     arrayProductCategory.add(data.length() + 1, new ProductCategory(0, "Liên hệ", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQWq2hS1q3YW7MStkX9jyfEqYg3jMmftZ82J7az5oN-thj0oycsnw"));
                     arrayProductCategory.add(data.length() + 2, new ProductCategory(0, "Thông tin", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQmOD06az3sOuJf2IfL4UTSvQkUalSFM-AJjoV8C7CeN-YjtEu9"));
+                    arrayProductCategory.add(data.length() + 3, new ProductCategory(0, "Đăng nhập", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQmOD06az3sOuJf2IfL4UTSvQkUalSFM-AJjoV8C7CeN-YjtEu9"));
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -335,9 +318,7 @@ public class MainActivity extends AppCompatActivity {
         recyclerViewmanhinhchinh.setHasFixedSize(true);
         recyclerViewmanhinhchinh.setLayoutManager(new GridLayoutManager(getApplicationContext(), 2));
         recyclerViewmanhinhchinh.setAdapter(productAdapter);
-        if (arrayCart != null) {
-
-        } else {
+        if (arrayCart == null) {
             arrayCart = new ArrayList<>();
         }
     }
