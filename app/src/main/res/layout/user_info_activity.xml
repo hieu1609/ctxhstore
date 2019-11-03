@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="@android:dimen/app_icon_size"
         android:background="@color/colorInformation"
-        app:title="User"
+        app:title="My Blog"
         app:titleTextColor="#ffffff">
     </androidx.appcompat.widget.Toolbar>
     <RelativeLayout
@@ -41,7 +41,7 @@
                 android:gravity="center"
                 android:text="Nguyễn Thị Lê vy"
                 android:textColor="@color/colorInformation"
-                android:textSize="25sp"
+                android:textSize="20sp"
                 android:textStyle="bold" />
             <TextView
                 android:layout_below="@id/text4"
@@ -52,7 +52,7 @@
                 android:text="User"
                 android:textColor="#000"
                 android:textSize="20sp"
-                android:textStyle="bold" />
+                android:textStyle="" />
         </RelativeLayout>
         <ImageView
             android:id="@+id/ImageView"
@@ -109,7 +109,7 @@
             android:layout_marginLeft="50dp"
             android:text="Nguyễn Thị Lê Vy"
             android:textColor="#000000"
-            android:textSize="20sp"
+            android:textSize="18sp"
             android:textStyle="italic" />
     </LinearLayout>
     <LinearLayout
@@ -133,7 +133,7 @@
             android:layout_marginLeft="50dp"
             android:text="16521852@gm.uit.edu.vn"
             android:textColor="#000000"
-            android:textSize="20sp"
+            android:textSize="18sp"
             android:textStyle="italic" />
     </LinearLayout>
     </LinearLayout>

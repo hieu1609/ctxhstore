@@ -41,6 +41,7 @@ public class LoggedActivity extends AppCompatActivity {
     Button btnConfigAccout, btnPurcharse, btnMyRate, btnLogout;
     ImageView imageView;
     ImageView imageView1;
+    TextView textView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +61,7 @@ public class LoggedActivity extends AppCompatActivity {
 //        });
         edtUsername.setText(user.name);
         edtEmail.setText(user.email);
+        textView.setText(user.name);
 //        btnsignup.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
@@ -124,7 +126,7 @@ public class LoggedActivity extends AppCompatActivity {
 
     }
     private void Mappings() {
-
+        textView = findViewById(R.id.text4);
         edtEmail = findViewById(R.id.useremailtext);
         edtUsername = findViewById(R.id.usernametext);
         btnLogout = findViewById(R.id.logout);

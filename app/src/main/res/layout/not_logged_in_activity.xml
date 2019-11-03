@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/nen"
     android:orientation="vertical"
     tools:context=".activity.NotLoggedInActivity">
     <androidx.appcompat.widget.Toolbar
@@ -17,7 +16,7 @@
     </androidx.appcompat.widget.Toolbar>
     <RelativeLayout
         android:layout_below="@id/toolbarnotlogged"
-        android:background="#8C0FA092"
+        android:background="#1f0FA092"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
