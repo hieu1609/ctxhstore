@@ -1,7 +1,7 @@
 package com.ltudttbdd.project.ultil;
 
 public class Server {
-    public static String localhost = "172.17.26.82:800";
+    public static String localhost = "34.87.53.42";
    // public static String localhost = "192.168.1.15:800";
 
     public static String urlProductCategory = "http://" + localhost + "/ctxhstore/public/api/data/getProductCategory";
