@@ -24,7 +24,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.ltudttbdd.project.R;
-import com.ltudttbdd.project.adapter.BraceletAdapter;
+import com.ltudttbdd.project.adapter.ProductViewAdapter;
 import com.ltudttbdd.project.model.Product;
 import com.ltudttbdd.project.ultil.CheckConnection;
 import com.ltudttbdd.project.ultil.Server;
@@ -40,7 +40,7 @@ public class BraceletActivity extends AppCompatActivity {
 
     Toolbar toolbarbracelet;
     ListView listviewbracelet;
-    BraceletAdapter braceletAdapter;
+    ProductViewAdapter braceletAdapter;
     ArrayList<Product> arraybracelet;
     int idbracelet = 0;
     int page = 1;
@@ -100,7 +100,7 @@ public class BraceletActivity extends AppCompatActivity {
             public void onScroll(AbsListView absListView, int firstItem, int visibleItem, int totalItem) {
                 if (firstItem + visibleItem == totalItem && totalItem != 0 && isLoading == false && limitData == false) {
                     isLoading = true;
-                    BraceletActivity.ThreadData threadData = new BraceletActivity.ThreadData();
+                    ThreadData threadData = new ThreadData();
                     threadData.start();
                 }
             }
@@ -192,7 +192,7 @@ public class BraceletActivity extends AppCompatActivity {
         toolbarbracelet = findViewById(R.id.toolbarbracelet);
         listviewbracelet = findViewById(R.id.listviewbracelet);
         arraybracelet = new ArrayList<>();
-        braceletAdapter = new BraceletAdapter(getApplicationContext(), arraybracelet);
+        braceletAdapter = new ProductViewAdapter(getApplicationContext(), arraybracelet);
         listviewbracelet.setAdapter(braceletAdapter);
         LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
         footerview = inflater.inflate(R.layout.progress_bar, null);

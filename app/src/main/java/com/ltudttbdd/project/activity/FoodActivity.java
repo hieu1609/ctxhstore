@@ -16,20 +16,16 @@ import android.view.View;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 
-import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.ltudttbdd.project.R;
-import com.ltudttbdd.project.adapter.FoodAdapter;
+import com.ltudttbdd.project.adapter.ProductViewAdapter;
 import com.ltudttbdd.project.model.Product;
-import com.ltudttbdd.project.model.ProductCategory;
 import com.ltudttbdd.project.ultil.CheckConnection;
 import com.ltudttbdd.project.ultil.Server;
 
@@ -39,13 +35,12 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 
 public class FoodActivity extends AppCompatActivity {
 
     Toolbar toolbarfood;
     ListView listviewfood;
-    FoodAdapter foodAdapter;
+    ProductViewAdapter foodAdapter;
     ArrayList<Product> arrayfood;
     int idfood = 0;
     int page = 1;
@@ -105,7 +100,7 @@ public class FoodActivity extends AppCompatActivity {
             public void onScroll(AbsListView absListView, int firstItem, int visibleItem, int totalItem) {
                 if (firstItem + visibleItem == totalItem && totalItem != 0 && isLoading == false && limitData == false) {
                     isLoading = true;
-                    FoodActivity.ThreadData threadData = new FoodActivity.ThreadData();
+                    ThreadData threadData = new ThreadData();
                     threadData.start();
                 }
             }
@@ -196,7 +191,7 @@ public class FoodActivity extends AppCompatActivity {
         toolbarfood = findViewById(R.id.toolbarfood);
         listviewfood = findViewById(R.id.listviewfood);
         arrayfood = new ArrayList<>();
-        foodAdapter = new FoodAdapter(getApplicationContext(), arrayfood);
+        foodAdapter = new ProductViewAdapter(getApplicationContext(), arrayfood);
         listviewfood.setAdapter(foodAdapter);
         LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
         footerview = inflater.inflate(R.layout.progress_bar, null);

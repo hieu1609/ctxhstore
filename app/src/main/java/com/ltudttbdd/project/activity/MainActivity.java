@@ -31,8 +31,8 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.material.navigation.NavigationView;
 import com.ltudttbdd.project.R;
-import com.ltudttbdd.project.adapter.ProductAdapter;
-import com.ltudttbdd.project.adapter.ProductCategoryAdapter;
+import com.ltudttbdd.project.adapter.CategoryAdapter;
+import com.ltudttbdd.project.adapter.NewProductAdapter;
 import com.ltudttbdd.project.model.Cart;
 import com.ltudttbdd.project.model.Product;
 import com.ltudttbdd.project.model.ProductCategory;
@@ -55,11 +55,11 @@ public class MainActivity extends AppCompatActivity {
     NavigationView navigationView;
     ListView listViewmanhinhchinh;
     DrawerLayout drawerLayout;
-    ArrayList<ProductCategory> arrayProductCategory;
-    ProductCategoryAdapter productCategoryAdapter;
+    ArrayList<ProductCategory> arrayProductAtMainAct;
+    CategoryAdapter categoryAdapter;
     ArrayList<Product> arrayProduct;
     ArrayList<String> mangquangcao;
-    ProductAdapter productAdapter;
+    NewProductAdapter newProductAdapter;
     //khai báo static để tất cả có thể sử dụng, không mất dữ liệu khi chuyển qua activity khác
     public static ArrayList<Cart> arrayCart;
     int id = 0;
@@ -185,7 +185,7 @@ public class MainActivity extends AppCompatActivity {
                                     description = newItem.getString("description");
                                     idCategory = newItem.getInt("id_category");
                                     arrayProduct.add(new Product(id, productName, price, productImage, description, idCategory));
-                                    productAdapter.notifyDataSetChanged();
+                                    newProductAdapter.notifyDataSetChanged();
 
                                 } catch (JSONException e) {
                                     e.printStackTrace();
@@ -219,16 +219,16 @@ public class MainActivity extends AppCompatActivity {
                             id = category.getInt("id");
                             categoryName = category.getString("category_name");
                             categoryImage = category.getString("category_image");
-                            arrayProductCategory.add(new ProductCategory(id, categoryName, categoryImage));
-                            productCategoryAdapter.notifyDataSetChanged(); //update data
+                            arrayProductAtMainAct.add(new ProductCategory(id, categoryName, categoryImage));
+                            categoryAdapter.notifyDataSetChanged(); //update data
 
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
                     }
-                    arrayProductCategory.add(data.length() + 1, new ProductCategory(0, "Liên hệ", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQWq2hS1q3YW7MStkX9jyfEqYg3jMmftZ82J7az5oN-thj0oycsnw"));
-                    arrayProductCategory.add(data.length() + 2, new ProductCategory(0, "Thông tin", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQmOD06az3sOuJf2IfL4UTSvQkUalSFM-AJjoV8C7CeN-YjtEu9"));
-                    arrayProductCategory.add(data.length() + 3, new ProductCategory(0, "Đăng nhập", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQmOD06az3sOuJf2IfL4UTSvQkUalSFM-AJjoV8C7CeN-YjtEu9"));
+                    arrayProductAtMainAct.add(data.length() + 1, new ProductCategory(0, "Liên hệ", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQWq2hS1q3YW7MStkX9jyfEqYg3jMmftZ82J7az5oN-thj0oycsnw"));
+                    arrayProductAtMainAct.add(data.length() + 2, new ProductCategory(0, "Thông tin", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQmOD06az3sOuJf2IfL4UTSvQkUalSFM-AJjoV8C7CeN-YjtEu9"));
+                    arrayProductAtMainAct.add(data.length() + 3, new ProductCategory(0, "Đăng nhập", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQmOD06az3sOuJf2IfL4UTSvQkUalSFM-AJjoV8C7CeN-YjtEu9"));
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -260,7 +260,7 @@ public class MainActivity extends AppCompatActivity {
                             Picasso.get().load(mangquangcao.get(i)).into(imageView);
                             imageView.setScaleType(ImageView.ScaleType.FIT_XY);
                             viewFlipper.addView(imageView);
-                            productCategoryAdapter.notifyDataSetChanged(); //update data
+                            categoryAdapter.notifyDataSetChanged(); //update data
 
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -309,15 +309,15 @@ public class MainActivity extends AppCompatActivity {
         navigationView = (NavigationView) findViewById(R.id.navigationview);
         listViewmanhinhchinh = (ListView) findViewById(R.id.listviewmanhinhchinh);
         drawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
-        arrayProductCategory = new ArrayList<>();
-        arrayProductCategory.add(0, new ProductCategory(0, "Trang chính", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSHsXduuMdIQh-cyva9fLRDIt6-zBH_Dr0AwEmzdFFpgKKHBjBWgg"));
-        productCategoryAdapter = new ProductCategoryAdapter(arrayProductCategory, getApplicationContext());
-        listViewmanhinhchinh.setAdapter(productCategoryAdapter);
+        arrayProductAtMainAct = new ArrayList<>();
+        arrayProductAtMainAct.add(0, new ProductCategory(0, "Trang chính", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSHsXduuMdIQh-cyva9fLRDIt6-zBH_Dr0AwEmzdFFpgKKHBjBWgg"));
+        categoryAdapter = new CategoryAdapter(arrayProductAtMainAct, getApplicationContext());
+        listViewmanhinhchinh.setAdapter(categoryAdapter);
         arrayProduct = new ArrayList<>();
-        productAdapter = new ProductAdapter(getApplicationContext(), arrayProduct);
+        newProductAdapter = new NewProductAdapter(getApplicationContext(), arrayProduct);
         recyclerViewmanhinhchinh.setHasFixedSize(true);
         recyclerViewmanhinhchinh.setLayoutManager(new GridLayoutManager(getApplicationContext(), 2));
-        recyclerViewmanhinhchinh.setAdapter(productAdapter);
+        recyclerViewmanhinhchinh.setAdapter(newProductAdapter);
         if (arrayCart == null) {
             arrayCart = new ArrayList<>();
         }

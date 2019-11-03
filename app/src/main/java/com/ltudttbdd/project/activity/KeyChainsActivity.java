@@ -24,7 +24,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.ltudttbdd.project.R;
-import com.ltudttbdd.project.adapter.KeychainsAdapter;
+import com.ltudttbdd.project.adapter.ProductViewAdapter;
 import com.ltudttbdd.project.model.Product;
 import com.ltudttbdd.project.ultil.CheckConnection;
 import com.ltudttbdd.project.ultil.Server;
@@ -40,7 +40,7 @@ public class KeyChainsActivity extends AppCompatActivity {
 
     Toolbar toolbarkeychains;
     ListView listviewkeychains;
-    KeychainsAdapter keychainsAdapter;
+    ProductViewAdapter keychainsAdapter;
     ArrayList<Product> arraykeychains;
     int idkeychains = 0;
     int page = 1;
@@ -100,7 +100,7 @@ public class KeyChainsActivity extends AppCompatActivity {
             public void onScroll(AbsListView absListView, int firstItem, int visibleItem, int totalItem) {
                 if (firstItem + visibleItem == totalItem && totalItem != 0 && isLoading == false && limitData == false) {
                     isLoading = true;
-                    KeyChainsActivity.ThreadData threadData = new KeyChainsActivity.ThreadData();
+                    ThreadData threadData = new ThreadData();
                     threadData.start();
                 }
             }
@@ -192,7 +192,7 @@ public class KeyChainsActivity extends AppCompatActivity {
         toolbarkeychains = findViewById(R.id.toolbarkeychains);
         listviewkeychains = findViewById(R.id.listviewkeychains);
         arraykeychains = new ArrayList<>();
-        keychainsAdapter = new KeychainsAdapter(getApplicationContext(), arraykeychains);
+        keychainsAdapter = new ProductViewAdapter(getApplicationContext(), arraykeychains);
         listviewkeychains.setAdapter(keychainsAdapter);
         LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
         footerview = inflater.inflate(R.layout.progress_bar, null);

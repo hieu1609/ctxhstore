@@ -24,8 +24,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.ltudttbdd.project.R;
-import com.ltudttbdd.project.adapter.DrinkAdapter;
-import com.ltudttbdd.project.adapter.FoodAdapter;
+import com.ltudttbdd.project.adapter.ProductViewAdapter;
 import com.ltudttbdd.project.model.Product;
 import com.ltudttbdd.project.ultil.CheckConnection;
 import com.ltudttbdd.project.ultil.Server;
@@ -41,7 +40,7 @@ public class DrinkActivity extends AppCompatActivity {
 
     Toolbar toolbardrink;
     ListView listviewdrink;
-    DrinkAdapter drinkAdapter;
+    ProductViewAdapter drinkAdapter;
     ArrayList<Product> arraydrink;
     int iddrink = 0;
     int page = 1;
@@ -101,7 +100,7 @@ public class DrinkActivity extends AppCompatActivity {
             public void onScroll(AbsListView absListView, int firstItem, int visibleItem, int totalItem) {
                 if (firstItem + visibleItem == totalItem && totalItem != 0 && isLoading == false && limitData == false) {
                     isLoading = true;
-                    DrinkActivity.ThreadData threadData = new DrinkActivity.ThreadData();
+                    ThreadData threadData = new ThreadData();
                     threadData.start();
                 }
             }
@@ -193,7 +192,7 @@ public class DrinkActivity extends AppCompatActivity {
         toolbardrink = findViewById(R.id.toolbarfood);
         listviewdrink = findViewById(R.id.listviewfood);
         arraydrink = new ArrayList<>();
-        drinkAdapter = new DrinkAdapter(getApplicationContext(), arraydrink);
+        drinkAdapter = new ProductViewAdapter(getApplicationContext(), arraydrink);
         listviewdrink.setAdapter(drinkAdapter);
         LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
         footerview = inflater.inflate(R.layout.progress_bar, null);

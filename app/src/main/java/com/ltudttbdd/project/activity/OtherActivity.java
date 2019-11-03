@@ -25,7 +25,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 
 import com.android.volley.toolbox.Volley;
 import com.ltudttbdd.project.R;
-import com.ltudttbdd.project.adapter.OtherAdapter;
+import com.ltudttbdd.project.adapter.ProductViewAdapter;
 import com.ltudttbdd.project.model.Product;
 
 import com.ltudttbdd.project.ultil.CheckConnection;
@@ -43,7 +43,7 @@ public class OtherActivity extends AppCompatActivity {
 
     Toolbar toolbarother;
     ListView listviewother;
-    OtherAdapter otherAdapter;
+    ProductViewAdapter otherAdapter;
     ArrayList<Product> arrayother;
     int idother = 0;
     int page = 1;
@@ -103,7 +103,7 @@ public class OtherActivity extends AppCompatActivity {
             public void onScroll(AbsListView absListView, int firstItem, int visibleItem, int totalItem) {
                 if (firstItem + visibleItem == totalItem && totalItem != 0 && isLoading == false && limitData == false) {
                     isLoading = true;
-                    OtherActivity.ThreadData threadData = new OtherActivity.ThreadData();
+                    ThreadData threadData = new ThreadData();
                     threadData.start();
                 }
             }
@@ -194,7 +194,7 @@ public class OtherActivity extends AppCompatActivity {
         toolbarother = findViewById(R.id.toolbarother);
         listviewother = findViewById(R.id.listviewother);
         arrayother = new ArrayList<>();
-        otherAdapter = new OtherAdapter(getApplicationContext(), arrayother);
+        otherAdapter = new ProductViewAdapter(getApplicationContext(), arrayother);
         listviewother.setAdapter(otherAdapter);
         LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
         footerview = inflater.inflate(R.layout.progress_bar, null);

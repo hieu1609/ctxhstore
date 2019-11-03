@@ -44,9 +44,9 @@ public class CartAdapter extends BaseAdapter {
     }
 
     public class ViewHoler {
-        public TextView txtCartName, txtCartPrice;
+        public TextView txtCartName, txtCartPrice, txtValues;
         public ImageView imgCart;
-        public Button btnMinus, btnValues, btnPlus;
+        public Button btnMinus, btnPlus;
     }
 
     @Override
@@ -58,14 +58,14 @@ public class CartAdapter extends BaseAdapter {
             view = inflater.inflate(R.layout.list_cart, null);
             viewHoler.txtCartName = view.findViewById(R.id.textviewcartname);
             viewHoler.txtCartPrice = view.findViewById(R.id.textviewcartprice);
-            viewHoler.imgCart = view.findViewById(R.id.imageviewcart);
+            viewHoler.imgCart = view.findViewById(R.id.cartProductImg);
             viewHoler.btnMinus = view.findViewById(R.id.buttonminus);
             viewHoler.btnPlus = view.findViewById(R.id.buttonplus);
-            viewHoler.btnValues = view.findViewById(R.id.buttonvalues);
+            viewHoler.txtValues = view.findViewById(R.id.txt_values);
             view.setTag(viewHoler);
         }
         else {
-            viewHoler = (CartAdapter.ViewHoler) view.getTag();
+            viewHoler = (ViewHoler) view.getTag();
         }
         Cart cart = (Cart) getItem(i);
         viewHoler.txtCartName.setText(cart.getNameproduct());
@@ -75,12 +75,12 @@ public class CartAdapter extends BaseAdapter {
                 .placeholder(R.drawable.noimg)
                 .error((R.drawable.errorimg))
                 .into(viewHoler.imgCart);
-        viewHoler.btnValues.setText(String.valueOf(cart.getNumberproduct()));
-        int numberProduct = Integer.parseInt(viewHoler.btnValues.getText().toString());
+        viewHoler.txtValues.setText(String.valueOf(cart.getNumberproduct()));
+        int numberProduct = Integer.parseInt(viewHoler.txtValues.getText().toString());
         if (numberProduct > 9) {
             viewHoler.btnPlus.setVisibility(View.INVISIBLE);
             viewHoler.btnMinus.setVisibility(View.VISIBLE);
-            viewHoler.btnValues.setText("10");
+            viewHoler.txtValues.setText("10");
             int newNumber = 10;
             int nowNumber = MainActivity.arrayCart.get(i).getNumberproduct();
             long nowPrice = MainActivity.arrayCart.get(i).getPriceproduct();
@@ -103,7 +103,7 @@ public class CartAdapter extends BaseAdapter {
         viewHoler.btnPlus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int newNumber = Integer.parseInt(finalViewHoler.btnValues.getText().toString()) + 1;
+                int newNumber = Integer.parseInt(finalViewHoler.txtValues.getText().toString()) + 1;
                 int nowNumber = MainActivity.arrayCart.get(i).getNumberproduct();
                 long nowPrice = MainActivity.arrayCart.get(i).getPriceproduct();
                 long newPrice = (nowPrice * newNumber) / nowNumber;
@@ -115,19 +115,19 @@ public class CartAdapter extends BaseAdapter {
                 if (newNumber > 9) {
                     finalViewHoler.btnPlus.setVisibility(View.INVISIBLE);
                     finalViewHoler.btnMinus.setVisibility(View.VISIBLE);
-                    finalViewHoler.btnValues.setText(String.valueOf(newNumber));
+                    finalViewHoler.txtValues.setText(String.valueOf(newNumber));
                 }
                 else {
                     finalViewHoler.btnPlus.setVisibility(View.VISIBLE);
                     finalViewHoler.btnMinus.setVisibility(View.VISIBLE);
-                    finalViewHoler.btnValues.setText(String.valueOf(newNumber));
+                    finalViewHoler.txtValues.setText(String.valueOf(newNumber));
                 }
             }
         });
         viewHoler.btnMinus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int newNumber = Integer.parseInt(finalViewHoler.btnValues.getText().toString()) - 1;
+                int newNumber = Integer.parseInt(finalViewHoler.txtValues.getText().toString()) - 1;
                 int nowNumber = MainActivity.arrayCart.get(i).getNumberproduct();
                 long nowPrice = MainActivity.arrayCart.get(i).getPriceproduct();
                 long newPrice = (nowPrice * newNumber) / nowNumber;
@@ -139,12 +139,12 @@ public class CartAdapter extends BaseAdapter {
                 if (newNumber < 2) {
                     finalViewHoler.btnPlus.setVisibility(View.VISIBLE);
                     finalViewHoler.btnMinus.setVisibility(View.INVISIBLE);
-                    finalViewHoler.btnValues.setText(String.valueOf(newNumber));
+                    finalViewHoler.txtValues.setText(String.valueOf(newNumber));
                 }
                 else {
                     finalViewHoler.btnPlus.setVisibility(View.VISIBLE);
                     finalViewHoler.btnMinus.setVisibility(View.VISIBLE);
-                    finalViewHoler.btnValues.setText(String.valueOf(newNumber));
+                    finalViewHoler.txtValues.setText(String.valueOf(newNumber));
                 }
             }
         });

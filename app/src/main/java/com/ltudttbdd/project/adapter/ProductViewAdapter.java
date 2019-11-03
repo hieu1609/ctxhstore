@@ -52,9 +52,9 @@ public class ProductViewAdapter extends BaseAdapter {
 
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
-        ProductViewAdapter.ViewHoler viewHoler = null;
+        ViewHoler viewHoler = null;
         if (view == null) {
-            viewHoler = new ProductViewAdapter.ViewHoler();
+            viewHoler = new ViewHoler();
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 //            view = inflater.inflate(R.layout.list_bracelet, null);
 //            viewHoler.txtbraceletname = view.findViewById(R.id.textviewbraceletname);
@@ -74,7 +74,7 @@ public class ProductViewAdapter extends BaseAdapter {
             view.setTag(viewHoler);
         }
         else {
-            viewHoler = (ProductViewAdapter.ViewHoler) view.getTag();
+            viewHoler = (ViewHoler) view.getTag();
         }
         Product product = (Product) getItem(i);
         viewHoler.txt_ProductName.setText(product.getProductName());
