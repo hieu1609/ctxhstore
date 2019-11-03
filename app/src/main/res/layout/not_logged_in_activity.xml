@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg"
+    android:background="@drawable/nen"
     android:orientation="vertical"
     tools:context=".activity.NotLoggedInActivity">
     <androidx.appcompat.widget.Toolbar
@@ -15,6 +15,13 @@
         app:title="Thông tin người dùng"
         app:titleTextColor="#ffffff">
     </androidx.appcompat.widget.Toolbar>
+    <RelativeLayout
+        android:layout_below="@id/toolbarnotlogged"
+        android:background="#8C0FA092"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </RelativeLayout>
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="255dp"
@@ -30,7 +37,7 @@
             android:layout_height="100dp"
             android:gravity="center"
             android:text="CTXH STORE"
-            android:textColor="#000"
+            android:textColor="#E6ffffff"
             android:textSize="30sp"
 
             android:textStyle="bold" />
@@ -49,7 +56,7 @@
                 android:id="@+id/login"
                 android:layout_width="350px"
                 android:layout_height="wrap_content"
-                android:background="@drawable/border2"
+                android:background="@drawable/border4"
                 android:padding="10dp"
                 android:text="Đăng nhập" />
         </RelativeLayout>
@@ -67,7 +74,7 @@
                     android:id="@+id/register"
                     android:layout_width="350px"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/border2"
+                    android:background="@drawable/border4"
                     android:padding="10dp"
                     android:text="Đăng ký" />
 

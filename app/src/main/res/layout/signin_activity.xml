@@ -7,17 +7,26 @@
     android:layout_height="match_parent"
     android:background="@drawable/nen"
     tools:context=".activity.SignInActivity">
-
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbarsigin"
+        android:layout_width="match_parent"
+        android:layout_height="@android:dimen/app_icon_size"
+        android:background="@color/colorInformation"
+        app:title="Sigin"
+        app:titleTextColor="#ffffff">
+    </androidx.appcompat.widget.Toolbar>
     <RelativeLayout
+        android:layout_below="@id/toolbarsigin"
         android:id="@+id/relativelayout"
+        android:background="#8C0FA092"
         android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <TextView
             android:id="@+id/text"
-            android:textSize="30sp"
-            android:textColor="#CC000000"
+            android:textSize="35sp"
+            android:textColor="#E6ffffff"
             android:text="Đăng Nhập"
             android:textStyle="bold"
             android:layout_marginTop="-200dp"
@@ -29,7 +38,7 @@
             android:layout_marginLeft="@dimen/activity_horizontal_margin"
             android:layout_marginRight="@dimen/activity_horizontal_margin"
             android:layout_below="@id/text"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="30dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <EditText
@@ -37,9 +46,9 @@
                 android:layout_margin="5dp"
                 android:inputType="text"
                 android:hint="Email"
+                android:drawablePadding="10dp"
                 android:drawableLeft="@drawable/ic_email_black_24dp"
-                android:alpha="0.7"
-                android:drawablePadding="5dp"
+                android:alpha="0.9"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -57,8 +66,9 @@
                 android:layout_margin="5dp"
                 android:inputType="textPassword"
                 android:hint="Password"
+                android:drawablePadding="10dp"
                 android:drawableLeft="@drawable/ic_vpn_key_black_24dp"
-                android:alpha="0.7"
+                android:alpha="0.9"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -72,7 +82,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <Button
-                android:layout_marginRight="20dp"
+                android:layout_marginRight="50dp"
                 android:layout_marginLeft="20dp"
                 android:id="@+id/confirmbutton"
                 android:background="@drawable/border4"
@@ -89,16 +99,6 @@
                 android:padding="10dp"
                 android:textSize="15sp"
                 android:text="Đăng ký"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-            <Button
-                android:id="@+id/returnbutton"
-                android:layout_marginRight="20dp"
-                android:layout_marginLeft="20dp"
-                android:padding="10dp"
-                android:background="@drawable/border4"
-                android:textSize="15sp"
-                android:text="Trở về"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 

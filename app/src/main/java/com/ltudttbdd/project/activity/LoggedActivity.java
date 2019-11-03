@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,12 +39,17 @@ public class LoggedActivity extends AppCompatActivity {
     TextView edtUsername, edtEmail;
     Toolbar toolbarlogged;
     Button btnConfigAccout, btnPurcharse, btnMyRate, btnLogout;
-
+    ImageView imageView;
+    ImageView imageView1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.user_info_activity);
+        imageView  = findViewById(R.id.image);
+        this.imageView.setImageResource(R.drawable.vy);
+        imageView1 = findViewById(R.id.ImageView);
+        this.imageView1.setImageResource(R.drawable.ctxh);
         Mappings();
         ActionToolbar();
 //        btnreturn.setOnClickListener(new View.OnClickListener() {
