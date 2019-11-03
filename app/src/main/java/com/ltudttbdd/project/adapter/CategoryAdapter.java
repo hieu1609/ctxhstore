@@ -14,11 +14,11 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-public class ProductCategoryAdapter extends BaseAdapter {
+public class CategoryAdapter extends BaseAdapter {
     ArrayList<ProductCategory> arrayListProductCategory;
     Context context;
 
-    public ProductCategoryAdapter(ArrayList<ProductCategory> arrayListProductCategory, Context context) {
+    public CategoryAdapter(ArrayList<ProductCategory> arrayListProductCategory, Context context) {
         this.arrayListProductCategory = arrayListProductCategory;
         this.context = context;
     }

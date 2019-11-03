@@ -20,11 +20,11 @@ import com.squareup.picasso.Picasso;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
-public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ItemHolder> {
+public class NewProductAdapter extends RecyclerView.Adapter<NewProductAdapter.ItemHolder> {
     Context context;
     ArrayList<Product> arrayProduct;
 
-    public ProductAdapter(Context context, ArrayList<Product> arrayProduct) {
+    public NewProductAdapter(Context context, ArrayList<Product> arrayProduct) {
         this.context = context;
         this.arrayProduct = arrayProduct;
     }
