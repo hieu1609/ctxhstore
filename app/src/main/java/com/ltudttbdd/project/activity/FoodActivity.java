@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -173,6 +174,8 @@ public class FoodActivity extends AppCompatActivity {
     private void ActionToolbar() {
         setSupportActionBar(toolbarfood);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Drawable newbackbtn = getResources().getDrawable(R.drawable.ic_back);
+        getSupportActionBar().setHomeAsUpIndicator(newbackbtn);
         toolbarfood.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

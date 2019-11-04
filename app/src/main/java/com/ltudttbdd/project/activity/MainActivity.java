@@ -226,9 +226,16 @@ public class MainActivity extends AppCompatActivity {
                             e.printStackTrace();
                         }
                     }
+//                    arrayProductAtMainAct.add(data.length() + 1, new ProductCategory(0, "Liên hệ", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQWq2hS1q3YW7MStkX9jyfEqYg3jMmftZ82J7az5oN-thj0oycsnw"));
                     arrayProductAtMainAct.add(data.length() + 1, new ProductCategory(0, "Liên hệ", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQWq2hS1q3YW7MStkX9jyfEqYg3jMmftZ82J7az5oN-thj0oycsnw"));
-                    arrayProductAtMainAct.add(data.length() + 2, new ProductCategory(0, "Thông tin", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQmOD06az3sOuJf2IfL4UTSvQkUalSFM-AJjoV8C7CeN-YjtEu9"));
-                    arrayProductAtMainAct.add(data.length() + 3, new ProductCategory(0, "Đăng nhập", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQmOD06az3sOuJf2IfL4UTSvQkUalSFM-AJjoV8C7CeN-YjtEu9"));
+//                    arrayProductAtMainAct.add(data.length() + 2, new ProductCategory(0, "Thông tin", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQmOD06az3sOuJf2IfL4UTSvQkUalSFM-AJjoV8C7CeN-YjtEu9"));
+                    arrayProductAtMainAct.add(data.length() + 2, new ProductCategory(0, "Thông tin", "https://i.ibb.co/jb1jCcQ/info.png"));
+                    if (isLogin != true){
+                        //arrayProductAtMainAct.add(data.length() + 3, new ProductCategory(0, "Đăng nhập", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQmOD06az3sOuJf2IfL4UTSvQkUalSFM-AJjoV8C7CeN-YjtEu9"));
+                        arrayProductAtMainAct.add(data.length() + 3, new ProductCategory(0, "Đăng nhập", "https://i.ibb.co/FXczf6H/enter.png"));
+                    } else {
+                        arrayProductAtMainAct.add(data.length() + 3, new ProductCategory(0, "Thông tin người dùng", "https://i.ibb.co/xLsLHCh/users.png"));
+                    }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -310,7 +317,9 @@ public class MainActivity extends AppCompatActivity {
         listViewmanhinhchinh = (ListView) findViewById(R.id.listviewmanhinhchinh);
         drawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
         arrayProductAtMainAct = new ArrayList<>();
-        arrayProductAtMainAct.add(0, new ProductCategory(0, "Trang chính", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSHsXduuMdIQh-cyva9fLRDIt6-zBH_Dr0AwEmzdFFpgKKHBjBWgg"));
+//        arrayProductAtMainAct.add(0, new ProductCategory(0, "Trang chính", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSHsXduuMdIQh-cyva9fLRDIt6-zBH_Dr0AwEmzdFFpgKKHBjBWgg"));
+//        arrayProductAtMainAct.add(0, new ProductCategory(0, "Trang chính", "https://i.ibb.co/qnJhDMP/homepage.png"));
+        arrayProductAtMainAct.add(0, new ProductCategory(0, "Trang chính", "https://i.ibb.co/yPKNdTS/homepage-1.png"));
         categoryAdapter = new CategoryAdapter(arrayProductAtMainAct, getApplicationContext());
         listViewmanhinhchinh.setAdapter(categoryAdapter);
         arrayProduct = new ArrayList<>();

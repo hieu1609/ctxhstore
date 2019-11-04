@@ -78,8 +78,10 @@ public class CartAdapter extends BaseAdapter {
         viewHoler.txtValues.setText(String.valueOf(cart.getNumberproduct()));
         int numberProduct = Integer.parseInt(viewHoler.txtValues.getText().toString());
         if (numberProduct > 9) {
-            viewHoler.btnPlus.setVisibility(View.INVISIBLE);
-            viewHoler.btnMinus.setVisibility(View.VISIBLE);
+//            viewHoler.btnPlus.setVisibility(View.INVISIBLE);
+//            viewHoler.btnMinus.setVisibility(View.VISIBLE);
+            viewHoler.btnPlus.setEnabled(false);
+            viewHoler.btnMinus.setEnabled(true);
             viewHoler.txtValues.setText("10");
             int newNumber = 10;
             int nowNumber = MainActivity.arrayCart.get(i).getNumberproduct();
@@ -92,13 +94,18 @@ public class CartAdapter extends BaseAdapter {
             CartActivity.EventUtil();
         }
         else if (numberProduct <= 1) {
-            viewHoler.btnPlus.setVisibility(View.VISIBLE);
-            viewHoler.btnMinus.setVisibility(View.INVISIBLE);
+//            viewHoler.btnPlus.setVisibility(View.VISIBLE);
+//            viewHoler.btnMinus.setVisibility(View.INVISIBLE);
+            viewHoler.btnPlus.setEnabled(true);
+            viewHoler.btnMinus.setEnabled(false);
         }
         else if (numberProduct > 1) {
-            viewHoler.btnPlus.setVisibility(View.VISIBLE);
-            viewHoler.btnMinus.setVisibility(View.VISIBLE);
+//            viewHoler.btnPlus.setVisibility(View.VISIBLE);
+//            viewHoler.btnMinus.setVisibility(View.VISIBLE);
+            viewHoler.btnPlus.setEnabled(true);
+            viewHoler.btnMinus.setEnabled(true);
         }
+
         final ViewHoler finalViewHoler = viewHoler;
         viewHoler.btnPlus.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -113,17 +120,22 @@ public class CartAdapter extends BaseAdapter {
                 finalViewHoler.txtCartPrice.setText(decimalFormat.format(newPrice) + " VNĐ");
                 CartActivity.EventUtil();
                 if (newNumber > 9) {
-                    finalViewHoler.btnPlus.setVisibility(View.INVISIBLE);
-                    finalViewHoler.btnMinus.setVisibility(View.VISIBLE);
+//                    finalViewHoler.btnPlus.setVisibility(View.INVISIBLE);
+//                    finalViewHoler.btnMinus.setVisibility(View.VISIBLE);
+                    finalViewHoler.btnPlus.setEnabled(false);
+                    finalViewHoler.btnMinus.setEnabled(true);
                     finalViewHoler.txtValues.setText(String.valueOf(newNumber));
                 }
                 else {
-                    finalViewHoler.btnPlus.setVisibility(View.VISIBLE);
-                    finalViewHoler.btnMinus.setVisibility(View.VISIBLE);
+//                    finalViewHoler.btnPlus.setVisibility(View.VISIBLE);
+//                    finalViewHoler.btnMinus.setVisibility(View.VISIBLE);
+                    finalViewHoler.btnPlus.setEnabled(true);
+                    finalViewHoler.btnMinus.setEnabled(true);
                     finalViewHoler.txtValues.setText(String.valueOf(newNumber));
                 }
             }
         });
+
         viewHoler.btnMinus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -137,13 +149,17 @@ public class CartAdapter extends BaseAdapter {
                 finalViewHoler.txtCartPrice.setText(decimalFormat.format(newPrice) + " VNĐ");
                 CartActivity.EventUtil();
                 if (newNumber < 2) {
-                    finalViewHoler.btnPlus.setVisibility(View.VISIBLE);
-                    finalViewHoler.btnMinus.setVisibility(View.INVISIBLE);
+//                    finalViewHoler.btnPlus.setVisibility(View.VISIBLE);
+//                    finalViewHoler.btnMinus.setVisibility(View.INVISIBLE);
+                    finalViewHoler.btnPlus.setEnabled(true);
+                    finalViewHoler.btnMinus.setEnabled(false);
                     finalViewHoler.txtValues.setText(String.valueOf(newNumber));
                 }
                 else {
-                    finalViewHoler.btnPlus.setVisibility(View.VISIBLE);
-                    finalViewHoler.btnMinus.setVisibility(View.VISIBLE);
+//                    finalViewHoler.btnPlus.setVisibility(View.VISIBLE);
+//                    finalViewHoler.btnMinus.setVisibility(View.VISIBLE);
+                    finalViewHoler.btnPlus.setEnabled(true);
+                    finalViewHoler.btnMinus.setEnabled(true);
                     finalViewHoler.txtValues.setText(String.valueOf(newNumber));
                 }
             }

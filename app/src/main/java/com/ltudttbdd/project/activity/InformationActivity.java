@@ -3,6 +3,7 @@ package com.ltudttbdd.project.activity;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
 
@@ -36,6 +37,8 @@ public class InformationActivity extends AppCompatActivity implements OnMapReady
     private void ActionBar() {
         setSupportActionBar(toolbarinformation);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Drawable newbackbtn = getResources().getDrawable(R.drawable.ic_back);
+        getSupportActionBar().setHomeAsUpIndicator(newbackbtn);
         toolbarinformation.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -1,6 +1,7 @@
 package com.ltudttbdd.project.activity;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -107,6 +108,8 @@ public class LoggedActivity extends AppCompatActivity {
     private void ActionToolbar() {
         setSupportActionBar(toolbarlogged);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Drawable newbackbtn = getResources().getDrawable(R.drawable.ic_back);
+        getSupportActionBar().setHomeAsUpIndicator(newbackbtn);
         toolbarlogged.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
