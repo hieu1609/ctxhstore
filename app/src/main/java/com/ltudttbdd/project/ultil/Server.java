@@ -2,7 +2,7 @@ package com.ltudttbdd.project.ultil;
 
 public class Server {
 
-    public static String localhost = "172.20.27.88:80";
+    public static String localhost = "172.30.234.76:80";
 //    public static String localhost = "192.168.1.15:800";
 
 
