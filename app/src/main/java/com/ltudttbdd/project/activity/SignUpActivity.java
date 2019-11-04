@@ -32,7 +32,7 @@ public class SignUpActivity extends AppCompatActivity {
 
     EditText edtEmail, edtAddress, edtPassword, edtConfirmPassword, edtName, edtPhone;
     Button btnconfirm, btnreturn;
-    Toolbar toolbarsigup;
+    Toolbar toolbarsignup;
     //private View alphaColorView;
 
     @Override
@@ -40,7 +40,7 @@ public class SignUpActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.signup_activity);
         Mappings();
-        toolbarsigup = findViewById(R.id.toolbarsigup);
+        toolbarsignup = findViewById(R.id.toolbarsignup);
         ActionBar();
         //alphaColorView = (View)findViewById(R.id.relativelayout);
         //alphaColorView.setBackgroundColor(getColorWithAlpha(Color.WHITE, 0.2f));
@@ -57,12 +57,12 @@ public class SignUpActivity extends AppCompatActivity {
         }
     }
     private void ActionBar() {
-        setSupportActionBar(toolbarsigup);
+        setSupportActionBar(toolbarsignup);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        toolbarsigup.setNavigationOnClickListener(new View.OnClickListener() {
+        toolbarsignup.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent signin = new Intent(getApplicationContext(), SignInActivity.class);
+                Intent signin = new Intent(SignUpActivity.this, SignInActivity.class);
                 startActivity(signin);
                 finish();
             }
@@ -101,19 +101,14 @@ public class SignUpActivity extends AppCompatActivity {
                     postParams.put("email", edtEmail.getText().toString());
                     postParams.put("password", edtPassword.getText().toString());
                     postParams.put("confirmPassword", edtConfirmPassword.getText().toString());
-                    Log.d("checksignup", edtName.getText().toString());
-                    Log.d("checksignup", edtPhone.getText().toString());
-                    Log.d("checksignup", edtAddress.getText().toString());
-                    Log.d("checksignup", edtEmail.getText().toString());
-                    Log.d("checksignup", edtPassword.getText().toString());
-                    Log.d("checksignup", edtConfirmPassword.getText().toString());
-
 
                     final JSONObject jsonObject = new JSONObject(postParams);
                     JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, Server.urlRegister, jsonObject, new Response.Listener<JSONObject>() {
                         @Override
                         public void onResponse(JSONObject response) {
                             Toast.makeText(SignUpActivity.this, "Bạn đã đăng ký thành công", Toast.LENGTH_LONG).show();
+                            Intent signin = new Intent(SignUpActivity.this, SignInActivity.class);
+                            startActivity(signin);
                             finish();
 
                         }

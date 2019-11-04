@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="@android:dimen/app_icon_size"
         android:background="@color/colorInformation"
-        app:title="My Blog"
+        app:title="Thông tin người dùng"
         app:titleTextColor="#ffffff">
     </androidx.appcompat.widget.Toolbar>
     <RelativeLayout
@@ -44,7 +44,7 @@
                 android:textSize="20sp"
                 android:textStyle="bold" />
             <TextView
-                android:layout_below="@id/text4"
+                android:layout_below="@+id/text4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"

@@ -7,7 +7,7 @@
     android:orientation="vertical"
     tools:context=".activity.UserDetailActivity">
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbarsigin"
+        android:id="@+id/toolbarsignin"
         android:layout_width="match_parent"
         android:layout_height="@android:dimen/app_icon_size"
         android:background="@color/colorInformation"

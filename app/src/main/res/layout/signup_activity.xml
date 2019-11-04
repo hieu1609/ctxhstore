@@ -7,11 +7,11 @@
     android:orientation="vertical"
     tools:context=".activity.SignUpActivity">
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbarsigup"
+        android:id="@+id/toolbarsignup"
         android:layout_width="match_parent"
         android:layout_height="@android:dimen/app_icon_size"
         android:background="@color/colorInformation"
-        app:title="Sigup"
+        app:title="Đăng ký"
         app:titleTextColor="#ffffff">
     </androidx.appcompat.widget.Toolbar>
 

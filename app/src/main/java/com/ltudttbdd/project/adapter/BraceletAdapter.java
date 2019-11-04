@@ -69,7 +69,7 @@ public class BraceletAdapter extends BaseAdapter {
         viewHoler.txtbraceletdescription.setEllipsize(TextUtils.TruncateAt.END);
         viewHoler.txtbraceletdescription.setText(product.getDescription());
         Picasso.get().load(product.getProductImage())
-                .placeholder(R.drawable.noimg)
+                .placeholder(R.drawable.defaultimg)
                 .error((R.drawable.errorimg))
                 .into(viewHoler.imgbracelet);
         return view;
