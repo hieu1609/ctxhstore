@@ -83,7 +83,7 @@ public class LoggedActivity extends AppCompatActivity {
                     public void onResponse(JSONObject response) {
                         Log.d("TestLogout", "onResponse: đã log out ");
                         isLogin =false;
-                        Intent notLoggedAc = new Intent(getApplicationContext(), NotLoggedInActivity.class);
+                        Intent notLoggedAc = new Intent(getApplicationContext(), SignInActivity.class);
                         startActivity(notLoggedAc);
                         finish();
                     }
@@ -113,8 +113,6 @@ public class LoggedActivity extends AppCompatActivity {
         toolbarlogged.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent mainAc = new Intent(getApplicationContext(), MainActivity.class);
-                startActivity(mainAc);
                 finish();
             }
         });

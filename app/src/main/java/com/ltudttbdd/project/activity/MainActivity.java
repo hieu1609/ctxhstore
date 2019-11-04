@@ -129,7 +129,7 @@ public class MainActivity extends AppCompatActivity {
                                 break;
                     }
                             else{
-                                Intent login = new Intent(getApplicationContext(), NotLoggedInActivity.class);
+                                Intent login = new Intent(getApplicationContext(), SignInActivity.class);
                                 startActivity(login);
                                 break;
                             }
