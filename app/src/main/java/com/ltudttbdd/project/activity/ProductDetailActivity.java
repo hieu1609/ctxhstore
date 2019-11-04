@@ -118,7 +118,7 @@ public class ProductDetailActivity extends AppCompatActivity {
         txtprice.setText("Giá: " + decimalFormat.format(price) + " VNĐ");
         txtdescription.setText(description);
         Picasso.get().load(productImage)
-                .placeholder(R.drawable.noimg)
+                .placeholder(R.drawable.defaultimg)
                 .error(R.drawable.errorimg)
                 .into(imgproductdetail);
     }

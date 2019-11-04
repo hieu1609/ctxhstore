@@ -69,7 +69,7 @@ public class FoodAdapter extends BaseAdapter {
         viewHoler.txtfooddescription.setEllipsize(TextUtils.TruncateAt.END);
         viewHoler.txtfooddescription.setText(product.getDescription());
         Picasso.get().load(product.getProductImage())
-                .placeholder(R.drawable.noimg)
+                .placeholder(R.drawable.defaultimg)
                 .error((R.drawable.errorimg))
                 .into(viewHoler.imgfood);
         return view;

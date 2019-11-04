@@ -69,7 +69,7 @@ public class DrinkAdapter extends BaseAdapter {
         viewHoler.txtdrinkdescription.setEllipsize(TextUtils.TruncateAt.END);
         viewHoler.txtdrinkdescription.setText(product.getDescription());
         Picasso.get().load(product.getProductImage())
-                .placeholder(R.drawable.noimg)
+                .placeholder(R.drawable.defaultimg)
                 .error((R.drawable.errorimg))
                 .into(viewHoler.imgdrink);
         return view;

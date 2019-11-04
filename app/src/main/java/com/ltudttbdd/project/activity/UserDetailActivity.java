@@ -142,8 +142,6 @@ public class UserDetailActivity extends AppCompatActivity {
                                     public String getBodyContentType() {
                                         return "application/json; charset=utf-8";
                                     }
-
-
                                 };
                                 RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
                                 requestQueue.add(jsonObjectRequest);
@@ -160,8 +158,6 @@ public class UserDetailActivity extends AppCompatActivity {
                         public String getBodyContentType() {
                             return "application/json; charset=utf-8";
                         }
-
-
                     };
                     RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
                     requestQueue.add(jsonObjectRequest);

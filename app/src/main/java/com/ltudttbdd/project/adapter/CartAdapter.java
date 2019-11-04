@@ -72,7 +72,7 @@ public class CartAdapter extends BaseAdapter {
         DecimalFormat decimalFormat = new DecimalFormat("###,###,###");
         viewHoler.txtCartPrice.setText(decimalFormat.format(cart.getPriceproduct()) + " VNĐ");
         Picasso.get().load(cart.getImageproduct())
-                .placeholder(R.drawable.noimg)
+                .placeholder(R.drawable.defaultimg)
                 .error((R.drawable.errorimg))
                 .into(viewHoler.imgCart);
         viewHoler.btnValues.setText(String.valueOf(cart.getNumberproduct()));

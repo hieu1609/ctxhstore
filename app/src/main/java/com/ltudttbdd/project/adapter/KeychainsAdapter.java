@@ -69,7 +69,7 @@ public class KeychainsAdapter extends BaseAdapter {
         viewHoler.txtkeychainsdescription.setEllipsize(TextUtils.TruncateAt.END);
         viewHoler.txtkeychainsdescription.setText(product.getDescription());
         Picasso.get().load(product.getProductImage())
-                .placeholder(R.drawable.noimg)
+                .placeholder(R.drawable.defaultimg)
                 .error((R.drawable.errorimg))
                 .into(viewHoler.imgkeychains);
         return view;

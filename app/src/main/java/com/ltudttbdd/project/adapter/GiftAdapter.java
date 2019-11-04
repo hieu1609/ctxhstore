@@ -69,7 +69,7 @@ public class GiftAdapter extends BaseAdapter {
         viewHoler.txtgiftdescription.setEllipsize(TextUtils.TruncateAt.END);
         viewHoler.txtgiftdescription.setText(product.getDescription());
         Picasso.get().load(product.getProductImage())
-                .placeholder(R.drawable.noimg)
+                .placeholder(R.drawable.defaultimg)
                 .error((R.drawable.errorimg))
                 .into(viewHoler.imggift);
         return view;

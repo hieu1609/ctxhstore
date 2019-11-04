@@ -39,7 +39,7 @@ public class SignInActivity extends AppCompatActivity {
 
     EditText edtPassword, edtEmail;
     Button btnconfirm, btnsignup;
-    Toolbar toolbarsigin;
+    Toolbar toolbarsignin;
     //private View alphaColorView;
     int numOfItem, orderId;
     int numRes = 0;
@@ -49,7 +49,7 @@ public class SignInActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.signin_activity);
         Mappings();
-        toolbarsigin = findViewById(R.id.toolbarsigin);
+        toolbarsignin = findViewById(R.id.toolbarsignin);
         ActionBar();
         //alphaColorView = (View)findViewById(R.id.relativelayout);
         //alphaColorView.setBackgroundColor(getColorWithAlpha(Color.BLACK, 0.2f));
@@ -75,9 +75,9 @@ public class SignInActivity extends AppCompatActivity {
     }
 
     private void ActionBar() {
-        setSupportActionBar(toolbarsigin);
+        setSupportActionBar(toolbarsignin);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        toolbarsigin.setNavigationOnClickListener(new View.OnClickListener() {
+        toolbarsignin.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();

@@ -69,7 +69,7 @@ public class OtherAdapter extends BaseAdapter {
         viewHoler.txtotherdescription.setEllipsize(TextUtils.TruncateAt.END);
         viewHoler.txtotherdescription.setText(product.getDescription());
         Picasso.get().load(product.getProductImage())
-                .placeholder(R.drawable.noimg)
+                .placeholder(R.drawable.defaultimg)
                 .error((R.drawable.errorimg))
                 .into(viewHoler.imgother);
         return view;

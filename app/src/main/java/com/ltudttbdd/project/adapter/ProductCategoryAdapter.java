@@ -60,7 +60,7 @@ public class ProductCategoryAdapter extends BaseAdapter {
         ProductCategory productCategory = (ProductCategory) getItem(i);
         viewHolder.txtCategoryName.setText(productCategory.getCategoryName());
         Picasso.get().load(productCategory.getCategoryImage())
-                .placeholder(R.drawable.noimg)
+                .placeholder(R.drawable.defaultimg)
                 .error(R.drawable.defaultimg)
                 .into(viewHolder.imgCategoryImage);
         return view;
