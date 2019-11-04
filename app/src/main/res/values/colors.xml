@@ -21,4 +21,7 @@
     <color name="color1">#b1d7e0</color>
     <color name="color2">#ffc608</color>
     <color name="color3">#bfc2c7</color>
+    <color name="color4">#F8F8FF</color>
+    <color name="nhat">#ffffff</color>     <!-- Màu đỏ -->
+    <color name="dam">#800FA092</color>
 </resources>

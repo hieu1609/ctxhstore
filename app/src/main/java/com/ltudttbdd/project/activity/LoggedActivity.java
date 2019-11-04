@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,12 +39,18 @@ public class LoggedActivity extends AppCompatActivity {
     TextView edtUsername, edtEmail;
     Toolbar toolbarlogged;
     Button btnConfigAccout, btnPurcharse, btnMyRate, btnLogout;
-
+    ImageView imageView;
+    ImageView imageView1;
+    TextView textView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.user_info_activity);
+        imageView  = findViewById(R.id.image);
+        this.imageView.setImageResource(R.drawable.vy);
+        imageView1 = findViewById(R.id.ImageView);
+        this.imageView1.setImageResource(R.drawable.ctxh);
         Mappings();
         ActionToolbar();
 //        btnreturn.setOnClickListener(new View.OnClickListener() {
@@ -54,6 +61,7 @@ public class LoggedActivity extends AppCompatActivity {
 //        });
         edtUsername.setText(user.name);
         edtEmail.setText(user.email);
+        textView.setText(user.name);
 //        btnsignup.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
@@ -82,7 +90,7 @@ public class LoggedActivity extends AppCompatActivity {
                     public void onResponse(JSONObject response) {
                         Log.d("TestLogout", "onResponse: đã log out ");
                         isLogin =false;
-                        Intent notLoggedAc = new Intent(getApplicationContext(), NotLoggedInActivity.class);
+                        Intent notLoggedAc = new Intent(getApplicationContext(), SignInActivity.class);
                         startActivity(notLoggedAc);
                         finish();
                     }
@@ -110,15 +118,13 @@ public class LoggedActivity extends AppCompatActivity {
         toolbarlogged.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent mainAc = new Intent(getApplicationContext(), MainActivity.class);
-                startActivity(mainAc);
                 finish();
             }
         });
 
     }
     private void Mappings() {
-
+        textView = findViewById(R.id.text4);
         edtEmail = findViewById(R.id.useremailtext);
         edtUsername = findViewById(R.id.usernametext);
         btnLogout = findViewById(R.id.logout);

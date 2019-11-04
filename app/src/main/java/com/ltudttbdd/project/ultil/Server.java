@@ -1,8 +1,8 @@
 package com.ltudttbdd.project.ultil;
 
 public class Server {
+
     public static String localhost = "34.87.53.42";
-   // public static String localhost = "192.168.1.15:800";
 
     public static String urlProductCategory = "http://" + localhost + "/ctxhstore/public/api/data/getProductCategory";
     public static String urlNewProduct = "http://" + localhost + "/ctxhstore/public/api/data/getNewProduct";
@@ -13,4 +13,5 @@ public class Server {
     public static String urlLogin = "http://" + localhost + "/ctxhstore/public/api/auth/login";
     public static String urlRegister = "http://" + localhost + "/ctxhstore/public/api/auth/register";
     public static String urlLogout = "http://" + localhost + "/ctxhstore/public/api/auth/logout";
+
 }

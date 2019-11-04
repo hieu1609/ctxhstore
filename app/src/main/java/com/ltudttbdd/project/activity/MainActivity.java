@@ -14,11 +14,13 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ViewFlipper;
 
@@ -49,6 +51,7 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
+    TextView textView;
     Toolbar toolbar;
     ViewFlipper viewFlipper;
     RecyclerView recyclerViewmanhinhchinh;
@@ -74,6 +77,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Mappings();
+        textView = findViewById(R.id.text);
+        Animation mAnimation = new AlphaAnimation(1, 0);
+        mAnimation.setDuration(200);
+        mAnimation.setRepeatCount(Animation.INFINITE);
+        mAnimation.setRepeatMode(Animation.REVERSE);
+        textView.startAnimation(mAnimation);
         if (CheckConnection.haveNetworkConnection(getApplicationContext())) {
             ActionBar();
             ActionViewFlipper();
@@ -97,7 +106,6 @@ public class MainActivity extends AppCompatActivity {
                             Intent braceletIntent = new Intent(MainActivity.this, BraceletActivity.class);
                             startActivity(braceletIntent);
                             break;
-
                         case 4:
                             Intent keychainstIntent = new Intent(MainActivity.this, KeyChainsActivity.class);
                             startActivity(keychainstIntent);
@@ -111,7 +119,7 @@ public class MainActivity extends AppCompatActivity {
                             startActivity(otherIntent);
                             break;
                         case 7:
-                            Intent contactIntent = new Intent(MainActivity.this, KeyChainsActivity.class);
+                            Intent contactIntent = new Intent(MainActivity.this, ContactActivity.class);
                             startActivity(contactIntent);
                             break;
                         case 8:
@@ -129,7 +137,7 @@ public class MainActivity extends AppCompatActivity {
                                 break;
                     }
                             else{
-                                Intent login = new Intent(getApplicationContext(), NotLoggedInActivity.class);
+                                Intent login = new Intent(getApplicationContext(), SignInActivity.class);
                                 startActivity(login);
                                 break;
                             }
@@ -227,8 +235,8 @@ public class MainActivity extends AppCompatActivity {
                         }
                     }
                     arrayProductCategory.add(data.length() + 1, new ProductCategory(0, "Liên hệ", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQWq2hS1q3YW7MStkX9jyfEqYg3jMmftZ82J7az5oN-thj0oycsnw"));
-                    arrayProductCategory.add(data.length() + 2, new ProductCategory(0, "Thông tin", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQmOD06az3sOuJf2IfL4UTSvQkUalSFM-AJjoV8C7CeN-YjtEu9"));
-                    arrayProductCategory.add(data.length() + 3, new ProductCategory(0, "Đăng nhập", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQmOD06az3sOuJf2IfL4UTSvQkUalSFM-AJjoV8C7CeN-YjtEu9"));
+                    arrayProductCategory.add(data.length() + 2, new ProductCategory(0, "Thông tin Shop", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQmOD06az3sOuJf2IfL4UTSvQkUalSFM-AJjoV8C7CeN-YjtEu9"));
+                    arrayProductCategory.add(data.length() + 3, new ProductCategory(0, "Thông tin Người dùng", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQmOD06az3sOuJf2IfL4UTSvQkUalSFM-AJjoV8C7CeN-YjtEu9"));
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

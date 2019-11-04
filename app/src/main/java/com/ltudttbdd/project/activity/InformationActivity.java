@@ -2,6 +2,7 @@ package com.ltudttbdd.project.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.FragmentActivity;
 
 import android.os.Bundle;
 import android.view.View;
@@ -32,6 +33,8 @@ public class InformationActivity extends AppCompatActivity implements OnMapReady
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
     }
+
+
 
     private void ActionBar() {
         setSupportActionBar(toolbarinformation);
