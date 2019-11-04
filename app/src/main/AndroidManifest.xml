@@ -53,7 +53,6 @@
         <activity android:name=".activity.ContactActivity" />
         <activity android:name=".activity.SignInActivity" />
         <activity android:name=".activity.SignUpActivity" />
-        <activity android:name=".activity.NotLoggedInActivity" />
         <activity android:name=".activity.LoggedActivity" />
         <activity
             android:name=".activity.InformationActivity"

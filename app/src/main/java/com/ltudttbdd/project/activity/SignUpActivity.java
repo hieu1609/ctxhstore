@@ -62,6 +62,8 @@ public class SignUpActivity extends AppCompatActivity {
         toolbarsigup.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent signin = new Intent(getApplicationContext(), SignInActivity.class);
+                startActivity(signin);
                 finish();
             }
         });

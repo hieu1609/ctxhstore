@@ -64,6 +64,7 @@ public class SignInActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent signup = new Intent(getApplicationContext(), SignUpActivity.class);
                 startActivity(signup);
+                finish();
             }
         });
         if (CheckConnection.haveNetworkConnection(getApplicationContext())) {
