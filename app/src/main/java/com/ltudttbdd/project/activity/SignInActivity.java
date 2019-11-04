@@ -1,6 +1,7 @@
 package com.ltudttbdd.project.activity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -9,6 +10,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkResponse;
@@ -36,7 +38,9 @@ import static com.ltudttbdd.project.activity.MainActivity.user;
 public class SignInActivity extends AppCompatActivity {
 
     EditText edtPassword, edtEmail;
-    Button btnconfirm, btnreturn, btnsignup;
+    Button btnconfirm, btnsignup;
+    Toolbar toolbarsigin;
+    //private View alphaColorView;
     int numOfItem, orderId;
     int numRes = 0;
 
@@ -45,12 +49,16 @@ public class SignInActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.signin_activity);
         Mappings();
-        btnreturn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        toolbarsigin = findViewById(R.id.toolbarsigin);
+        ActionBar();
+        //alphaColorView = (View)findViewById(R.id.relativelayout);
+        //alphaColorView.setBackgroundColor(getColorWithAlpha(Color.BLACK, 0.2f));
+       // btnreturn.setOnClickListener(new View.OnClickListener() {
+            //@Override
+           // public void onClick(View v) {
+         //       finish();
+         //   }
+       // });
         btnsignup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -64,6 +72,26 @@ public class SignInActivity extends AppCompatActivity {
             CheckConnection.ShowToastShort(getApplicationContext(), "Bạn hãy kiểm tra lại kết nối Internet");
         }
     }
+
+    private void ActionBar() {
+        setSupportActionBar(toolbarsigin);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toolbarsigin.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+    }
+    //private int getColorWithAlpha(int color, float ratio) {
+      //  int newColor = 0;
+        //int alpha = Math.round(Color.alpha(color) * ratio);
+        //int r = Color.red(color);
+        //int g = Color.green(color);
+        //int b = Color.blue(color);
+        //newColor = Color.argb(alpha, r, g, b);
+        //return newColor;
+    //}
 
     private void EventButton() {
         btnconfirm.setOnClickListener(new View.OnClickListener() {
@@ -135,9 +163,7 @@ public class SignInActivity extends AppCompatActivity {
         edtEmail = findViewById(R.id.textemail);
         edtPassword = findViewById(R.id.textpassword);
         btnconfirm = findViewById(R.id.confirmbutton);
-        btnreturn = findViewById(R.id.returnbutton);
         btnsignup = findViewById(R.id.signupbutton);
-
 
     }
 }

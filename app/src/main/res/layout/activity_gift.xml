@@ -10,7 +10,7 @@
         android:id="@+id/toolbargift"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@color/colorGift"
+        android:background="@color/colorInformation"
         app:title="Quà tặng Handmade"
         app:titleTextColor="#ffffff">
     </androidx.appcompat.widget.Toolbar>

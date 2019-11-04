@@ -10,7 +10,7 @@
         android:id="@+id/toolbarfood"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@color/colorFood"
+        android:background="@color/colorInformation"
         app:title="Đồ ăn"
         app:titleTextColor="#ffffff">
     </androidx.appcompat.widget.Toolbar>

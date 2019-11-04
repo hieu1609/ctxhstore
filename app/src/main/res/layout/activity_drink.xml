@@ -10,7 +10,7 @@
         android:id="@+id/toolbardrink"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@color/colorDrink"
+        android:background="@color/colorInformation"
         app:title="Đồ Uống"
         app:titleTextColor="#ffffff">
     </androidx.appcompat.widget.Toolbar>
