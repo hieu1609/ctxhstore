@@ -1,6 +1,7 @@
 package com.ltudttbdd.project.activity;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -24,7 +25,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.ltudttbdd.project.R;
-import com.ltudttbdd.project.adapter.KeychainsAdapter;
+import com.ltudttbdd.project.adapter.ProductViewAdapter;
 import com.ltudttbdd.project.model.Product;
 import com.ltudttbdd.project.ultil.CheckConnection;
 import com.ltudttbdd.project.ultil.Server;
@@ -40,7 +41,7 @@ public class KeyChainsActivity extends AppCompatActivity {
 
     Toolbar toolbarkeychains;
     ListView listviewkeychains;
-    KeychainsAdapter keychainsAdapter;
+    ProductViewAdapter keychainsAdapter;
     ArrayList<Product> arraykeychains;
     int idkeychains = 0;
     int page = 1;
@@ -174,6 +175,8 @@ public class KeyChainsActivity extends AppCompatActivity {
     private void ActionToolbar() {
         setSupportActionBar(toolbarkeychains);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Drawable newbackbtn = getResources().getDrawable(R.drawable.ic_back);
+        getSupportActionBar().setHomeAsUpIndicator(newbackbtn);
         toolbarkeychains.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -192,7 +195,7 @@ public class KeyChainsActivity extends AppCompatActivity {
         toolbarkeychains = findViewById(R.id.toolbarkeychains);
         listviewkeychains = findViewById(R.id.listviewkeychains);
         arraykeychains = new ArrayList<>();
-        keychainsAdapter = new KeychainsAdapter(getApplicationContext(), arraykeychains);
+        keychainsAdapter = new ProductViewAdapter(getApplicationContext(), arraykeychains);
         listviewkeychains.setAdapter(keychainsAdapter);
         LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
         footerview = inflater.inflate(R.layout.progress_bar, null);

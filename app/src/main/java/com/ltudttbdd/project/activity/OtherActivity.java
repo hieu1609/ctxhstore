@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -25,7 +26,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 
 import com.android.volley.toolbox.Volley;
 import com.ltudttbdd.project.R;
-import com.ltudttbdd.project.adapter.OtherAdapter;
+import com.ltudttbdd.project.adapter.ProductViewAdapter;
 import com.ltudttbdd.project.model.Product;
 
 import com.ltudttbdd.project.ultil.CheckConnection;
@@ -43,7 +44,7 @@ public class OtherActivity extends AppCompatActivity {
 
     Toolbar toolbarother;
     ListView listviewother;
-    OtherAdapter otherAdapter;
+    ProductViewAdapter otherAdapter;
     ArrayList<Product> arrayother;
     int idother = 0;
     int page = 1;
@@ -176,6 +177,8 @@ public class OtherActivity extends AppCompatActivity {
     private void ActionToolbar() {
         setSupportActionBar(toolbarother);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Drawable newbackbtn = getResources().getDrawable(R.drawable.ic_back);
+        getSupportActionBar().setHomeAsUpIndicator(newbackbtn);
         toolbarother.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -194,7 +197,7 @@ public class OtherActivity extends AppCompatActivity {
         toolbarother = findViewById(R.id.toolbarother);
         listviewother = findViewById(R.id.listviewother);
         arrayother = new ArrayList<>();
-        otherAdapter = new OtherAdapter(getApplicationContext(), arrayother);
+        otherAdapter = new ProductViewAdapter(getApplicationContext(), arrayother);
         listviewother.setAdapter(otherAdapter);
         LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
         footerview = inflater.inflate(R.layout.progress_bar, null);

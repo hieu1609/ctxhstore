@@ -6,6 +6,7 @@ import androidx.appcompat.widget.Toolbar;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -129,6 +130,8 @@ public class CartActivity extends AppCompatActivity {
     private void ActionToolbar() {
         setSupportActionBar(toolbarCart);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Drawable newbackbtn = getResources().getDrawable(R.drawable.ic_back);
+        getSupportActionBar().setHomeAsUpIndicator(newbackbtn);
         toolbarCart.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

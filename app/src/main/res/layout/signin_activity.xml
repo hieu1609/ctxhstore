@@ -8,15 +8,15 @@
 
     tools:context=".activity.SignInActivity">
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbarsigin"
+        android:id="@+id/toolbarsignin"
         android:layout_width="match_parent"
         android:layout_height="@android:dimen/app_icon_size"
         android:background="@color/colorInformation"
-        app:title="Sigin"
+        app:title="Đăng nhập"
         app:titleTextColor="#ffffff">
     </androidx.appcompat.widget.Toolbar>
     <RelativeLayout
-        android:layout_below="@id/toolbarsigin"
+        android:layout_below="@id/toolbarsignin"
         android:id="@+id/relativelayout"
         android:background="#80ffffff"
         android:gravity="center"
@@ -29,7 +29,6 @@
             android:textColor="#CC000000"
             android:text="Đăng Nhập"
             android:textStyle="bold"
-            android:layout_marginTop="-200dp"
             android:layout_centerInParent="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />

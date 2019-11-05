@@ -5,25 +5,27 @@
     android:weightSum="10"
     android:gravity="center">
     <LinearLayout
-        android:layout_weight="3"
+        android:layout_weight="2"
         android:layout_width="0dp"
         android:layout_height="wrap_content">
         <ImageView
             android:id="@+id/imageviewloaisp"
             android:src="@mipmap/ic_launcher"
-            android:layout_margin="5dp"
-            android:layout_width="70dp"
-            android:layout_height="70dp" />
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp" />
+
     </LinearLayout>
     <LinearLayout
         android:layout_weight="7"
         android:layout_width="0dp"
         android:layout_height="wrap_content">
         <TextView
-            android:layout_margin="5dp"
             android:id="@+id/textviewloaisp"
-            android:text="Loại sản phầm"
-            android:textSize="25sp"
+            android:text="Product Types"
+            android:textSize="20dp"
             android:textColor="@color/colorProductPrice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>

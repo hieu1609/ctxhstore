@@ -14,23 +14,23 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-public class ProductCategoryAdapter extends BaseAdapter {
-    ArrayList<ProductCategory> arrayListProductCategory;
+public class CategoryAdapter extends BaseAdapter {
+    ArrayList<ProductCategory> arrayListCategory;
     Context context;
 
-    public ProductCategoryAdapter(ArrayList<ProductCategory> arrayListProductCategory, Context context) {
-        this.arrayListProductCategory = arrayListProductCategory;
+    public CategoryAdapter(ArrayList<ProductCategory> arrayListCategory, Context context) {
+        this.arrayListCategory = arrayListCategory;
         this.context = context;
     }
 
     @Override
     public int getCount() {
-        return arrayListProductCategory.size();
+        return arrayListCategory.size();
     }
 
     @Override
     public Object getItem(int i) {
-        return arrayListProductCategory.get(i);
+        return arrayListCategory.get(i);
     }
 
     @Override
@@ -60,7 +60,7 @@ public class ProductCategoryAdapter extends BaseAdapter {
         ProductCategory productCategory = (ProductCategory) getItem(i);
         viewHolder.txtCategoryName.setText(productCategory.getCategoryName());
         Picasso.get().load(productCategory.getCategoryImage())
-                .placeholder(R.drawable.noimg)
+                .placeholder(R.drawable.defaultimg)
                 .error(R.drawable.defaultimg)
                 .into(viewHolder.imgCategoryImage);
         return view;

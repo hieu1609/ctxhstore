@@ -1,6 +1,7 @@
 package com.ltudttbdd.project.activity;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -24,8 +25,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.ltudttbdd.project.R;
-import com.ltudttbdd.project.adapter.DrinkAdapter;
-import com.ltudttbdd.project.adapter.FoodAdapter;
+import com.ltudttbdd.project.adapter.ProductViewAdapter;
 import com.ltudttbdd.project.model.Product;
 import com.ltudttbdd.project.ultil.CheckConnection;
 import com.ltudttbdd.project.ultil.Server;
@@ -41,7 +41,7 @@ public class DrinkActivity extends AppCompatActivity {
 
     Toolbar toolbardrink;
     ListView listviewdrink;
-    DrinkAdapter drinkAdapter;
+    ProductViewAdapter drinkAdapter;
     ArrayList<Product> arraydrink;
     int iddrink = 0;
     int page = 1;
@@ -53,7 +53,7 @@ public class DrinkActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_food);
+        setContentView(R.layout.activity_drink);
         Mappings();
         if (CheckConnection.haveNetworkConnection(getApplicationContext())) {
             GetIdProductCategory();
@@ -175,6 +175,8 @@ public class DrinkActivity extends AppCompatActivity {
     private void ActionToolbar() {
         setSupportActionBar(toolbardrink);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Drawable newbackbtn = getResources().getDrawable(R.drawable.ic_back);
+        getSupportActionBar().setHomeAsUpIndicator(newbackbtn);
         toolbardrink.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -190,10 +192,10 @@ public class DrinkActivity extends AppCompatActivity {
     }
 
     private void Mappings() {
-        toolbardrink = findViewById(R.id.toolbarfood);
-        listviewdrink = findViewById(R.id.listviewfood);
+        toolbardrink = findViewById(R.id.toolbardrink);
+        listviewdrink = findViewById(R.id.listviewdrink);
         arraydrink = new ArrayList<>();
-        drinkAdapter = new DrinkAdapter(getApplicationContext(), arraydrink);
+        drinkAdapter = new ProductViewAdapter(getApplicationContext(), arraydrink);
         listviewdrink.setAdapter(drinkAdapter);
         LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
         footerview = inflater.inflate(R.layout.progress_bar, null);

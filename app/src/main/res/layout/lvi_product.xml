@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <de.hdodenhof.circleimageview.CircleImageView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/imgv_lvi_product"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginLeft="10sp"
+        android:layout_marginRight="10dp"
+        android:layout_gravity="center"
+        android:src="@mipmap/ic_launcher"
+        android:layout_centerVertical="true"/>
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@id/imgv_lvi_product">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ten san pham"
+            android:textSize="20dp"
+            android:layout_marginBottom="10dp"
+            android:id="@+id/tv1_lvi_product"
+            android:textColor="@color/colorProductName"
+            android:textStyle="bold"/>
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv1_lvi_product"
+            android:id="@+id/rv_product">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:textSize="16dp"
+                android:text="price"
+                android:id="@+id/tv2_lvi_product"
+                android:textColor="@color/colorPrice"/>
+
+            <RatingBar
+                android:id="@+id/rb_lvi_product"
+                style="?android:attr/ratingBarStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginRight="11dp"
+                android:numStars="5" />
+        </RelativeLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/rv_product"
+            android:textSize="16dp"
+            android:text="description"
+            android:id="@+id/tv3_lvi_product"/>
+    </RelativeLayout>
+</RelativeLayout>

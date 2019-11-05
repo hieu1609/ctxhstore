@@ -20,11 +20,11 @@ import com.squareup.picasso.Picasso;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
-public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ItemHolder> {
+public class ProductsAtHomeAdapter extends RecyclerView.Adapter<ProductsAtHomeAdapter.ItemHolder> {
     Context context;
     ArrayList<Product> arrayProduct;
 
-    public ProductAdapter(Context context, ArrayList<Product> arrayProduct) {
+    public ProductsAtHomeAdapter(Context context, ArrayList<Product> arrayProduct) {
         this.context = context;
         this.arrayProduct = arrayProduct;
     }
@@ -42,9 +42,9 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ItemHold
         Product product = arrayProduct.get(position);
         holder.txtProductName.setText(product.getProductName());
         DecimalFormat decimalFormat = new DecimalFormat("###,###,###");
-        holder.txtProductPrice.setText("Giá: " + decimalFormat.format(product.getPrice()) + " VNĐ");
+        holder.txtProductPrice.setText(decimalFormat.format(product.getPrice()) + " VNĐ");
         Picasso.get().load(product.getProductImage())
-                .placeholder(R.drawable.noimg)
+                .placeholder(R.drawable.defaultimg)
                 .error(R.drawable.errorimg)
                 .into(holder.imgProduct);
     }

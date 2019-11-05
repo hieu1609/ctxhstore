@@ -10,7 +10,7 @@
         android:id="@+id/toolbarproductdetail"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@color/colorProductDetail"
+        android:background="@color/colorInformation"
         app:title="Chi tiết sản phẩm"
         app:titleTextColor="#ffffff">
     </androidx.appcompat.widget.Toolbar>

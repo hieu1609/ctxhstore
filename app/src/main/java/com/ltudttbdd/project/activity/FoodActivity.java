@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -16,20 +17,16 @@ import android.view.View;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 
-import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.ltudttbdd.project.R;
-import com.ltudttbdd.project.adapter.FoodAdapter;
+import com.ltudttbdd.project.adapter.ProductViewAdapter;
 import com.ltudttbdd.project.model.Product;
-import com.ltudttbdd.project.model.ProductCategory;
 import com.ltudttbdd.project.ultil.CheckConnection;
 import com.ltudttbdd.project.ultil.Server;
 
@@ -39,13 +36,12 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 
 public class FoodActivity extends AppCompatActivity {
 
     Toolbar toolbarfood;
     ListView listviewfood;
-    FoodAdapter foodAdapter;
+    ProductViewAdapter foodAdapter;
     ArrayList<Product> arrayfood;
     int idfood = 0;
     int page = 1;
@@ -178,6 +174,8 @@ public class FoodActivity extends AppCompatActivity {
     private void ActionToolbar() {
         setSupportActionBar(toolbarfood);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Drawable newbackbtn = getResources().getDrawable(R.drawable.ic_back);
+        getSupportActionBar().setHomeAsUpIndicator(newbackbtn);
         toolbarfood.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -196,7 +194,7 @@ public class FoodActivity extends AppCompatActivity {
         toolbarfood = findViewById(R.id.toolbarfood);
         listviewfood = findViewById(R.id.listviewfood);
         arrayfood = new ArrayList<>();
-        foodAdapter = new FoodAdapter(getApplicationContext(), arrayfood);
+        foodAdapter = new ProductViewAdapter(getApplicationContext(), arrayfood);
         listviewfood.setAdapter(foodAdapter);
         LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
         footerview = inflater.inflate(R.layout.progress_bar, null);
