@@ -70,7 +70,7 @@ public class ProductViewAdapter extends BaseAdapter {
 //            Drawable stars = viewHoler.rbbracelet.getProgressDrawable();
 //            DrawableCompat.setTint(stars, Color.YELLOW);
             LayerDrawable starsFilter = (LayerDrawable) viewHoler.rbProduct.getProgressDrawable();
-            starsFilter.setColorFilter(Color.YELLOW, PorterDuff.Mode.SRC_ATOP);
+            starsFilter.setColorFilter(Color.rgb(255,140,0), PorterDuff.Mode.SRC_ATOP);
             view.setTag(viewHoler);
         }
         else {
