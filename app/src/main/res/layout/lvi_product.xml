@@ -24,6 +24,7 @@
             android:textSize="20dp"
             android:layout_marginBottom="10dp"
             android:id="@+id/tv1_lvi_product"
+            android:textColor="@color/colorProductName"
             android:textStyle="bold"/>
         <RelativeLayout
             android:layout_width="wrap_content"
@@ -38,16 +39,16 @@
                 android:text="price"
                 android:id="@+id/tv2_lvi_product"
                 android:textColor="@color/colorPrice"/>
+
             <RatingBar
+                android:id="@+id/rb_lvi_product"
+                style="?android:attr/ratingBarStyleSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:layout_marginRight="10dp"
                 android:layout_alignParentRight="true"
-                android:numStars="5"
-                android:id="@+id/rb_lvi_product"
-
-                style="?android:attr/ratingBarStyleSmall" />
+                android:layout_centerHorizontal="true"
+                android:layout_marginRight="11dp"
+                android:numStars="5" />
         </RelativeLayout>
         <TextView
             android:layout_width="wrap_content"

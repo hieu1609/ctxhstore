@@ -53,7 +53,7 @@ public class DrinkActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_food);
+        setContentView(R.layout.activity_drink);
         Mappings();
         if (CheckConnection.haveNetworkConnection(getApplicationContext())) {
             GetIdProductCategory();
@@ -192,8 +192,8 @@ public class DrinkActivity extends AppCompatActivity {
     }
 
     private void Mappings() {
-        toolbardrink = findViewById(R.id.toolbarfood);
-        listviewdrink = findViewById(R.id.listviewfood);
+        toolbardrink = findViewById(R.id.toolbardrink);
+        listviewdrink = findViewById(R.id.listviewdrink);
         arraydrink = new ArrayList<>();
         drinkAdapter = new ProductViewAdapter(getApplicationContext(), arraydrink);
         listviewdrink.setAdapter(drinkAdapter);
