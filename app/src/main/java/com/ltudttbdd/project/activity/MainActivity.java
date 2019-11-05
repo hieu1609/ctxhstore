@@ -33,8 +33,8 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.material.navigation.NavigationView;
 import com.ltudttbdd.project.R;
-import com.ltudttbdd.project.adapter.ProductAdapter;
-import com.ltudttbdd.project.adapter.ProductCategoryAdapter;
+import com.ltudttbdd.project.adapter.CategoryAdapter;
+import com.ltudttbdd.project.adapter.ProductsAtHomeAdapter;
 import com.ltudttbdd.project.model.Cart;
 import com.ltudttbdd.project.model.Product;
 import com.ltudttbdd.project.model.ProductCategory;
@@ -59,10 +59,10 @@ public class MainActivity extends AppCompatActivity {
     ListView listViewmanhinhchinh;
     DrawerLayout drawerLayout;
     ArrayList<ProductCategory> arrayProductCategory;
-    ProductCategoryAdapter productCategoryAdapter;
+    CategoryAdapter productCategoryAdapter;
     ArrayList<Product> arrayProduct;
     ArrayList<String> mangquangcao;
-    ProductAdapter productAdapter;
+    ProductsAtHomeAdapter productAdapter;
     //khai báo static để tất cả có thể sử dụng, không mất dữ liệu khi chuyển qua activity khác
     public static ArrayList<Cart> arrayCart;
     int id = 0;
@@ -319,10 +319,10 @@ public class MainActivity extends AppCompatActivity {
         drawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
         arrayProductCategory = new ArrayList<>();
         arrayProductCategory.add(0, new ProductCategory(0, "Trang chính", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSHsXduuMdIQh-cyva9fLRDIt6-zBH_Dr0AwEmzdFFpgKKHBjBWgg"));
-        productCategoryAdapter = new ProductCategoryAdapter(arrayProductCategory, getApplicationContext());
+        productCategoryAdapter = new CategoryAdapter(arrayProductCategory, getApplicationContext());
         listViewmanhinhchinh.setAdapter(productCategoryAdapter);
         arrayProduct = new ArrayList<>();
-        productAdapter = new ProductAdapter(getApplicationContext(), arrayProduct);
+        productAdapter = new ProductsAtHomeAdapter(getApplicationContext(), arrayProduct);
         recyclerViewmanhinhchinh.setHasFixedSize(true);
         recyclerViewmanhinhchinh.setLayoutManager(new GridLayoutManager(getApplicationContext(), 2));
         recyclerViewmanhinhchinh.setAdapter(productAdapter);

@@ -1,6 +1,7 @@
 package com.ltudttbdd.project.activity;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -24,7 +25,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.ltudttbdd.project.R;
-import com.ltudttbdd.project.adapter.BraceletAdapter;
+import com.ltudttbdd.project.adapter.ProductViewAdapter;
 import com.ltudttbdd.project.model.Product;
 import com.ltudttbdd.project.ultil.CheckConnection;
 import com.ltudttbdd.project.ultil.Server;
@@ -40,7 +41,7 @@ public class BraceletActivity extends AppCompatActivity {
 
     Toolbar toolbarbracelet;
     ListView listviewbracelet;
-    BraceletAdapter braceletAdapter;
+    ProductViewAdapter braceletAdapter;
     ArrayList<Product> arraybracelet;
     int idbracelet = 0;
     int page = 1;
@@ -174,6 +175,8 @@ public class BraceletActivity extends AppCompatActivity {
     private void ActionToolbar() {
         setSupportActionBar(toolbarbracelet);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Drawable newbackbtn = getResources().getDrawable(R.drawable.ic_back);
+        getSupportActionBar().setHomeAsUpIndicator(newbackbtn);
         toolbarbracelet.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -192,7 +195,7 @@ public class BraceletActivity extends AppCompatActivity {
         toolbarbracelet = findViewById(R.id.toolbarbracelet);
         listviewbracelet = findViewById(R.id.listviewbracelet);
         arraybracelet = new ArrayList<>();
-        braceletAdapter = new BraceletAdapter(getApplicationContext(), arraybracelet);
+        braceletAdapter = new ProductViewAdapter(getApplicationContext(), arraybracelet);
         listviewbracelet.setAdapter(braceletAdapter);
         LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
         footerview = inflater.inflate(R.layout.progress_bar, null);
