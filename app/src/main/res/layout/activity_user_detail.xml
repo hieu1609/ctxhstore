@@ -7,7 +7,7 @@
     android:orientation="vertical"
     tools:context=".activity.UserDetailActivity">
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbarsigin"
+        android:id="@+id/toolbaruser"
         android:layout_width="match_parent"
         android:layout_height="@android:dimen/app_icon_size"
         android:background="@color/colorInformation"
@@ -104,22 +104,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <Button
-                android:layout_marginRight="70dp"
+                android:gravity="center"
                 android:id="@+id/buttonconfirm"
                 android:padding="10dp"
                 android:textSize="15sp"
                 android:text="Xác nhận"
-                android:layout_width="wrap_content"
+                android:layout_width="300dp"
+                android:layout_gravity="center"
                 android:layout_height="wrap_content"
                 android:background="@drawable/border4"/>
-            <Button
-                android:id="@+id/buttonreturn"
-                android:padding="10dp"
-                android:textSize="15sp"
-                android:text="Trở về"
-                android:background="@drawable/border4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
         </LinearLayout>
     </LinearLayout>
 

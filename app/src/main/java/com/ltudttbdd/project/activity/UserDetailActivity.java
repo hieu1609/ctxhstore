@@ -1,6 +1,7 @@
 package com.ltudttbdd.project.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -37,7 +38,8 @@ import static com.ltudttbdd.project.activity.MainActivity.user;
 public class UserDetailActivity extends AppCompatActivity {
 
     EditText edtName, edtPhone, edtEmail, edtAddress;
-    Button btnconfirm, btnreturn;
+    Button btnconfirm;
+    Toolbar toolbaruser;
     int numOfItem, orderId;
     int numRes = 0;
     String userId = null;
@@ -47,6 +49,7 @@ public class UserDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_detail);
         Mappings();
+        ActionBar();
         if (isLogin == true) {
             edtName.setText(user.name);
             edtPhone.setText(user.phone);
@@ -54,12 +57,12 @@ public class UserDetailActivity extends AppCompatActivity {
             edtAddress.setText(user.address);
             userId = String.valueOf(user.id);
         }
-        btnreturn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        //btnreturn.setOnClickListener(new View.OnClickListener() {
+           // @Override
+            //public void onClick(View v) {
+              //  finish();
+            //}
+        //});
         if (CheckConnection.haveNetworkConnection(getApplicationContext())) {
             EventButton();
         } else {
@@ -178,8 +181,21 @@ public class UserDetailActivity extends AppCompatActivity {
         edtEmail = findViewById(R.id.edittextemail);
         edtAddress = findViewById(R.id.edittextaddress);
         btnconfirm = findViewById(R.id.buttonconfirm);
-        btnreturn = findViewById(R.id.buttonreturn);
+        toolbaruser = findViewById(R.id.toolbaruser);
 
 
     }
+    private void ActionBar() {
+        setSupportActionBar(toolbaruser);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toolbaruser.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent cart = new Intent(getApplicationContext(), CartActivity.class);
+                startActivity(cart);
+                finish();
+            }
+        });
+    }
 }
+
