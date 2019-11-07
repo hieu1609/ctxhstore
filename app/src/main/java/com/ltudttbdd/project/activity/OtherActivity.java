@@ -42,8 +42,8 @@ import java.util.HashMap;
 
 public class OtherActivity extends AppCompatActivity {
 
-    Toolbar toolbarother;
-    ListView listviewother;
+    Toolbar toolbar;
+    ListView listview;
     ProductViewAdapter otherAdapter;
     ArrayList<Product> arrayother;
     int idother = 0;
@@ -56,7 +56,7 @@ public class OtherActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_other);
+        setContentView(R.layout.activity_product_list);
         Mappings();
         if (CheckConnection.haveNetworkConnection(getApplicationContext())) {
             GetIdProductCategory();
@@ -86,7 +86,7 @@ public class OtherActivity extends AppCompatActivity {
     }
 
     private void LoadMoreData() {
-        listviewother.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent = new Intent(getApplicationContext(), ProductDetailActivity.class);
@@ -94,7 +94,7 @@ public class OtherActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        listviewother.setOnScrollListener(new AbsListView.OnScrollListener() {
+        listview.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(AbsListView absListView, int i) {
 
@@ -126,12 +126,12 @@ public class OtherActivity extends AppCompatActivity {
                 String description = "";
                 int idCategory = 0;
                 if (response != null) {
-                    listviewother.removeFooterView(footerview);
+                    listview.removeFooterView(footerview);
                     try {
                         JSONArray data = (JSONArray) response.getJSONArray("data");
                         if (data.length() == 0) {
                             limitData = true;
-                            listviewother.removeFooterView(footerview);
+                            listview.removeFooterView(footerview);
                             CheckConnection.ShowToastShort(getApplicationContext(), "Đã hết dữ liệu");
                             return;
                         }
@@ -175,11 +175,12 @@ public class OtherActivity extends AppCompatActivity {
     }
 
     private void ActionToolbar() {
-        setSupportActionBar(toolbarother);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Khác");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         Drawable newbackbtn = getResources().getDrawable(R.drawable.ic_back);
         getSupportActionBar().setHomeAsUpIndicator(newbackbtn);
-        toolbarother.setNavigationOnClickListener(new View.OnClickListener() {
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
@@ -194,11 +195,11 @@ public class OtherActivity extends AppCompatActivity {
     }
 
     private void Mappings() {
-        toolbarother = findViewById(R.id.toolbarother);
-        listviewother = findViewById(R.id.listviewother);
+        toolbar = findViewById(R.id.toolbar);
+        listview = findViewById(R.id.lv_act_produclist);
         arrayother = new ArrayList<>();
         otherAdapter = new ProductViewAdapter(getApplicationContext(), arrayother);
-        listviewother.setAdapter(otherAdapter);
+        listview.setAdapter(otherAdapter);
         LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
         footerview = inflater.inflate(R.layout.progress_bar, null);
         myHandler = new MyHandler();
@@ -209,7 +210,7 @@ public class OtherActivity extends AppCompatActivity {
         public void handleMessage(@NonNull Message msg) {
             switch (msg.what) {
                 case 0:
-                    listviewother.addFooterView(footerview);
+                    listview.addFooterView(footerview);
                     break;
                 case 1:
                     GetData(++page);

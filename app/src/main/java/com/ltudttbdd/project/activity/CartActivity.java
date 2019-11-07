@@ -129,6 +129,7 @@ public class CartActivity extends AppCompatActivity {
 
     private void ActionToolbar() {
         setSupportActionBar(toolbarCart);
+        getSupportActionBar().setTitle("Giỏ hàng");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         Drawable newbackbtn = getResources().getDrawable(R.drawable.ic_back);
         getSupportActionBar().setHomeAsUpIndicator(newbackbtn);
@@ -146,7 +147,7 @@ public class CartActivity extends AppCompatActivity {
         txtTotalPrice = findViewById(R.id.textviewtotalprice);
         btnCartPayment = findViewById(R.id.buttoncartpayment);
         btnReturnHome = findViewById(R.id.buttonreturnhome);
-        toolbarCart = findViewById(R.id.toolbarcart);
+        toolbarCart = findViewById(R.id.toolbar);
         cartAdapter = new CartAdapter(CartActivity.this, MainActivity.arrayCart);
         listViewCart.setAdapter(cartAdapter);
     }

@@ -2,6 +2,7 @@ package com.ltudttbdd.project.activity;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -49,7 +50,7 @@ public class SignInActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.signin_activity);
         Mappings();
-        toolbarsignin = findViewById(R.id.toolbarsignin);
+        toolbarsignin = findViewById(R.id.toolbar);
         ActionBar();
         //alphaColorView = (View)findViewById(R.id.relativelayout);
         //alphaColorView.setBackgroundColor(getColorWithAlpha(Color.BLACK, 0.2f));
@@ -76,7 +77,10 @@ public class SignInActivity extends AppCompatActivity {
 
     private void ActionBar() {
         setSupportActionBar(toolbarsignin);
+        getSupportActionBar().setTitle("Đăng nhập");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Drawable newbackbtn = getResources().getDrawable(R.drawable.ic_back);
+        getSupportActionBar().setHomeAsUpIndicator(newbackbtn);
         toolbarsignin.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -39,8 +39,8 @@ import java.util.HashMap;
 
 public class GiftActivity extends AppCompatActivity {
 
-    Toolbar toolbargift;
-    ListView listviewgift;
+    Toolbar toolbar;
+    ListView listview;
     ProductViewAdapter giftAdapter;
     ArrayList<Product> arraygift;
     int idgift = 0;
@@ -53,7 +53,7 @@ public class GiftActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_gift);
+        setContentView(R.layout.activity_product_list);
         Mappings();
         if (CheckConnection.haveNetworkConnection(getApplicationContext())) {
             GetIdProductCategory();
@@ -83,7 +83,7 @@ public class GiftActivity extends AppCompatActivity {
     }
 
     private void LoadMoreData() {
-        listviewgift.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent = new Intent(getApplicationContext(), ProductDetailActivity.class);
@@ -91,7 +91,7 @@ public class GiftActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        listviewgift.setOnScrollListener(new AbsListView.OnScrollListener() {
+        listview.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(AbsListView absListView, int i) {
 
@@ -124,12 +124,12 @@ public class GiftActivity extends AppCompatActivity {
                 String description = "";
                 int idCategory = 0;
                 if (response != null) {
-                    listviewgift.removeFooterView(footerview);
+                    listview.removeFooterView(footerview);
                     try {
                         JSONArray data = (JSONArray) response.getJSONArray("data");
                         if(data.length() == 0){
                             limitData = true;
-                            listviewgift.removeFooterView(footerview);
+                            listview.removeFooterView(footerview);
                             CheckConnection.ShowToastShort(getApplicationContext(), "Đã hết dữ liệu");
                             return;
                         }
@@ -173,11 +173,12 @@ public class GiftActivity extends AppCompatActivity {
     }
 
     private void ActionToolbar() {
-        setSupportActionBar(toolbargift);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Quà Handmade");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         Drawable newbackbtn = getResources().getDrawable(R.drawable.ic_back);
         getSupportActionBar().setHomeAsUpIndicator(newbackbtn);
-        toolbargift.setNavigationOnClickListener(new View.OnClickListener() {
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
@@ -192,11 +193,11 @@ public class GiftActivity extends AppCompatActivity {
     }
 
     private void Mappings() {
-        toolbargift = findViewById(R.id.toolbargift);
-        listviewgift = findViewById(R.id.listviewgift);
+        toolbar = findViewById(R.id.toolbar);
+        listview = findViewById(R.id.lv_act_produclist);
         arraygift = new ArrayList<>();
         giftAdapter = new ProductViewAdapter(getApplicationContext(), arraygift);
-        listviewgift.setAdapter(giftAdapter);
+        listview.setAdapter(giftAdapter);
         LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
         footerview = inflater.inflate(R.layout.progress_bar, null);
         myHandler = new MyHandler();
@@ -207,7 +208,7 @@ public class GiftActivity extends AppCompatActivity {
         public void handleMessage(@NonNull Message msg) {
             switch (msg.what) {
                 case 0:
-                    listviewgift.addFooterView(footerview);
+                    listview.addFooterView(footerview);
                     break;
                 case 1:
                     GetData(++page);

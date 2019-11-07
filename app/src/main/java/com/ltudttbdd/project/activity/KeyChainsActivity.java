@@ -39,8 +39,8 @@ import java.util.HashMap;
 
 public class KeyChainsActivity extends AppCompatActivity {
 
-    Toolbar toolbarkeychains;
-    ListView listviewkeychains;
+    Toolbar toolbar;
+    ListView listview;
     ProductViewAdapter keychainsAdapter;
     ArrayList<Product> arraykeychains;
     int idkeychains = 0;
@@ -53,7 +53,7 @@ public class KeyChainsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_keychains);
+        setContentView(R.layout.activity_product_list);
         Mappings();
         if (CheckConnection.haveNetworkConnection(getApplicationContext())) {
             GetIdProductCategory();
@@ -83,7 +83,7 @@ public class KeyChainsActivity extends AppCompatActivity {
     }
 
     private void LoadMoreData() {
-        listviewkeychains.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent = new Intent(getApplicationContext(), ProductDetailActivity.class);
@@ -91,7 +91,7 @@ public class KeyChainsActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        listviewkeychains.setOnScrollListener(new AbsListView.OnScrollListener() {
+        listview.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(AbsListView absListView, int i) {
 
@@ -124,12 +124,12 @@ public class KeyChainsActivity extends AppCompatActivity {
                 String description = "";
                 int idCategory = 0;
                 if (response != null) {
-                    listviewkeychains.removeFooterView(footerview);
+                    listview.removeFooterView(footerview);
                     try {
                         JSONArray data = (JSONArray) response.getJSONArray("data");
                         if(data.length() == 0){
                             limitData = true;
-                            listviewkeychains.removeFooterView(footerview);
+                            listview.removeFooterView(footerview);
                             CheckConnection.ShowToastShort(getApplicationContext(), "Đã hết dữ liệu");
                             return;
                         }
@@ -173,11 +173,12 @@ public class KeyChainsActivity extends AppCompatActivity {
     }
 
     private void ActionToolbar() {
-        setSupportActionBar(toolbarkeychains);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Móc khóa Handmade");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         Drawable newbackbtn = getResources().getDrawable(R.drawable.ic_back);
         getSupportActionBar().setHomeAsUpIndicator(newbackbtn);
-        toolbarkeychains.setNavigationOnClickListener(new View.OnClickListener() {
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
@@ -192,11 +193,11 @@ public class KeyChainsActivity extends AppCompatActivity {
     }
 
     private void Mappings() {
-        toolbarkeychains = findViewById(R.id.toolbarkeychains);
-        listviewkeychains = findViewById(R.id.listviewkeychains);
+        toolbar = findViewById(R.id.toolbar);
+        listview = findViewById(R.id.lv_act_produclist);
         arraykeychains = new ArrayList<>();
         keychainsAdapter = new ProductViewAdapter(getApplicationContext(), arraykeychains);
-        listviewkeychains.setAdapter(keychainsAdapter);
+        listview.setAdapter(keychainsAdapter);
         LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
         footerview = inflater.inflate(R.layout.progress_bar, null);
         myHandler = new MyHandler();
@@ -207,7 +208,7 @@ public class KeyChainsActivity extends AppCompatActivity {
         public void handleMessage(@NonNull Message msg) {
             switch (msg.what) {
                 case 0:
-                    listviewkeychains.addFooterView(footerview);
+                    listview.addFooterView(footerview);
                     break;
                 case 1:
                     GetData(++page);

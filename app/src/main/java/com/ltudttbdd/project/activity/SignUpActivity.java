@@ -2,6 +2,7 @@ package com.ltudttbdd.project.activity;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -40,7 +41,7 @@ public class SignUpActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.signup_activity);
         Mappings();
-        toolbarsignup = findViewById(R.id.toolbarsignup);
+        toolbarsignup = findViewById(R.id.toolbar);
         ActionBar();
         //alphaColorView = (View)findViewById(R.id.relativelayout);
         //alphaColorView.setBackgroundColor(getColorWithAlpha(Color.WHITE, 0.2f));
@@ -58,7 +59,10 @@ public class SignUpActivity extends AppCompatActivity {
     }
     private void ActionBar() {
         setSupportActionBar(toolbarsignup);
+        getSupportActionBar().setTitle("Đăng kí");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Drawable newbackbtn = getResources().getDrawable(R.drawable.ic_back);
+        getSupportActionBar().setHomeAsUpIndicator(newbackbtn);
         toolbarsignup.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

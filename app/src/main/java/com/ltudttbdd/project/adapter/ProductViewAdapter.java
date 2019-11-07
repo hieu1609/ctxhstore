@@ -61,7 +61,7 @@ public class ProductViewAdapter extends BaseAdapter {
 //            viewHoler.txtbraceletprice = view.findViewById(R.id.textviewbraceletprice);
 //            viewHoler.txtbraceletdescription = view.findViewById(R.id.textviewbraceletdescription);
 //            viewHoler.imgbracelet = view.findViewById(R.id.imageviewbracelet);
-            view = inflater.inflate(R.layout.lvi_product, null);
+            view = inflater.inflate(R.layout.item_product_list, null);
             viewHoler.txt_ProductName = view.findViewById(R.id.tv1_lvi_product);
             viewHoler.txt_ProductPrice = view.findViewById(R.id.tv2_lvi_product);
             viewHoler.txt_ProductDescription = view.findViewById(R.id.tv3_lvi_product);

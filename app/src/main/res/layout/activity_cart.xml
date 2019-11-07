@@ -7,13 +7,7 @@
     android:orientation="vertical"
     tools:context=".activity.CartActivity"
     android:weightSum="10">
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbarcart"
-        android:background="@color/colorInformation"
-        app:title="Giỏ hàng"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize">
-    </androidx.appcompat.widget.Toolbar>
+    <include layout="@layout/toolbar_product"/>
     <LinearLayout
         android:layout_weight="7"
         android:layout_width="match_parent"

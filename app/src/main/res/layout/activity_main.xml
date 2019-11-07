@@ -14,14 +14,15 @@
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolbarmanhinhchinh"
-                app:title="Trang chính"
-                app:titleTextColor="#fff"
-                android:background="@color/colorInformation"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize">
-            </androidx.appcompat.widget.Toolbar>
+<!--            <androidx.appcompat.widget.Toolbar-->
+<!--                android:id="@+id/toolbarmanhinhchinh"-->
+<!--                app:title="Trang chính"-->
+<!--                app:titleTextColor="#fff"-->
+<!--                android:background="@color/colorInformation"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="?attr/actionBarSize">-->
+<!--            </androidx.appcompat.widget.Toolbar>-->
+            <include layout="@layout/toolbar_product"/>
             <ViewFlipper
                 android:id="@+id/viewflipper"
                 android:layout_width="match_parent"
@@ -57,7 +58,8 @@
             <ListView
                 android:id="@+id/listviewmanhinhchinh"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:divider="#00000000">
             </ListView>
         </com.google.android.material.navigation.NavigationView>
     </androidx.drawerlayout.widget.DrawerLayout>

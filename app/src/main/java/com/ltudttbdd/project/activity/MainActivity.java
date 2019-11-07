@@ -304,6 +304,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void ActionBar() {
         setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Trang chủ");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbar.setNavigationIcon(android.R.drawable.ic_menu_sort_by_size);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -315,14 +316,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void Mappings() {
-        toolbar = findViewById(R.id.toolbarmanhinhchinh);
+        toolbar = findViewById(R.id.toolbar);
         viewFlipper = (ViewFlipper) findViewById(R.id.viewflipper);
         recyclerViewmanhinhchinh = (RecyclerView) findViewById(R.id.recyclerview);
         navigationView = (NavigationView) findViewById(R.id.navigationview);
         listViewmanhinhchinh = (ListView) findViewById(R.id.listviewmanhinhchinh);
         drawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
         arrayProductCategory = new ArrayList<>();
-        arrayProductCategory.add(0, new ProductCategory(0, "Trang chính", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSHsXduuMdIQh-cyva9fLRDIt6-zBH_Dr0AwEmzdFFpgKKHBjBWgg"));
+        arrayProductCategory.add(0, new ProductCategory(0, "Trang chính", "https://i.ibb.co/jHs33kR/home.png"));
         productCategoryAdapter = new CategoryAdapter(arrayProductCategory, getApplicationContext());
         listViewmanhinhchinh.setAdapter(productCategoryAdapter);
         arrayProduct = new ArrayList<>();
