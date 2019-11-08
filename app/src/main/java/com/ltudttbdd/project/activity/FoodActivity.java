@@ -39,8 +39,8 @@ import java.util.HashMap;
 
 public class FoodActivity extends AppCompatActivity {
 
-    Toolbar toolbarfood;
-    ListView listviewfood;
+    Toolbar toolbar;
+    ListView listview;
     ProductViewAdapter foodAdapter;
     ArrayList<Product> arrayfood;
     int idfood = 0;
@@ -53,7 +53,7 @@ public class FoodActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_food);
+        setContentView(R.layout.activity_product_list);
         Mappings();
         if (CheckConnection.haveNetworkConnection(getApplicationContext())) {
             GetIdProductCategory();
@@ -83,7 +83,7 @@ public class FoodActivity extends AppCompatActivity {
     }
 
     private void LoadMoreData() {
-        listviewfood.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent = new Intent(getApplicationContext(), ProductDetailActivity.class);
@@ -91,7 +91,7 @@ public class FoodActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        listviewfood.setOnScrollListener(new AbsListView.OnScrollListener() {
+        listview.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(AbsListView absListView, int i) {
 
@@ -123,12 +123,12 @@ public class FoodActivity extends AppCompatActivity {
                 String description = "";
                 int idCategory = 0;
                 if (response != null) {
-                    listviewfood.removeFooterView(footerview);
+                    listview.removeFooterView(footerview);
                     try {
                         JSONArray data = (JSONArray) response.getJSONArray("data");
                         if (data.length() == 0) {
                             limitData = true;
-                            listviewfood.removeFooterView(footerview);
+                            listview.removeFooterView(footerview);
                             CheckConnection.ShowToastShort(getApplicationContext(), "Đã hết dữ liệu");
                             return;
                         }
@@ -172,11 +172,12 @@ public class FoodActivity extends AppCompatActivity {
     }
 
     private void ActionToolbar() {
-        setSupportActionBar(toolbarfood);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Đồ ăn");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         Drawable newbackbtn = getResources().getDrawable(R.drawable.ic_back);
         getSupportActionBar().setHomeAsUpIndicator(newbackbtn);
-        toolbarfood.setNavigationOnClickListener(new View.OnClickListener() {
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
@@ -191,11 +192,11 @@ public class FoodActivity extends AppCompatActivity {
     }
 
     private void Mappings() {
-        toolbarfood = findViewById(R.id.toolbarfood);
-        listviewfood = findViewById(R.id.listviewfood);
+        toolbar = findViewById(R.id.toolbar);
+        listview = findViewById(R.id.lv_act_produclist);
         arrayfood = new ArrayList<>();
         foodAdapter = new ProductViewAdapter(getApplicationContext(), arrayfood);
-        listviewfood.setAdapter(foodAdapter);
+        listview.setAdapter(foodAdapter);
         LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
         footerview = inflater.inflate(R.layout.progress_bar, null);
         myHandler = new MyHandler();
@@ -206,7 +207,7 @@ public class FoodActivity extends AppCompatActivity {
         public void handleMessage(@NonNull Message msg) {
             switch (msg.what) {
                 case 0:
-                    listviewfood.addFooterView(footerview);
+                    listview.addFooterView(footerview);
                     break;
                 case 1:
                     GetData(++page);

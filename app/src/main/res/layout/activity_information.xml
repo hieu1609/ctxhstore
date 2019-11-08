@@ -4,14 +4,7 @@
     android:layout_height="match_parent"
     android:layout_width="match_parent"
     android:orientation="vertical">
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbarinformation"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@color/colorInformation"
-        app:title="Vị trí"
-        app:titleTextColor="#ffffff">
-    </androidx.appcompat.widget.Toolbar>
+    <include layout="@layout/toolbar_product"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"

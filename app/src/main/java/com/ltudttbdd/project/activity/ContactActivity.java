@@ -1,5 +1,6 @@
 package com.ltudttbdd.project.activity;
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
 import android.view.animation.Animation;
@@ -50,13 +51,16 @@ public class ContactActivity extends AppCompatActivity {
         this.imageView.setImageResource(R.drawable.ctxh);
         viewFlipper = findViewById(R.id.viewflipper);
         ActionViewFlipper();
-        toolbarcontact = findViewById(R.id.toolbarcontact);
+        toolbarcontact = findViewById(R.id.toolbar);
         ActionBar();
     }
 
     private void ActionBar() {
         setSupportActionBar(toolbarcontact);
+        getSupportActionBar().setTitle("Liên hệ");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Drawable newbackbtn = getResources().getDrawable(R.drawable.ic_back);
+        getSupportActionBar().setHomeAsUpIndicator(newbackbtn);
         toolbarcontact.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

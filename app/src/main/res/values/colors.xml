@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#008577</color>
+    <color name="colorPrimaryTint">#B2DAD6</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
     <color name="colorCart">#1E30BD</color>
@@ -25,4 +26,6 @@
     <color name="nhat">#ffffff</color>     <!-- Màu đỏ -->
     <color name="dam">#800FA092</color>
     <color name="colorPrice">#F51010</color>
+    <color name="white">#FFFFFF</color>
+    <color name="grey">#CDCDCD</color>
 </resources>

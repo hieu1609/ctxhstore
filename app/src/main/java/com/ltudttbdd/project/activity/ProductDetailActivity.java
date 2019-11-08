@@ -126,6 +126,7 @@ public class ProductDetailActivity extends AppCompatActivity {
 
     private void ActionToolbar() {
         setSupportActionBar(toolbarproductdetail);
+        getSupportActionBar().setTitle("Chi tiết sản phẩm");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         Drawable newbackbtn = getResources().getDrawable(R.drawable.ic_back);
         getSupportActionBar().setHomeAsUpIndicator(newbackbtn);
@@ -138,7 +139,7 @@ public class ProductDetailActivity extends AppCompatActivity {
     }
 
     private void Mappings() {
-        toolbarproductdetail = findViewById(R.id.toolbarproductdetail);
+        toolbarproductdetail = findViewById(R.id.toolbar);
         imgproductdetail = findViewById(R.id.imageviewproductdetail);
         txtname = findViewById(R.id.textviewnameproductdetail);
         txtprice = findViewById(R.id.textviewpriceproductdetail);

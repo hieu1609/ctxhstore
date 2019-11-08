@@ -2,10 +2,11 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:weightSum="10"
-    android:gravity="center">
+    android:weightSum="8.5"
+    android:gravity="center"
+    android:padding="10dp">
     <LinearLayout
-        android:layout_weight="2"
+        android:layout_weight="1.4"
         android:layout_width="0dp"
         android:layout_height="wrap_content">
         <ImageView
@@ -14,8 +15,8 @@
             android:layout_marginLeft="10dp"
             android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
-            android:layout_width="40dp"
-            android:layout_height="40dp" />
+            android:layout_width="25dp"
+            android:layout_height="25dp" />
 
     </LinearLayout>
     <LinearLayout
@@ -25,7 +26,7 @@
         <TextView
             android:id="@+id/textviewloaisp"
             android:text="Product Types"
-            android:textSize="20dp"
+            android:textSize="18dp"
             android:textColor="@color/colorProductPrice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>

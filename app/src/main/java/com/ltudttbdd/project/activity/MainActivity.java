@@ -236,7 +236,11 @@ public class MainActivity extends AppCompatActivity {
                     }
                     arrayProductCategory.add(data.length() + 1, new ProductCategory(0, "Liên hệ", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQWq2hS1q3YW7MStkX9jyfEqYg3jMmftZ82J7az5oN-thj0oycsnw"));
                     arrayProductCategory.add(data.length() + 2, new ProductCategory(0, "Vị trí", "https://i.ibb.co/rpnJ5QZ/Gps-Icon-PNG-Free-Background.png"));
-                    arrayProductCategory.add(data.length() + 3, new ProductCategory(0, "Thông tin Người dùng", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQmOD06az3sOuJf2IfL4UTSvQkUalSFM-AJjoV8C7CeN-YjtEu9"));
+                    if (isLogin == true) {
+                        arrayProductCategory.add(data.length() + 3, new ProductCategory(0, "Thông tin Người dùng", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQmOD06az3sOuJf2IfL4UTSvQkUalSFM-AJjoV8C7CeN-YjtEu9"));
+                    } else {
+                        arrayProductCategory.add(data.length() + 3, new ProductCategory(0, "Đăng nhập", "https://i.ibb.co/FXczf6H/enter.png"));
+                    }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -300,6 +304,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void ActionBar() {
         setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Trang chủ");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbar.setNavigationIcon(android.R.drawable.ic_menu_sort_by_size);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -311,14 +316,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void Mappings() {
-        toolbar = findViewById(R.id.toolbarmanhinhchinh);
+        toolbar = findViewById(R.id.toolbar);
         viewFlipper = (ViewFlipper) findViewById(R.id.viewflipper);
         recyclerViewmanhinhchinh = (RecyclerView) findViewById(R.id.recyclerview);
         navigationView = (NavigationView) findViewById(R.id.navigationview);
         listViewmanhinhchinh = (ListView) findViewById(R.id.listviewmanhinhchinh);
         drawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
         arrayProductCategory = new ArrayList<>();
-        arrayProductCategory.add(0, new ProductCategory(0, "Trang chính", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSHsXduuMdIQh-cyva9fLRDIt6-zBH_Dr0AwEmzdFFpgKKHBjBWgg"));
+        arrayProductCategory.add(0, new ProductCategory(0, "Trang chính", "https://i.ibb.co/jHs33kR/home.png"));
         productCategoryAdapter = new CategoryAdapter(arrayProductCategory, getApplicationContext());
         listViewmanhinhchinh.setAdapter(productCategoryAdapter);
         arrayProduct = new ArrayList<>();

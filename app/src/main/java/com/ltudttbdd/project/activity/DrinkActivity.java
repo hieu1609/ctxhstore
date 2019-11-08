@@ -39,8 +39,8 @@ import java.util.HashMap;
 
 public class DrinkActivity extends AppCompatActivity {
 
-    Toolbar toolbardrink;
-    ListView listviewdrink;
+    Toolbar toolbar;
+    ListView listview;
     ProductViewAdapter drinkAdapter;
     ArrayList<Product> arraydrink;
     int iddrink = 0;
@@ -53,7 +53,7 @@ public class DrinkActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_drink);
+        setContentView(R.layout.activity_product_list);
         Mappings();
         if (CheckConnection.haveNetworkConnection(getApplicationContext())) {
             GetIdProductCategory();
@@ -83,7 +83,7 @@ public class DrinkActivity extends AppCompatActivity {
     }
 
     private void LoadMoreData() {
-        listviewdrink.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent = new Intent(getApplicationContext(), ProductDetailActivity.class);
@@ -91,7 +91,7 @@ public class DrinkActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        listviewdrink.setOnScrollListener(new AbsListView.OnScrollListener() {
+        listview.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(AbsListView absListView, int i) {
 
@@ -124,12 +124,12 @@ public class DrinkActivity extends AppCompatActivity {
                 String description = "";
                 int idCategory = 0;
                 if (response != null) {
-                    listviewdrink.removeFooterView(footerview);
+                    listview.removeFooterView(footerview);
                     try {
                         JSONArray data = (JSONArray) response.getJSONArray("data");
                         if (data.length() == 0) {
                             limitData = true;
-                            listviewdrink.removeFooterView(footerview);
+                            listview.removeFooterView(footerview);
                             CheckConnection.ShowToastShort(getApplicationContext(), "Đã hết dữ liệu");
                             return;
                         }
@@ -173,11 +173,12 @@ public class DrinkActivity extends AppCompatActivity {
     }
 
     private void ActionToolbar() {
-        setSupportActionBar(toolbardrink);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Đồ uống");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         Drawable newbackbtn = getResources().getDrawable(R.drawable.ic_back);
         getSupportActionBar().setHomeAsUpIndicator(newbackbtn);
-        toolbardrink.setNavigationOnClickListener(new View.OnClickListener() {
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
@@ -192,11 +193,11 @@ public class DrinkActivity extends AppCompatActivity {
     }
 
     private void Mappings() {
-        toolbardrink = findViewById(R.id.toolbardrink);
-        listviewdrink = findViewById(R.id.listviewdrink);
+        toolbar = findViewById(R.id.toolbar);
+        listview = findViewById(R.id.lv_act_produclist);
         arraydrink = new ArrayList<>();
         drinkAdapter = new ProductViewAdapter(getApplicationContext(), arraydrink);
-        listviewdrink.setAdapter(drinkAdapter);
+        listview.setAdapter(drinkAdapter);
         LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
         footerview = inflater.inflate(R.layout.progress_bar, null);
         myHandler = new MyHandler();
@@ -207,7 +208,7 @@ public class DrinkActivity extends AppCompatActivity {
         public void handleMessage(@NonNull Message msg) {
             switch (msg.what) {
                 case 0:
-                    listviewdrink.addFooterView(footerview);
+                    listview.addFooterView(footerview);
                     break;
                 case 1:
                     GetData(++page);

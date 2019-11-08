@@ -6,14 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".activity.SignUpActivity">
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbarsignup"
-        android:layout_width="match_parent"
-        android:layout_height="@android:dimen/app_icon_size"
-        android:background="@color/colorInformation"
-        app:title="Đăng ký"
-        app:titleTextColor="#ffffff">
-    </androidx.appcompat.widget.Toolbar>
+    <include layout="@layout/toolbar_product"/>
 
     <LinearLayout
         android:id="@+id/relativelayout"

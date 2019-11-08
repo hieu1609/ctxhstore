@@ -39,8 +39,8 @@ import java.util.HashMap;
 
 public class BraceletActivity extends AppCompatActivity {
 
-    Toolbar toolbarbracelet;
-    ListView listviewbracelet;
+    Toolbar toolbar;
+    ListView listview;
     ProductViewAdapter braceletAdapter;
     ArrayList<Product> arraybracelet;
     int idbracelet = 0;
@@ -53,7 +53,8 @@ public class BraceletActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_bracelet);
+//        setContentView(R.layout.activity_bracelet);
+        setContentView(R.layout.activity_product_list);
         Mappings();
         if (CheckConnection.haveNetworkConnection(getApplicationContext())) {
             GetIdProductCategory();
@@ -83,7 +84,7 @@ public class BraceletActivity extends AppCompatActivity {
     }
 
     private void LoadMoreData() {
-        listviewbracelet.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent = new Intent(getApplicationContext(), ProductDetailActivity.class);
@@ -91,7 +92,7 @@ public class BraceletActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        listviewbracelet.setOnScrollListener(new AbsListView.OnScrollListener() {
+        listview.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(AbsListView absListView, int i) {
 
@@ -124,12 +125,12 @@ public class BraceletActivity extends AppCompatActivity {
                 String description = "";
                 int idCategory = 0;
                 if (response != null) {
-                    listviewbracelet.removeFooterView(footerview);
+                    listview.removeFooterView(footerview);
                     try {
                         JSONArray data = (JSONArray) response.getJSONArray("data");
                         if(data.length() == 0){
                             limitData = true;
-                            listviewbracelet.removeFooterView(footerview);
+                            listview.removeFooterView(footerview);
                             CheckConnection.ShowToastShort(getApplicationContext(), "Đã hết dữ liệu");
                             return;
                         }
@@ -173,17 +174,17 @@ public class BraceletActivity extends AppCompatActivity {
     }
 
     private void ActionToolbar() {
-        setSupportActionBar(toolbarbracelet);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Vòng tay Handmade");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         Drawable newbackbtn = getResources().getDrawable(R.drawable.ic_back);
         getSupportActionBar().setHomeAsUpIndicator(newbackbtn);
-        toolbarbracelet.setNavigationOnClickListener(new View.OnClickListener() {
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
             }
         });
-
     }
 
     private void GetIdProductCategory() {
@@ -192,11 +193,11 @@ public class BraceletActivity extends AppCompatActivity {
     }
 
     private void Mappings() {
-        toolbarbracelet = findViewById(R.id.toolbarbracelet);
-        listviewbracelet = findViewById(R.id.listviewbracelet);
+        toolbar = findViewById(R.id.toolbar);
+        listview = findViewById(R.id.lv_act_produclist);
         arraybracelet = new ArrayList<>();
         braceletAdapter = new ProductViewAdapter(getApplicationContext(), arraybracelet);
-        listviewbracelet.setAdapter(braceletAdapter);
+        listview.setAdapter(braceletAdapter);
         LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
         footerview = inflater.inflate(R.layout.progress_bar, null);
         myHandler = new MyHandler();
@@ -207,7 +208,7 @@ public class BraceletActivity extends AppCompatActivity {
         public void handleMessage(@NonNull Message msg) {
             switch (msg.what) {
                 case 0:
-                    listviewbracelet.addFooterView(footerview);
+                    listview.addFooterView(footerview);
                     break;
                 case 1:
                     GetData(++page);
