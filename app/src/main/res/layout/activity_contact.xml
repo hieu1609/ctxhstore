@@ -5,17 +5,11 @@
     android:layout_width="match_parent"
     android:background="#ffffff">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbarcontact"
-        android:layout_width="match_parent"
-        android:layout_height="@android:dimen/app_icon_size"
-        android:background="@color/colorInformation"
-        app:title="Liên hệ"
-        app:titleTextColor="#ffffff">
-    </androidx.appcompat.widget.Toolbar>
+    <include layout="@layout/toolbar_product"/>
+
     <RelativeLayout
         android:id="@+id/relativelayout"
-        android:layout_below="@id/toolbarcontact"
+        android:layout_below="@id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="310dp"
         android:background="#FFFAFA

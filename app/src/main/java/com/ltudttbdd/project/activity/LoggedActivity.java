@@ -115,6 +115,7 @@ public class LoggedActivity extends AppCompatActivity {
 
     private void ActionToolbar() {
         setSupportActionBar(toolbarlogged);
+        getSupportActionBar().setTitle("Thông tin tài khoản");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         Drawable newbackbtn = getResources().getDrawable(R.drawable.ic_back);
         getSupportActionBar().setHomeAsUpIndicator(newbackbtn);
@@ -131,7 +132,7 @@ public class LoggedActivity extends AppCompatActivity {
         edtEmail = findViewById(R.id.useremailtext);
         edtUsername = findViewById(R.id.usernametext);
         btnLogout = findViewById(R.id.logout);
-        toolbarlogged = findViewById(R.id.toolbarlogged);
+        toolbarlogged = findViewById(R.id.toolbar);
 //        btnreturn = findViewById(R.id.returnbutton);
 //        btnsignup = findViewById(R.id.signupbutton);
     }

@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentActivity;
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -30,7 +31,7 @@ public class InformationActivity extends AppCompatActivity implements OnMapReady
         setContentView(R.layout.activity_information);
         imageView  = findViewById(R.id.ImageView);
         this.imageView.setImageResource(R.drawable.ctxh);
-        toolbarinformation = findViewById(R.id.toolbarinformation);
+        toolbarinformation = findViewById(R.id.toolbar);
         ActionBar();
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
@@ -42,7 +43,10 @@ public class InformationActivity extends AppCompatActivity implements OnMapReady
 
     private void ActionBar() {
         setSupportActionBar(toolbarinformation);
+        getSupportActionBar().setTitle("Vị trí");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Drawable newbackbtn = getResources().getDrawable(R.drawable.ic_back);
+        getSupportActionBar().setHomeAsUpIndicator(newbackbtn);
         toolbarinformation.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
