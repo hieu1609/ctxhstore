@@ -59,7 +59,7 @@ public class SignUpActivity extends AppCompatActivity {
     }
     private void ActionBar() {
         setSupportActionBar(toolbarsignup);
-        getSupportActionBar().setTitle("Đăng kí");
+        getSupportActionBar().setTitle("Đăng ký");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         Drawable newbackbtn = getResources().getDrawable(R.drawable.ic_back);
         getSupportActionBar().setHomeAsUpIndicator(newbackbtn);
@@ -127,8 +127,6 @@ public class SignUpActivity extends AppCompatActivity {
                         public String getBodyContentType() {
                             return "application/json; charset=utf-8";
                         }
-
-
                     };
                     RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
                     requestQueue.add(jsonObjectRequest);
