@@ -79,7 +79,7 @@ public class ProductViewAdapter extends BaseAdapter {
         Product product = (Product) getItem(i);
         viewHoler.txt_ProductName.setText(product.getProductName());
         DecimalFormat decimalFormat = new DecimalFormat("###,###,###");
-        viewHoler.txt_ProductPrice.setText(decimalFormat.format(product.getPrice()) + " VNĐ");
+        viewHoler.txt_ProductPrice.setText(decimalFormat.format(product.getPrice()) + " Đ");
         viewHoler.txt_ProductDescription.setMaxLines(2);
         viewHoler.txt_ProductDescription.setEllipsize(TextUtils.TruncateAt.END);
         viewHoler.txt_ProductDescription.setText(product.getDescription());

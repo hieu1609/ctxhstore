@@ -42,7 +42,7 @@ public class ProductsAtHomeAdapter extends RecyclerView.Adapter<ProductsAtHomeAd
         Product product = arrayProduct.get(position);
         holder.txtProductName.setText(product.getProductName());
         DecimalFormat decimalFormat = new DecimalFormat("###,###,###");
-        holder.txtProductPrice.setText(decimalFormat.format(product.getPrice()) + " VNĐ");
+        holder.txtProductPrice.setText(decimalFormat.format(product.getPrice()) + " Đ");
         Picasso.get().load(product.getProductImage())
                 .placeholder(R.drawable.defaultimg)
                 .error(R.drawable.errorimg)

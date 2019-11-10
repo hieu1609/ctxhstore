@@ -116,7 +116,7 @@ public class ProductDetailActivity extends AppCompatActivity {
         idCategory = product.getIdCategory();
         txtname.setText(productName);
         DecimalFormat decimalFormat = new DecimalFormat("###,###,###");
-        txtprice.setText("Giá: " + decimalFormat.format(price) + " VNĐ");
+        txtprice.setText("Giá: " + decimalFormat.format(price) + " Đ");
         txtdescription.setText(description);
         Picasso.get().load(productImage)
                 .placeholder(R.drawable.defaultimg)
