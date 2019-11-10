@@ -8,11 +8,13 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.ltudttbdd.project.R;
 import com.ltudttbdd.project.adapter.CartAdapter;
@@ -38,7 +40,8 @@ public class CartActivity extends AppCompatActivity {
         ActionToolbar();
         CheckData();
         EventUtil();
-        CatchOnItemListView();
+        //CatchOnItemListView();
+//        deleteProduct();
         EventButton();
     }
 
@@ -68,6 +71,7 @@ public class CartActivity extends AppCompatActivity {
         listViewCart.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
+
                 AlertDialog.Builder builder = new AlertDialog.Builder(CartActivity.this); /////??
                 builder.setTitle("Xác nhận xóa sản phẩm");
                 builder.setMessage("Bạn có chắc muốn xóa sản phẩm này?");
