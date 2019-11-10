@@ -44,14 +44,14 @@
                     android:textSize="16dp"
                     android:text="price"
                     android:id="@+id/tv2_lvi_product"
-                    android:textColor="@color/colorPrice"/>
+                    android:textColor="@color/colorPrice"
+                    android:layout_centerVertical="true"/>
                 <RatingBar
                     android:id="@+id/rb_lvi_product"
                     style="?android:attr/ratingBarStyleSmall"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
-                    android:layout_centerHorizontal="true"
                     android:numStars="5" />
             </RelativeLayout>
             <TextView
@@ -60,6 +60,7 @@
                 android:layout_below="@id/rv_product"
                 android:textSize="16dp"
                 android:text="description"
+                android:layout_centerVertical="true"
                 android:id="@+id/tv3_lvi_product"/>
         </RelativeLayout>
     </RelativeLayout>
