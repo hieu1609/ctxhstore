@@ -7,6 +7,7 @@ import androidx.fragment.app.FragmentActivity;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -22,11 +23,14 @@ public class InformationActivity extends AppCompatActivity implements OnMapReady
 
     private GoogleMap mMap;
     Toolbar toolbarinformation;
+    ImageView imageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_information);
+        imageView  = findViewById(R.id.ImageView);
+        this.imageView.setImageResource(R.drawable.ctxh);
         toolbarinformation = findViewById(R.id.toolbar);
         ActionBar();
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
