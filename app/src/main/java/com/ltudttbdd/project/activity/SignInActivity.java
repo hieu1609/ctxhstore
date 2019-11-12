@@ -130,7 +130,7 @@ public class SignInActivity extends AppCompatActivity {
                                     String useraddress = userres.getString("address");
 
                                     user = new User(userid,useremail,username,userphone,useraddress,usertoken);
-                                    Toast.makeText(SignInActivity.this, "Đăng ký thành công", Toast.LENGTH_LONG).show();
+                                    Toast.makeText(SignInActivity.this, "Đăng nhập thành công", Toast.LENGTH_LONG).show();
                                     isLogin = true;
                                     Intent login = new Intent(getApplicationContext(), LoggedActivity.class);
                                     startActivity(login);
