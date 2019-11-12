@@ -1,6 +1,8 @@
 package com.ltudttbdd.project.adapter;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,17 +15,20 @@ import com.ltudttbdd.project.R;
 import com.ltudttbdd.project.activity.CartActivity;
 import com.ltudttbdd.project.activity.MainActivity;
 import com.ltudttbdd.project.model.Cart;
+import com.ltudttbdd.project.ultil.CheckConnection;
 import com.squareup.picasso.Picasso;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
+import static com.ltudttbdd.project.activity.CartActivity.EventUtil;
+
 public class CartAdapter extends BaseAdapter {
 
-    Context context;
+    CartActivity context;
     ArrayList<Cart> arrayCart;
 
-    public CartAdapter(Context context, ArrayList<Cart> arrayCart) {
+    public CartAdapter(CartActivity context, ArrayList<Cart> arrayCart) {
         this.context = context;
         this.arrayCart = arrayCart;
     }
@@ -45,7 +50,7 @@ public class CartAdapter extends BaseAdapter {
 
     public class ViewHoler {
         public TextView txtCartName, txtCartPrice, txtValues;
-        public ImageView imgCart;
+        public ImageView imgCart, imgRemove;
         public Button btnMinus, btnPlus;
     }
 
@@ -62,6 +67,7 @@ public class CartAdapter extends BaseAdapter {
             viewHoler.btnMinus = view.findViewById(R.id.buttonminus);
             viewHoler.btnPlus = view.findViewById(R.id.buttonplus);
             viewHoler.txtValues = view.findViewById(R.id.txt_values);
+            viewHoler.imgRemove = view.findViewById(R.id.imgcartremove);
             view.setTag(viewHoler);
         }
         else {
@@ -70,7 +76,7 @@ public class CartAdapter extends BaseAdapter {
         Cart cart = (Cart) getItem(i);
         viewHoler.txtCartName.setText(cart.getNameproduct());
         DecimalFormat decimalFormat = new DecimalFormat("###,###,###");
-        viewHoler.txtCartPrice.setText(decimalFormat.format(cart.getPriceproduct()) + " VNĐ");
+        viewHoler.txtCartPrice.setText(decimalFormat.format(cart.getPriceproduct()) + " Đ");
         Picasso.get().load(cart.getImageproduct())
                 .placeholder(R.drawable.defaultimg)
                 .error((R.drawable.errorimg))
@@ -90,8 +96,8 @@ public class CartAdapter extends BaseAdapter {
             MainActivity.arrayCart.get(i).setNumberproduct(newNumber);
             MainActivity.arrayCart.get(i).setPriceproduct(newPrice);
             DecimalFormat decimal = new DecimalFormat("###,###,###");
-            viewHoler.txtCartPrice.setText(decimal.format(newPrice) + " VNĐ");
-            CartActivity.EventUtil();
+            viewHoler.txtCartPrice.setText(decimal.format(newPrice) + " Đ");
+            EventUtil();
         }
         else if (numberProduct <= 1) {
 //            viewHoler.btnPlus.setVisibility(View.INVISIBLE);
@@ -116,8 +122,8 @@ public class CartAdapter extends BaseAdapter {
                 MainActivity.arrayCart.get(i).setNumberproduct(newNumber);
                 MainActivity.arrayCart.get(i).setPriceproduct(newPrice);
                 DecimalFormat decimalFormat = new DecimalFormat("###,###,###");
-                finalViewHoler.txtCartPrice.setText(decimalFormat.format(newPrice) + " VNĐ");
-                CartActivity.EventUtil();
+                finalViewHoler.txtCartPrice.setText(decimalFormat.format(newPrice) + " Đ");
+                EventUtil();
                 if (newNumber > 9) {
 //            viewHoler.btnPlus.setVisibility(View.INVISIBLE);
 //            viewHoler.btnMinus.setVisibility(View.VISIBLE);
@@ -144,24 +150,57 @@ public class CartAdapter extends BaseAdapter {
                 MainActivity.arrayCart.get(i).setNumberproduct(newNumber);
                 MainActivity.arrayCart.get(i).setPriceproduct(newPrice);
                 DecimalFormat decimalFormat = new DecimalFormat("###,###,###");
-                finalViewHoler.txtCartPrice.setText(decimalFormat.format(newPrice) + " VNĐ");
-                CartActivity.EventUtil();
+                finalViewHoler.txtCartPrice.setText(decimalFormat.format(newPrice) + " Đ");
+                EventUtil();
                 if (newNumber < 2) {
-//            viewHoler.btnPlus.setVisibility(View.INVISIBLE);
-//            viewHoler.btnMinus.setVisibility(View.VISIBLE);
                     finalViewHoler.btnPlus.setEnabled(true);
                     finalViewHoler.btnMinus.setEnabled(false);
                     finalViewHoler.txtValues.setText(String.valueOf(newNumber));
                 }
                 else {
-//            viewHoler.btnPlus.setVisibility(View.INVISIBLE);
-//            viewHoler.btnMinus.setVisibility(View.VISIBLE);
                     finalViewHoler.btnPlus.setEnabled(true);
                     finalViewHoler.btnMinus.setEnabled(true);
                     finalViewHoler.txtValues.setText(String.valueOf(newNumber));
                 }
             }
         });
+        viewHoler.imgRemove.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(context); /////??
+                builder.setTitle("Xác nhận xóa sản phẩm");
+                builder.setMessage("Bạn có chắc muốn xóa sản phẩm này?");
+                builder.setPositiveButton("Có", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int i1) {
+                        if (MainActivity.arrayCart.size() <= 0) {
+                            CheckConnection.ShowToastShort(context, "Giỏ hàng của bạn đang trống");
+                        }
+                        else {
+                            MainActivity.arrayCart.remove(arrayCart.get(i));
+                            notifyDataSetChanged();
+                            EventUtil();
+                            if (MainActivity.arrayCart.size() <= 0) {
+                                CheckConnection.ShowToastShort(context, "Giỏ hàng của bạn đang trống");
+                            }
+                            else {
+                                notifyDataSetChanged();
+                                EventUtil();
+                            }
+                        }
+                    }
+                });
+                builder.setNegativeButton("Không", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int i1) {
+                        notifyDataSetChanged();
+                        EventUtil();
+                    }
+                });
+                builder.show();
+            }
+        });
+
         return view;
     }
 }

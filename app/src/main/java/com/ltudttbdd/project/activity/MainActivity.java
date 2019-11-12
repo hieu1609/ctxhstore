@@ -131,7 +131,7 @@ public class MainActivity extends AppCompatActivity {
                             startActivity(userInformationIntent);
                             break;
                         case 9:
-                            if(isLogin == true){
+                            if(isLogin){
                                 Intent login = new Intent(getApplicationContext(), LoggedActivity.class);
                                 startActivity(login);
                                 break;
@@ -169,7 +169,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void GetDataNewProduct() {
-
         if (arrayProduct.size() == 0) {
             JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, Server.urlNewProduct, null, new Response.Listener<JSONObject>() {
                 @Override
@@ -236,11 +235,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                     arrayProductCategory.add(data.length() + 1, new ProductCategory(0, "Liên hệ", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQWq2hS1q3YW7MStkX9jyfEqYg3jMmftZ82J7az5oN-thj0oycsnw"));
                     arrayProductCategory.add(data.length() + 2, new ProductCategory(0, "Vị trí", "https://i.ibb.co/rpnJ5QZ/Gps-Icon-PNG-Free-Background.png"));
-                    if (isLogin == true) {
-                        arrayProductCategory.add(data.length() + 3, new ProductCategory(0, "Thông tin Người dùng", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQmOD06az3sOuJf2IfL4UTSvQkUalSFM-AJjoV8C7CeN-YjtEu9"));
-                    } else {
-                        arrayProductCategory.add(data.length() + 3, new ProductCategory(0, "Đăng nhập", "https://i.ibb.co/FXczf6H/enter.png"));
-                    }
+                    arrayProductCategory.add(data.length() + 3, new ProductCategory(0, "Thông tin Người dùng", "https://i.ibb.co/1sZpRY3/User-Icon-PNG-03589.png"));
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

@@ -75,8 +75,8 @@ public class ProductDetailActivity extends AppCompatActivity {
                         if (MainActivity.arrayCart.get(i).getIdproduct() == id) {
                             //cập nhật số lượng mới
                             MainActivity.arrayCart.get(i).setNumberproduct(MainActivity.arrayCart.get(i).getNumberproduct() + getnumber);
-                            if (MainActivity.arrayCart.get(i).getNumberproduct() >= 30) {
-                                MainActivity.arrayCart.get(i).setNumberproduct(30);
+                            if (MainActivity.arrayCart.get(i).getNumberproduct() >= 10) {
+                                MainActivity.arrayCart.get(i).setNumberproduct(10);
                             }
                             MainActivity.arrayCart.get(i).setPriceproduct(price * MainActivity.arrayCart.get(i).getNumberproduct());
                             exists = true;
@@ -116,7 +116,7 @@ public class ProductDetailActivity extends AppCompatActivity {
         idCategory = product.getIdCategory();
         txtname.setText(productName);
         DecimalFormat decimalFormat = new DecimalFormat("###,###,###");
-        txtprice.setText("Giá: " + decimalFormat.format(price) + " VNĐ");
+        txtprice.setText("Giá: " + decimalFormat.format(price) + " Đ");
         txtdescription.setText(description);
         Picasso.get().load(productImage)
                 .placeholder(R.drawable.defaultimg)
