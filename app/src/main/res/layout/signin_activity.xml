@@ -67,6 +67,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <LinearLayout
+            android:id="@+id/linearlayout"
             android:layout_below="@id/edittext1"
             android:gravity="center"
             android:orientation="horizontal"
@@ -92,6 +93,18 @@
                 android:layout_width="150dp"
                 android:layout_height="wrap_content" />
         </LinearLayout>
+        <Button
+            android:id="@+id/resetpass"
+            android:gravity="center"
+            android:layout_below="@id/linearlayout"
+            android:background="@drawable/border4"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:padding="10dp"
+            android:layout_centerInParent="true"
+            android:textSize="15dp"
+            android:text="reset password"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content" />
 
         </RelativeLayout>
     </RelativeLayout>

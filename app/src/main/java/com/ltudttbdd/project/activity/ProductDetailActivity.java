@@ -54,9 +54,7 @@ public class ProductDetailActivity extends AppCompatActivity {
         ActionToolbar();
         GetInformation();
         CatchEventSpinner();
-        if (isLogin == false) {
-            btrate.setVisibility(View.GONE);
-        }
+
         if (CheckConnection.haveNetworkConnection(getApplicationContext())) {
             EventButton();
         } else {
@@ -116,11 +114,18 @@ public class ProductDetailActivity extends AppCompatActivity {
         btrate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent rate1 = new Intent(getApplicationContext(), RatingActivity.class);
-                arrayproduct = new Product(id, productName, price, productImage, description, idCategory, rate);
-                rate1.putExtra("thongtinsanpham", arrayproduct);
-                startActivity(rate1);
-                finish();
+                if (isLogin == false) {
+                    Intent rate1 = new Intent(getApplicationContext(), SignInActivity.class);
+                    startActivity(rate1);
+                    finish();
+                }
+                else {
+                    Intent rate1 = new Intent(getApplicationContext(), RatingActivity.class);
+                    arrayproduct = new Product(id, productName, price, productImage, description, idCategory, rate);
+                    rate1.putExtra("thongtinsanpham", arrayproduct);
+                    startActivity(rate1);
+                    finish();
+                }
             }
         });
     }

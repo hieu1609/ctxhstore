@@ -39,7 +39,7 @@ public class LoggedActivity extends AppCompatActivity {
 
     TextView edtUsername, edtEmail;
     Toolbar toolbarlogged;
-    Button btnConfigAccout, btnPurcharse, btnMyRate, btnLogout;
+    Button btnConfigAccout, btnPurcharse, btnMyRate, btnLogout, btrspassword;
     ImageView imageView;
     ImageView imageView1;
     TextView textView;
@@ -119,6 +119,14 @@ public class LoggedActivity extends AppCompatActivity {
                 finish();
             }
         });
+        btrspassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent change = new Intent(getApplicationContext(), ChangePassword.class);
+                startActivity(change);
+                finish();
+            }
+        });
     }
 
     private void ActionToolbar() {
@@ -142,6 +150,7 @@ public class LoggedActivity extends AppCompatActivity {
         btnLogout = findViewById(R.id.logout);
         toolbarlogged = findViewById(R.id.toolbar);
         btnConfigAccout = findViewById(R.id.configaccount);
+        btrspassword = findViewById(R.id.configaccount1);
 //        btnreturn = findViewById(R.id.returnbutton);
 //        btnsignup = findViewById(R.id.signupbutton);
     }

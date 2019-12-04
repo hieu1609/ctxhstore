@@ -39,7 +39,7 @@ import static com.ltudttbdd.project.activity.MainActivity.user;
 public class SignInActivity extends AppCompatActivity {
 
     EditText edtPassword, edtEmail;
-    Button btnconfirm, btnsignup;
+    Button btnconfirm, btnsignup, btreset;
     Toolbar toolbarsignin;
     //private View alphaColorView;
     int numOfItem, orderId;
@@ -161,6 +161,14 @@ public class SignInActivity extends AppCompatActivity {
                 }
             }
         });
+        btreset.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent login = new Intent(getApplicationContext(), ResetPassword.class);
+                startActivity(login);
+                finish();
+            }
+        });
     }
 
     private void Mappings() {
@@ -169,6 +177,7 @@ public class SignInActivity extends AppCompatActivity {
         edtPassword = findViewById(R.id.textpassword);
         btnconfirm = findViewById(R.id.confirmbutton);
         btnsignup = findViewById(R.id.signupbutton);
+        btreset = findViewById(R.id.resetpass);
 
     }
 }
