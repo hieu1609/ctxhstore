@@ -181,6 +181,7 @@ public class MainActivity extends AppCompatActivity {
                             String productImage = "";
                             String description = "";
                             int idCategory = 0;
+                            float rating = 0;
                             JSONArray data = (JSONArray) response.getJSONArray("data");
                             for (int i = 0; i < data.length(); i++) {
                                 try {
@@ -190,8 +191,9 @@ public class MainActivity extends AppCompatActivity {
                                     price = newItem.getInt("price");
                                     productImage = newItem.getString("product_image");
                                     description = newItem.getString("description");
-                                    idCategory = newItem.getInt("id_category");
-                                    arrayProduct.add(new Product(id, productName, price, productImage, description, idCategory));
+                                    idCategory = newItem.getInt("category_id");
+                                    rating = (float)(newItem.getDouble("rating"));
+                                    arrayProduct.add(new Product(id, productName, price, productImage, description, idCategory, rating));
                                     productAdapter.notifyDataSetChanged();
 
                                 } catch (JSONException e) {

@@ -13,6 +13,8 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
+
 import com.ltudttbdd.project.R;
 import com.ltudttbdd.project.model.Product;
 import com.squareup.picasso.Picasso;
@@ -27,6 +29,7 @@ public class ProductViewAdapter extends BaseAdapter {
     public ProductViewAdapter(Context context, ArrayList<Product> arrayproduct) {
         this.context = context;
         this.arrayProduct = arrayproduct;
+
     }
 
     @Override
@@ -48,12 +51,20 @@ public class ProductViewAdapter extends BaseAdapter {
         public TextView txt_ProductName, txt_ProductPrice, txt_ProductDescription;
         public ImageView imgProduct;
         public RatingBar rbProduct;
+
     }
 
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
+        Product product = (Product) getItem(i);
+        float rate = 0;
+        if((product.getRating()) != 0 )
+        {
+            rate = (product.getRating());
+        }
         ViewHoler viewHoler = null;
-        if (view == null) {
+
+        if (view == null ) {
             viewHoler = new ViewHoler();
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 //            view = inflater.inflate(R.layout.list_bracelet, null);
@@ -70,20 +81,23 @@ public class ProductViewAdapter extends BaseAdapter {
 //            Drawable stars = viewHoler.rbbracelet.getProgressDrawable();
 //            DrawableCompat.setTint(stars, Color.YELLOW);
             LayerDrawable starsFilter = (LayerDrawable) viewHoler.rbProduct.getProgressDrawable();
-            starsFilter.setColorFilter(Color.rgb(255,140,0), PorterDuff.Mode.SRC_ATOP);
+            starsFilter.setColorFilter(Color.rgb(255, 140, 0), PorterDuff.Mode.SRC_ATOP);
             view.setTag(viewHoler);
+            if (rate == 0) {
+                viewHoler.rbProduct.setVisibility(View.GONE);
+            }
         }
         else {
             viewHoler = (ViewHoler) view.getTag();
+
         }
-        Product product = (Product) getItem(i);
         viewHoler.txt_ProductName.setText(product.getProductName());
         DecimalFormat decimalFormat = new DecimalFormat("###,###,###");
         viewHoler.txt_ProductPrice.setText(decimalFormat.format(product.getPrice()) + " Đ");
         viewHoler.txt_ProductDescription.setMaxLines(2);
         viewHoler.txt_ProductDescription.setEllipsize(TextUtils.TruncateAt.END);
         viewHoler.txt_ProductDescription.setText(product.getDescription());
-        viewHoler.rbProduct.setRating((float)4);
+        viewHoler.rbProduct.setRating(rate);
         Picasso.get().load(product.getProductImage())
                 .placeholder(R.drawable.noimg)
                 .error((R.drawable.errorimg))

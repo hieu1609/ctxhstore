@@ -123,6 +123,7 @@ public class KeyChainsActivity extends AppCompatActivity {
                 String productImage = "";
                 String description = "";
                 int idCategory = 0;
+                float rating = 0;
                 if (response != null) {
                     listview.removeFooterView(footerview);
                     try {
@@ -141,8 +142,9 @@ public class KeyChainsActivity extends AppCompatActivity {
                                 price = item.getInt("price");
                                 productImage = item.getString("product_image");
                                 description = item.getString("description");
-                                idCategory = item.getInt("id_category");
-                                arraykeychains.add(new Product(id, productName, price, productImage, description, idCategory));
+                                idCategory = item.getInt("category_id");
+                                rating = (float)(item.getDouble("rating"));
+                                arraykeychains.add(new Product(id, productName, price, productImage, description, idCategory, rating));
                                 keychainsAdapter.notifyDataSetChanged();
 
                             } catch (JSONException e) {
