@@ -115,10 +115,9 @@ public class RatingActivity extends AppCompatActivity {
         btrating.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //bỏ đi khoảng trắng trim()
-                final String cmt = txcmt.getText().toString().trim();
+                final String cmt = txcmt.getText().toString();
                 final float rating = rbrating.getRating();
-                if (cmt.length() > 0 && rating >= 0) {
+                if ( rating > 0) {
                     final HashMap<String, Object> postParams = new HashMap<String, Object>();
                     postParams.put("productId", id);
                     postParams.put("rating", rating);
@@ -128,10 +127,10 @@ public class RatingActivity extends AppCompatActivity {
                         @Override
                         public void onResponse(JSONObject response) {
                             Toast.makeText(RatingActivity.this, "Cảm ơn sự đánh giá của bạn", Toast.LENGTH_LONG).show();
-                            Intent logger = new Intent(RatingActivity.this, ProductDetailActivity.class);
-                            arrayproduct.rating = (rating + rbrating.getRating()) / 2;
-                            logger.putExtra("thongtinsanpham", arrayproduct);
-                            startActivity(logger);
+//                            Intent logger = new Intent(RatingActivity.this, ProductDetailActivity.class);
+//                            arrayproduct.rating = (arrayproduct.rating + rbrating.getRating()) / 2;
+//                            logger.putExtra("thongtinsanpham", arrayproduct);
+//                            startActivity(logger);
                             finish();
 
                         }
