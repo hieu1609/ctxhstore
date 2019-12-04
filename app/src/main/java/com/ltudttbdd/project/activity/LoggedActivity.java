@@ -111,6 +111,14 @@ public class LoggedActivity extends AppCompatActivity {
                 requestQueue.add(jsonObjectRequest);
             }
         });
+        btnConfigAccout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent edituser = new Intent(getApplicationContext(), EditUser.class);
+                startActivity(edituser);
+                finish();
+            }
+        });
     }
 
     private void ActionToolbar() {
@@ -133,6 +141,7 @@ public class LoggedActivity extends AppCompatActivity {
         edtUsername = findViewById(R.id.usernametext);
         btnLogout = findViewById(R.id.logout);
         toolbarlogged = findViewById(R.id.toolbar);
+        btnConfigAccout = findViewById(R.id.configaccount);
 //        btnreturn = findViewById(R.id.returnbutton);
 //        btnsignup = findViewById(R.id.signupbutton);
     }

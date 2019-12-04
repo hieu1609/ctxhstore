@@ -122,6 +122,7 @@ public class FoodActivity extends AppCompatActivity {
                 String productImage = "";
                 String description = "";
                 int idCategory = 0;
+                float rating = 0;
                 if (response != null) {
                     listview.removeFooterView(footerview);
                     try {
@@ -140,8 +141,9 @@ public class FoodActivity extends AppCompatActivity {
                                 price = item.getInt("price");
                                 productImage = item.getString("product_image");
                                 description = item.getString("description");
-                                idCategory = item.getInt("id_category");
-                                arrayfood.add(new Product(id, productName, price, productImage, description, idCategory));
+                                idCategory = item.getInt("category_id");
+                                rating = (float)item.getDouble("rating");
+                                arrayfood.add(new Product(id, productName, price, productImage, description, idCategory, rating));
                                 foodAdapter.notifyDataSetChanged();
 
                             } catch (JSONException e) {

@@ -2,7 +2,7 @@ package com.ltudttbdd.project.ultil;
 
 public class Server {
 
-    public static String host = "34.87.53.42";
+    public static String host = "172.20.20.23:800";
 
     public static String urlProductCategory = "http://" + host + "/ctxhstore/public/api/data/getProductCategory";
     public static String urlNewProduct = "http://" + host + "/ctxhstore/public/api/data/getNewProduct";
@@ -13,5 +13,8 @@ public class Server {
     public static String urlLogin = "http://" + host + "/ctxhstore/public/api/auth/login";
     public static String urlRegister = "http://" + host + "/ctxhstore/public/api/auth/register";
     public static String urlLogout = "http://" + host + "/ctxhstore/public/api/auth/logout";
+    public static String urlChange = "http://" + host + "/ctxhstore/public/api/auth/change-password";
+    public static String urleditUserProfile = "http://" + host + "/ctxhstore/public/api/user/editUserProfile";
+    public static String urlrating = "http://" + host + "/ctxhstore/public/api/user/postReview";
 
 }

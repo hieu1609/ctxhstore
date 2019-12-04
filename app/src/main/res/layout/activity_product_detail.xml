@@ -55,6 +55,32 @@
                 android:padding="1dp"
                 android:background="@drawable/spinner"
                 android:textAlignment="center"></Spinner>
+            <LinearLayout
+                android:padding="1dp"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+            <RatingBar
+                android:id="@+id/rb_lvi_product"
+                style="?android:attr/ratingBarStyleSmall"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:numStars="5" />
+            <Button
+                android:id="@+id/buttonrate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="1dp"
+                android:text="Đánh giá"
+                android:textColor="#000000"
+                android:textSize="13sp"
+                android:textStyle="bold|italic"
+                />
+            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 

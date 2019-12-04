@@ -9,14 +9,16 @@ public class Product implements Serializable {
     public String productImage;
     public String description;
     public int idCategory;
+    public float rating;
 
-    public Product(int id, String productName, int price, String productImage, String description, int idCategory) {
+    public Product(int id, String productName, int price, String productImage, String description, int idCategory,float rating) {
         this.id = id;
         this.productName = productName;
         this.price = price;
         this.productImage = productImage;
         this.description = description;
         this.idCategory = idCategory;
+        this.rating = rating;
     }
 
     public int getId() {
@@ -66,4 +68,13 @@ public class Product implements Serializable {
     public void setIdCategory(int idCategory) {
         this.idCategory = idCategory;
     }
+
+    public float getRating() {
+        return rating;
+    }
+
+    public void setRating(float rating) {
+        this.rating = rating;
+    }
+
 }
