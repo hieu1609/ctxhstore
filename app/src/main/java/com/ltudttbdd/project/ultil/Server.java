@@ -16,5 +16,7 @@ public class Server {
     public static String urlChange = "http://" + host + "/ctxhstore/public/api/auth/change-password";
     public static String urleditUserProfile = "http://" + host + "/ctxhstore/public/api/user/editUserProfile";
     public static String urlrating = "http://" + host + "/ctxhstore/public/api/user/postReview";
+    public static String urlmail = "http://" + host + "/ctxhstore/public/api/auth/request/reset-password";
+    public static String urlreset = "http://" + host + "/ctxhstore/public/api/auth/accept/reset-password";
 
 }

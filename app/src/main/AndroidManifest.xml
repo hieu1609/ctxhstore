@@ -19,7 +19,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".activity.RatingActivity"></activity>
+        <activity android:name=".activity.ResetPassword"></activity>
+        <activity android:name=".activity.ChangePassword" />
+        <activity android:name=".activity.RatingActivity" />
         <activity android:name=".activity.EditUser" />
         <activity
             android:name=".activity.SplashScreenActivity"

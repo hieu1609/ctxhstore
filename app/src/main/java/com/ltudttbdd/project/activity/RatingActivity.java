@@ -31,8 +31,10 @@ import com.ltudttbdd.project.ultil.CheckConnection;
 import com.ltudttbdd.project.ultil.Server;
 import com.squareup.picasso.Picasso;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.lang.reflect.Array;
 import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.Map;
@@ -53,6 +55,7 @@ public class RatingActivity extends AppCompatActivity {
     int price = 0;
     String productImage = "";
     int idCategory = 0;
+    String description = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,6 +84,7 @@ public class RatingActivity extends AppCompatActivity {
         price = product.getPrice();
         productImage = product.getProductImage();
         idCategory = product.getIdCategory();
+        description = product.getDescription();
         txtname.setText(productName);
         DecimalFormat decimalFormat = new DecimalFormat("###,###,###");
         txtprice.setText("Giá: " + decimalFormat.format(price) + " Đ");
@@ -126,12 +130,18 @@ public class RatingActivity extends AppCompatActivity {
                     JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, Server.urlrating, jsonObject, new Response.Listener<JSONObject>() {
                         @Override
                         public void onResponse(JSONObject response) {
+                            try {
+                                JSONObject data = (JSONObject) response.getJSONObject("data");
+                                float rating1 = (float)(data.getDouble("rating"));
+                                arrayproduct = new Product(id, productName, price, productImage, description, idCategory, rating1);
                             Toast.makeText(RatingActivity.this, "Cảm ơn sự đánh giá của bạn", Toast.LENGTH_LONG).show();
-//                            Intent logger = new Intent(RatingActivity.this, ProductDetailActivity.class);
-//                            arrayproduct.rating = (arrayproduct.rating + rbrating.getRating()) / 2;
-//                            logger.putExtra("thongtinsanpham", arrayproduct);
-//                            startActivity(logger);
+                            Intent logger = new Intent(RatingActivity.this, ProductDetailActivity.class);
+                           logger.putExtra("thongtinsanpham", arrayproduct);
+                            startActivity(logger);
                             finish();
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
 
                         }
                     }, new Response.ErrorListener() {
