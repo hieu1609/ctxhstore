@@ -63,13 +63,10 @@ public class ResetPassword extends AppCompatActivity {
                         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, Server.urlmail, jsonObject, new Response.Listener<JSONObject>(){
                             @Override
                             public void onResponse(JSONObject response) {
-                                try {
-                                    JSONObject data = (JSONObject) response.getJSONObject("data");
-                                    token = data.getString("token");
                                     Toast.makeText(ResetPassword.this, "Kiểm tra mail của bạn", Toast.LENGTH_LONG).show();
-                                    } catch (JSONException e) {
-                                        e.printStackTrace();
-                                    }
+                                    Intent logger = new Intent(ResetPassword.this, SignInActivity.class);
+                                    startActivity(logger);
+                                    finish();
 
                             }
                         }
@@ -92,41 +89,6 @@ public class ResetPassword extends AppCompatActivity {
                         CheckConnection.ShowToastShort(getApplicationContext(), "Bạn hãy kiểm tra lại dữ liệu");
                     }
 
-                    final String passnew = edtpassnew.getText().toString().trim();
-                    final String conf = edtcpass.getText().toString().trim();
-                    if (passnew.length() > 0 && conf.length() > 0) {
-
-                        final HashMap<String, String> postParams = new HashMap<String, String>();
-                        postParams.put("token",token );
-                        postParams.put("newPassword", edtpassnew.getText().toString());
-                        postParams.put("confirmNewPassword", edtcpass.getText().toString());
-                        final JSONObject jsonObject = new JSONObject(postParams);
-                        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, Server.urlreset, jsonObject, new Response.Listener<JSONObject>() {
-                            @Override
-                            public void onResponse(JSONObject response) {
-                                Toast.makeText(ResetPassword.this, "Đã thay đổi mật khẩu", Toast.LENGTH_LONG).show();
-                                Intent logger = new Intent(ResetPassword.this, SignInActivity.class);
-                                startActivity(logger);
-                                finish();
-                            }
-                        }, new Response.ErrorListener() {
-                            @Override
-                            public void onErrorResponse(VolleyError error) {
-
-                            }
-                        }) {
-
-                            @Override
-                            public String getBodyContentType() {
-                                return "application/json; charset=utf-8";
-                            }
-
-                        };
-                        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
-                        requestQueue.add(jsonObjectRequest);
-                    } else {
-                        CheckConnection.ShowToastShort(getApplicationContext(), "Bạn hãy kiểm tra lại dữ liệu");
-                    }
                 }
             });
         }

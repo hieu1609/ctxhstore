@@ -4,14 +4,15 @@ import java.io.Serializable;
 
 public class Rating implements Serializable {
         public int idproduct;
-        public int iduser;
+        public String iduser;
         public String comment;
         public float rate;
 
-        public Rating(int idproduct, int iduser, String comment, float rate) {
+        public Rating(int idproduct, String iduser, String comment, float rate) {
             this.idproduct = idproduct;
             this.iduser = iduser;
             this.comment = comment;
+            this.rate = rate;
         }
 
         public int getIdproduct() {
@@ -22,11 +23,11 @@ public class Rating implements Serializable {
             this.idproduct = idproduct;
         }
 
-        public int getIduser() {
+        public String getIduser() {
             return iduser;
         }
 
-        public void setIduser(int iduser) {
+        public void setIduser(String iduser) {
             this.iduser = iduser;
         }
 
