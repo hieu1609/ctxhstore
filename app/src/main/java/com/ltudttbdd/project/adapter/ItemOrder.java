@@ -61,7 +61,7 @@ public class ItemOrder extends BaseAdapter {
     public View getView(final int i, View view, ViewGroup viewGroup) {
         ViewHoler viewHoler = null;
 
-        if (view == null ) {
+        if (view == null) {
             viewHoler = new ViewHoler();
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             view = inflater.inflate(R.layout.item_order, null);
@@ -73,8 +73,7 @@ public class ItemOrder extends BaseAdapter {
             viewHoler.imgRemove = view.findViewById(R.id.imgcartremove);
             view.setTag(viewHoler);
 
-        }
-        else {
+        } else {
             viewHoler = (ItemOrder.ViewHoler) view.getTag();
         }
         Order order = (Order) getItem(i);
@@ -84,41 +83,40 @@ public class ItemOrder extends BaseAdapter {
         DecimalFormat decimalFormat = new DecimalFormat("###,###,###");
         viewHoler.txprice.setText(decimalFormat.format(order.getPrice()) + " Đ");
         viewHoler.txdate.setText(String.valueOf(order.getDate()));
-        viewHoler.imgRemove.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(context); /////??
-                builder.setTitle("Xác nhận xóa đơn hàng");
-                builder.setMessage("Bạn có chắc muốn xóa đơn hàng này?");
-                builder.setPositiveButton("Có", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int i1) {
-                        if (MainActivity.arrayOrder.size() <= 0) {
-                            CheckConnection.ShowToastShort(context, "Không có đơn hàng nào");
-                        }
-                        else {
+        if (order.getCategory() == 3 || order.getCategory() == 4) {
+            viewHoler.imgRemove.setVisibility(View.GONE);
+        } else {
+            viewHoler.imgRemove.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view1) {
+                    //Tạo đối tượng
+                    AlertDialog.Builder b = new AlertDialog.Builder(context);
+                    //Thiết lập tiêu đề
+                    b.setTitle("Xác nhận");
+                    b.setMessage("Bạn có đồng ý thoát chương trình không?");
+                    // Nút Ok
+                    b.setPositiveButton("Đồng ý", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
                             arrayOrder.remove(arrayOrder.get(i));
                             notifyDataSetChanged();
                             EventUtil();
-                            if (arrayOrder.size() <= 0) {
-                                CheckConnection.ShowToastShort(context, "Không có đơn hàng nào");
-                            }
-                            else {
-                                notifyDataSetChanged();
-                                EventUtil();
-                            }
+
                         }
-                    }
-                });
-                builder.setNegativeButton("Không", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int i1) {
-                        notifyDataSetChanged();
-                        EventUtil();
-                    }
-                });
+                    });
+                    //Nút Cancel
+                    b.setNegativeButton("Không đồng ý", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
+                        }
+                    });
+                    //Tạo dialog
+                    AlertDialog al = b.create();
+                    //Hiển thị
+                    al.show();
                 }
-                });
+            });
+
+        }
         return view;
     }
 

@@ -47,7 +47,6 @@ public class Received extends AppCompatActivity {
     ListView listview;
     ItemOrder OrderAdapter;
     ArrayList<Order> arrayOrdrer;
-    BraceletActivity.MyHandler myHandler;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,7 +83,7 @@ public class Received extends AppCompatActivity {
                                 count = item.getInt("product_number");
                                 price = item.getInt("product_price");
                                 date = item.getString("created_at");
-                                arrayOrdrer.add(new Order(id, name, count, price,date));
+                                arrayOrdrer.add(new Order(1,id, name, count, price,date));
                                 OrderAdapter.notifyDataSetChanged();
 
                             } catch (JSONException e) {
@@ -134,6 +133,8 @@ public class Received extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Intent signin = new Intent(Received.this, OrderPreview.class);
+                startActivity(signin);
                 finish();
             }
         });
