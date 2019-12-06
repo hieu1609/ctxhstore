@@ -333,7 +333,7 @@ public class MainActivity extends AppCompatActivity {
         if (arrayCart == null) {
             arrayCart = new ArrayList<>();
         }
-        if(arrayOrder == null){
+        if (arrayOrder == null){
             arrayOrder = new ArrayList<>();
         }
     }

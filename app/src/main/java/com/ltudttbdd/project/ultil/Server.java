@@ -21,7 +21,7 @@ public class Server {
     public static String urlfeedback = "http://" + host + "/ctxhstore/public/api/user/postFeedback";
     public static String urlreceived = "http://" + host + "/ctxhstore/public/api/user/getPurchasesReceived";
     public static String urlconfirm = "http://" + host + "/ctxhstore/public/api/user/getPurchasesConfirm";
-    public static String urlfshipping = "http://" + host + "/ctxhstore/public/api/user/getPurchasesShipping";
+    public static String urlshipping = "http://" + host + "/ctxhstore/public/api/user/getPurchasesShipping";
     public static String urlcompleted = "http://" + host + "/ctxhstore/public/api/user/getPurchasesCompleted";
 
 }
