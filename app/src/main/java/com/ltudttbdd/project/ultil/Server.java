@@ -2,7 +2,8 @@ package com.ltudttbdd.project.ultil;
 
 public class Server {
 
-    public static String host = "172.20.20.23:800";
+//    public static String host = "172.20.20.23:800";
+    public static String host = "192.168.1.21:800";
 
     public static String urlProductCategory = "http://" + host + "/ctxhstore/public/api/data/getProductCategory";
     public static String urlNewProduct = "http://" + host + "/ctxhstore/public/api/data/getNewProduct";
