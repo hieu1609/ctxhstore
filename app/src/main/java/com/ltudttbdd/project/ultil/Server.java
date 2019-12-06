@@ -2,7 +2,7 @@ package com.ltudttbdd.project.ultil;
 
 public class Server {
 
-    public static String host = "172.20.20.23:800";
+    public static String host = "35.247.143.211";
 
     public static String urlProductCategory = "http://" + host + "/ctxhstore/public/api/data/getProductCategory";
     public static String urlNewProduct = "http://" + host + "/ctxhstore/public/api/data/getNewProduct";
@@ -17,6 +17,11 @@ public class Server {
     public static String urleditUserProfile = "http://" + host + "/ctxhstore/public/api/user/editUserProfile";
     public static String urlrating = "http://" + host + "/ctxhstore/public/api/user/postReview";
     public static String urlmail = "http://" + host + "/ctxhstore/public/api/auth/request/reset-password";
-    public static String urlreset = "http://" + host + "/ctxhstore/public/api/auth/accept/reset-password";
+    public static String urlcomment = "http://" + host + "/ctxhstore/public/api/data/getCommentByProductId";
+    public static String urlfeedback = "http://" + host + "/ctxhstore/public/api/user/postFeedback";
+    public static String urlreceived = "http://" + host + "/ctxhstore/public/api/user/getPurchasesReceived";
+    public static String urlconfirm = "http://" + host + "/ctxhstore/public/api/user/getPurchasesConfirm";
+    public static String urlfshipping = "http://" + host + "/ctxhstore/public/api/user/getPurchasesShipping";
+    public static String urlcompleted = "http://" + host + "/ctxhstore/public/api/user/getPurchasesCompleted";
 
 }
