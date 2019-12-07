@@ -173,7 +173,7 @@ public class NotificationActivity extends AppCompatActivity {
                                 seen = item.getInt("seen");
                                 arraynotify.add(new Notify(title, content, seen));
                                 notifyAdapter.notifyDataSetChanged();
-
+                                Log.d("nooti", "onResponse: " + title + " " + content + " " + seen);
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
