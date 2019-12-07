@@ -23,5 +23,6 @@ public class Server {
     public static String urlconfirm = "http://" + host + "/ctxhstore/public/api/user/getPurchasesConfirm";
     public static String urlshipping = "http://" + host + "/ctxhstore/public/api/user/getPurchasesShipping";
     public static String urlcompleted = "http://" + host + "/ctxhstore/public/api/user/getPurchasesCompleted";
+    public static String urlcancel = "http://" + host + "/ctxhstore/public/api/user/CancelOrder";
 
 }
