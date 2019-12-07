@@ -164,8 +164,15 @@ public class MainActivity extends AppCompatActivity {
             case R.id.menucart:
                 Intent intent = new Intent(getApplicationContext(), CartActivity.class);
                 startActivity(intent);
+                break;
+            case R.id.menunotify:
+                Intent intentNoti = new Intent(getApplicationContext(), NotificationActivity.class);
+                startActivity(intentNoti);
+                break;
+            default:
+                return super.onOptionsItemSelected(item);
         }
-        return super.onOptionsItemSelected(item);
+        return true;
     }
 
     private void GetDataNewProduct() {
