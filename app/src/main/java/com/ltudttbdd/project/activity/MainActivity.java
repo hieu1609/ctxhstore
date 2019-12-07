@@ -36,6 +36,7 @@ import com.ltudttbdd.project.R;
 import com.ltudttbdd.project.adapter.CategoryAdapter;
 import com.ltudttbdd.project.adapter.ProductsAtHomeAdapter;
 import com.ltudttbdd.project.model.Cart;
+import com.ltudttbdd.project.model.Order;
 import com.ltudttbdd.project.model.Product;
 import com.ltudttbdd.project.model.ProductCategory;
 import com.ltudttbdd.project.model.User;
@@ -65,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
     ProductsAtHomeAdapter productAdapter;
     //khai báo static để tất cả có thể sử dụng, không mất dữ liệu khi chuyển qua activity khác
     public static ArrayList<Cart> arrayCart;
+    public static ArrayList<Order> arrayOrder;
     int id = 0;
     String categoryName = "";
     String categoryImage = "";
@@ -337,6 +339,9 @@ public class MainActivity extends AppCompatActivity {
         recyclerViewmanhinhchinh.setAdapter(productAdapter);
         if (arrayCart == null) {
             arrayCart = new ArrayList<>();
+        }
+        if (arrayOrder == null){
+            arrayOrder = new ArrayList<>();
         }
     }
 

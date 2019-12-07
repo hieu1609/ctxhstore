@@ -21,4 +21,11 @@ public class Server {
     public static String urlreset = "http://" + host + "/ctxhstore/public/api/auth/accept/reset-password";
     public static String urlGetNotification = "http://" + host + "/ctxhstore/public/api/user/getNotifications";
     public static String urlSeenNotification = "http://" + host + "/ctxhstore/public/api/user/seenNotifications";
+    public static String urlcomment = "http://" + host + "/ctxhstore/public/api/data/getCommentByProductId";
+    public static String urlfeedback = "http://" + host + "/ctxhstore/public/api/user/postFeedback";
+    public static String urlreceived = "http://" + host + "/ctxhstore/public/api/user/getPurchasesReceived";
+    public static String urlconfirm = "http://" + host + "/ctxhstore/public/api/user/getPurchasesConfirm";
+    public static String urlshipping = "http://" + host + "/ctxhstore/public/api/user/getPurchasesShipping";
+    public static String urlcompleted = "http://" + host + "/ctxhstore/public/api/user/getPurchasesCompleted";
+
 }
