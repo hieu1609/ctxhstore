@@ -64,6 +64,7 @@
         <activity android:name=".activity.SignInActivity" />
         <activity android:name=".activity.SignUpActivity" />
         <activity android:name=".activity.LoggedActivity" />
+        <activity android:name=".activity.NotificationActivity" />
         <activity
             android:name=".activity.InformationActivity"
             android:label="@string/title_activity_information" />
