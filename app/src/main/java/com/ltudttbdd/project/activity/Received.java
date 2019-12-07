@@ -46,7 +46,7 @@ public class Received extends AppCompatActivity {
     Toolbar toolbar;
     ListView listview;
     ItemOrder OrderAdapter;
-    ArrayList<Order> arrayOrdrer;
+    public static ArrayList<Order> arrayOrder;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,7 +83,7 @@ public class Received extends AppCompatActivity {
                                 count = item.getInt("product_number");
                                 price = item.getInt("product_price");
                                 date = item.getString("created_at");
-                                arrayOrdrer.add(new Order(1,id, name, count, price,date));
+                                arrayOrder.add(new Order(1,id, name, count, price,date));
                                 OrderAdapter.notifyDataSetChanged();
 
                             } catch (JSONException e) {
@@ -120,8 +120,10 @@ public class Received extends AppCompatActivity {
     private void Mappings() {
         toolbar = findViewById(R.id.toolbar);
         listview = findViewById(R.id.lv_act_produclist);
-        arrayOrdrer = new ArrayList<>();
-        OrderAdapter = new ItemOrder(getApplicationContext(), arrayOrdrer);
+        if (arrayOrder == null){
+            arrayOrder = new ArrayList<>();
+        }
+        OrderAdapter = new ItemOrder(Received.this, arrayOrder);
         listview.setAdapter(OrderAdapter);
     }
     private void ActionToolbar() {

@@ -1,8 +1,8 @@
 package com.ltudttbdd.project.ultil;
 
 public class Server {
-//    public static String host = "35.247.143.211";
-    public static String host = "192.168.1.21:800";
+    //public static String host = "35.247.143.211";
+    public static String host = "172.20.11.157:800";
 
     public static String urlProductCategory = "http://" + host + "/ctxhstore/public/api/data/getProductCategory";
     public static String urlNewProduct = "http://" + host + "/ctxhstore/public/api/data/getNewProduct";
@@ -26,5 +26,6 @@ public class Server {
     public static String urlconfirm = "http://" + host + "/ctxhstore/public/api/user/getPurchasesConfirm";
     public static String urlshipping = "http://" + host + "/ctxhstore/public/api/user/getPurchasesShipping";
     public static String urlcompleted = "http://" + host + "/ctxhstore/public/api/user/getPurchasesCompleted";
+    public static String urlcancel = "http://" + host + "/ctxhstore/public/api/user/cancelorder";
 
 }
