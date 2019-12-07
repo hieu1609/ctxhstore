@@ -15,18 +15,35 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.ltudttbdd.project.R;
 import com.ltudttbdd.project.activity.CartActivity;
 import com.ltudttbdd.project.activity.Confirm;
 import com.ltudttbdd.project.activity.MainActivity;
 import com.ltudttbdd.project.activity.Received;
+import com.ltudttbdd.project.activity.SignUpActivity;
 import com.ltudttbdd.project.model.Order;
 import com.ltudttbdd.project.ultil.CheckConnection;
+import com.ltudttbdd.project.ultil.Server;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
+import static com.ltudttbdd.project.activity.MainActivity.user;
 
 
 public class ItemOrder extends BaseAdapter {
@@ -78,7 +95,7 @@ public class ItemOrder extends BaseAdapter {
         } else {
             viewHoler = (ItemOrder.ViewHoler) view.getTag();
         }
-        Order order = (Order) getItem(i);
+        final Order order = (Order) getItem(i);
         viewHoler.txorder.setText(String.valueOf(order.getIdorder()));
         viewHoler.txname.setText(order.getName());
         viewHoler.txcount.setText(String.valueOf(order.getCount()));
@@ -101,6 +118,36 @@ public class ItemOrder extends BaseAdapter {
                     b.setPositiveButton("Đồng ý", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
                             arrayOrder.remove(arrayOrder.get(i));
+                            final HashMap<String, Integer> postParams = new HashMap<String, Integer>();
+                            postParams.put("orderId", order.getIdorder());
+                            final JSONObject jsonObject = new JSONObject(postParams);
+                            JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.DELETE, Server.urlcancel, jsonObject, new Response.Listener<JSONObject>() {
+                                @Override
+                                public void onResponse(JSONObject response) {
+                                    Toast.makeText(context, "Hủy đơn hàng thành công", Toast.LENGTH_LONG).show();
+                                }
+
+                            }, new Response.ErrorListener() {
+                                @Override
+                                public void onErrorResponse(VolleyError error) {
+
+                                }
+                            }) {
+
+                                @Override
+                                public String getBodyContentType() {
+                                    return "application/json; charset=utf-8";
+                                }
+                                @Override
+                                public Map<String, String> getHeaders() throws AuthFailureError {
+                                    HashMap<String, String> headers = new HashMap<String, String>();
+                                    headers.put("Authorization", "Bearer" + user.token);
+                                    return headers;
+                                }
+
+                            };
+                            RequestQueue requestQueue = Volley.newRequestQueue(context);
+                            requestQueue.add(jsonObjectRequest);
                             notifyDataSetChanged();
                         }
                     });
