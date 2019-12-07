@@ -17,14 +17,16 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.ltudttbdd.project.R;
+import com.ltudttbdd.project.activity.CartActivity;
+import com.ltudttbdd.project.activity.Confirm;
 import com.ltudttbdd.project.activity.MainActivity;
+import com.ltudttbdd.project.activity.Received;
 import com.ltudttbdd.project.model.Order;
 import com.ltudttbdd.project.ultil.CheckConnection;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
-import static com.ltudttbdd.project.activity.CartActivity.EventUtil;
 
 
 public class ItemOrder extends BaseAdapter {
@@ -89,18 +91,17 @@ public class ItemOrder extends BaseAdapter {
             viewHoler.imgRemove.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view1) {
+
                     //Tạo đối tượng
                     AlertDialog.Builder b = new AlertDialog.Builder(context);
                     //Thiết lập tiêu đề
-                    b.setTitle("Xác nhận");
-                    b.setMessage("Bạn có đồng ý thoát chương trình không?");
+                    b.setTitle("Xác nhận xóa đơn hàng");
+                    b.setMessage("Bạn có chắc chắn muốn xóa đơn hàng không?");
                     // Nút Ok
                     b.setPositiveButton("Đồng ý", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
                             arrayOrder.remove(arrayOrder.get(i));
                             notifyDataSetChanged();
-                            EventUtil();
-
                         }
                     });
                     //Nút Cancel
