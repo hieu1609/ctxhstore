@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.LayerDrawable;
 import android.text.method.ScrollingMovementMethod;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -115,13 +116,33 @@ public class ItemOrder extends BaseAdapter {
                     b.setTitle("Xác nhận xóa đơn hàng");
                     b.setMessage("Bạn có chắc chắn muốn xóa đơn hàng không?");
                     // Nút Ok
+                    final String url = Server.urlcancel +"/" +order.getIdorder();
+                    Log.d("test_cancel", url);
                     b.setPositiveButton("Đồng ý", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
-                            arrayOrder.remove(arrayOrder.get(i));
-                            final HashMap<String, Integer> postParams = new HashMap<String, Integer>();
-                            postParams.put("orderId", order.getIdorder());
-                            final JSONObject jsonObject = new JSONObject(postParams);
-                            JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.DELETE, Server.urlcancel, jsonObject, new Response.Listener<JSONObject>() {
+                            final Order P = (Order) getItem(i);
+                            int cate = P.getCategory();
+                            int il = P.getIdorder();
+                            if( cate == 1) {
+                                for (int j = 0; j < Received.arrayOrder.size(); j++) {
+                                    Order T = (Order) getItem(j);
+                                    if (T.getIdorder() == il) {
+                                        Received.arrayOrder.remove(Received.arrayOrder.get(j));
+                                    }
+                                }
+                                Received.arrayOrder.remove(P);
+                            }
+                            else{
+                                for (int j = 0; j < Confirm.arrayOrder.size(); j++) {
+                                    Order T = (Order) getItem(j);
+                                    if (T.getIdorder() == il) {
+                                        Confirm.arrayOrder.remove(Confirm.arrayOrder.get(j));
+                                    }
+                                }
+                                Confirm.arrayOrder.remove(P);
+                            }
+
+                            JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.DELETE, url, null, new Response.Listener<JSONObject>() {
                                 @Override
                                 public void onResponse(JSONObject response) {
                                     Toast.makeText(context, "Hủy đơn hàng thành công", Toast.LENGTH_LONG).show();
@@ -163,7 +184,6 @@ public class ItemOrder extends BaseAdapter {
                     al.show();
                 }
             });
-
         }
         return view;
     }
