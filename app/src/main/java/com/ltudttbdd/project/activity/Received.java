@@ -120,8 +120,10 @@ public class Received extends AppCompatActivity {
     private void Mappings() {
         toolbar = findViewById(R.id.toolbar);
         listview = findViewById(R.id.lv_act_produclist);
-        arrayOrdrer = new ArrayList<>();
-        OrderAdapter = new ItemOrder(getApplicationContext(), arrayOrdrer);
+        if (arrayOrdrer == null){
+            arrayOrdrer = new ArrayList<>();
+        }
+        OrderAdapter = new ItemOrder(Received.this, arrayOrdrer);
         listview.setAdapter(OrderAdapter);
     }
     private void ActionToolbar() {
