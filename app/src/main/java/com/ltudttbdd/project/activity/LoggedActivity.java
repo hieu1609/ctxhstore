@@ -39,7 +39,7 @@ public class LoggedActivity extends AppCompatActivity {
 
     TextView edtUsername, edtEmail;
     Toolbar toolbarlogged;
-    Button btnConfigAccout, btnPurcharse, btnMyRate, btnLogout;
+    Button btnConfigAccout, btnPurcharse, btnfeedack, btnLogout, btrspassword;
     ImageView imageView;
     ImageView imageView1;
     TextView textView;
@@ -119,6 +119,30 @@ public class LoggedActivity extends AppCompatActivity {
                 finish();
             }
         });
+        btrspassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent change = new Intent(getApplicationContext(), ChangePassword.class);
+                startActivity(change);
+                finish();
+            }
+        });
+        btnfeedack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent feedback = new Intent(getApplicationContext(), Feedback.class);
+                startActivity(feedback);
+                finish();
+            }
+        });
+        btnPurcharse.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent feedback = new Intent(getApplicationContext(), OrderPreview.class);
+                startActivity(feedback);
+                finish();
+            }
+        });
     }
 
     private void ActionToolbar() {
@@ -142,7 +166,9 @@ public class LoggedActivity extends AppCompatActivity {
         btnLogout = findViewById(R.id.logout);
         toolbarlogged = findViewById(R.id.toolbar);
         btnConfigAccout = findViewById(R.id.configaccount);
-//        btnreturn = findViewById(R.id.returnbutton);
-//        btnsignup = findViewById(R.id.signupbutton);
+        btrspassword = findViewById(R.id.configaccount1);
+        btnfeedack = findViewById(R.id.myrate);
+        btnPurcharse = findViewById(R.id.purchaseorder);
+
     }
 }

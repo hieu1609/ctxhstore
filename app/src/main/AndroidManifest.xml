@@ -19,7 +19,15 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".activity.RatingActivity"></activity>
+        <activity android:name=".activity.Completed"></activity>
+        <activity android:name=".activity.Shipping" />
+        <activity android:name=".activity.Confirm" />
+        <activity android:name=".activity.Received" />
+        <activity android:name=".activity.OrderPreview" />
+        <activity android:name=".activity.Feedback" />
+        <activity android:name=".activity.ResetPassword" />
+        <activity android:name=".activity.ChangePassword" />
+        <activity android:name=".activity.RatingActivity" />
         <activity android:name=".activity.EditUser" />
         <activity
             android:name=".activity.SplashScreenActivity"
