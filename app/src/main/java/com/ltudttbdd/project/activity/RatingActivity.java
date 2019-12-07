@@ -134,15 +134,15 @@ public class RatingActivity extends AppCompatActivity {
                                 JSONObject data = (JSONObject) response.getJSONObject("data");
                                 float rating1 = (float)(data.getDouble("rating"));
                                 arrayproduct = new Product(id, productName, price, productImage, description, idCategory, rating1);
-                            Toast.makeText(RatingActivity.this, "Cảm ơn sự đánh giá của bạn", Toast.LENGTH_LONG).show();
-                            Intent logger = new Intent(RatingActivity.this, ProductDetailActivity.class);
-                           logger.putExtra("thongtinsanpham", arrayproduct);
-                            startActivity(logger);
-                            finish();
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
+                                Toast.makeText(RatingActivity.this, "Cảm ơn sự đánh giá của bạn", Toast.LENGTH_LONG).show();
+                                Intent logger = new Intent(RatingActivity.this, ProductDetailActivity.class);
+                                logger.putExtra("thongtinsanpham", arrayproduct);
+                                startActivity(logger);
+                                finish();
                                 }
-
+                            catch (JSONException e) {
+                                    e.printStackTrace();
+                            }
                         }
                     }, new Response.ErrorListener() {
                         @Override

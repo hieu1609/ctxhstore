@@ -1,5 +1,11 @@
 package com.ltudttbdd.project.activity;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -12,13 +18,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -26,7 +31,10 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.ltudttbdd.project.R;
+import com.ltudttbdd.project.adapter.CartAdapter;
+import com.ltudttbdd.project.adapter.NotificationAdapter;
 import com.ltudttbdd.project.adapter.ProductViewAdapter;
+import com.ltudttbdd.project.model.Notify;
 import com.ltudttbdd.project.model.Product;
 import com.ltudttbdd.project.ultil.CheckConnection;
 import com.ltudttbdd.project.ultil.Server;
@@ -35,15 +43,18 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
-public class DrinkActivity extends AppCompatActivity {
+import static com.ltudttbdd.project.activity.MainActivity.user;
+
+public class NotificationActivity extends AppCompatActivity {
     Toolbar toolbar;
     ListView listview;
-    ProductViewAdapter drinkAdapter;
-    ArrayList<Product> arraydrink;
-    int iddrink = 0;
+    NotificationAdapter notifyAdapter;
+    ArrayList<Notify> arraynotify;
     int page = 1;
     View footerview;
     boolean isLoading = false;
@@ -56,7 +67,6 @@ public class DrinkActivity extends AppCompatActivity {
         setContentView(R.layout.activity_product_list);
         Mappings();
         if (CheckConnection.haveNetworkConnection(getApplicationContext())) {
-            GetIdProductCategory();
             ActionToolbar();
             GetData(page);
             LoadMoreData();
@@ -66,28 +76,29 @@ public class DrinkActivity extends AppCompatActivity {
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.menucart:
-                Intent intent = new Intent(getApplicationContext(), CartActivity.class);
-                startActivity(intent);
-        }
-        return super.onOptionsItemSelected(item);
-    }
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        getMenuInflater().inflate(R.menu.menu, menu);
+//        return true;
+//    }
+//
+//    @Override
+//    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+//        switch (item.getItemId()) {
+//            case R.id.menucart:
+//                Intent intent = new Intent(getApplicationContext(), CartActivity.class);
+//                startActivity(intent);
+//        }
+//        return super.onOptionsItemSelected(item);
+//    }
+//
 
     private void LoadMoreData() {
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent = new Intent(getApplicationContext(), ProductDetailActivity.class);
-                intent.putExtra("thongtinsanpham", arraydrink.get(i));
+                intent.putExtra("thongtinsanpham", arraynotify.get(i));
                 startActivity(intent);
             }
         });
@@ -101,28 +112,57 @@ public class DrinkActivity extends AppCompatActivity {
             public void onScroll(AbsListView absListView, int firstItem, int visibleItem, int totalItem) {
                 if (firstItem + visibleItem == totalItem && totalItem != 0 && isLoading == false && limitData == false) {
                     isLoading = true;
-                    DrinkActivity.ThreadData threadData = new DrinkActivity.ThreadData();
+                    NotificationActivity.ThreadData threadData = new NotificationActivity.ThreadData();
                     threadData.start();
                 }
             }
         });
     }
 
+
+    private void ChangeStatusNotify(){
+        final HashMap<String, String> postParams = new HashMap<String, String>();
+        postParams.put("notificationID", "1");
+        final JSONObject jsonObject = new JSONObject(postParams);
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.PUT, Server.urlSeenNotification, jsonObject , new Response.Listener<JSONObject>() {
+            public void onResponse(JSONObject response){
+
+            }
+            }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        }) {
+
+            @Override
+            public String getBodyContentType() {
+                return "application/json; charset=utf-8";
+            }
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                HashMap<String, String> headers = new HashMap<String, String>();
+                headers.put("Authorization", "Bearer" + user.token);
+                return headers;
+            }
+
+
+        };
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        requestQueue.add(jsonObjectRequest);
+    }
+
     private void GetData(int Page) {
         final HashMap<String, String> postParams = new HashMap<String, String>();
-        postParams.put("categoryId", "2");
         postParams.put("page", String.valueOf(Page));
         final JSONObject jsonObject = new JSONObject(postParams);
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, Server.urlProduct, jsonObject, new Response.Listener<JSONObject>() {
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, Server.urlGetNotification, jsonObject, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 int id = 0;
-                String productName = "";
-                int price = 0;
-                String productImage = "";
-                String description = "";
-                int idCategory = 0;
-                float rating = 0;
+                String title = "";
+                String content = "";
+                int seen = 0;
                 if (response != null) {
                     listview.removeFooterView(footerview);
                     try {
@@ -137,16 +177,14 @@ public class DrinkActivity extends AppCompatActivity {
                             try {
                                 JSONObject item = (JSONObject) data.get(i);
                                 id = item.getInt("id");
-                                productName = item.getString("product_name");
-                                price = item.getInt("price");
-                                productImage = item.getString("product_image");
-                                description = item.getString("description");
-                                idCategory = item.getInt("category_id");
-                                rating = (float)(item.getDouble("rating"));
-                                arraydrink.add(new Product(id, productName, price, productImage, description, idCategory, rating));
-                                drinkAdapter.notifyDataSetChanged();
+                                title = item.getString("title");
+                                content = item.getString("content");
+                                seen = item.getInt("seen");
+                                arraynotify.add(new Notify(id, title, content, seen));
+                                notifyAdapter.notifyDataSetChanged();
 
-                            } catch (JSONException e) {
+                            }
+                            catch (JSONException e) {
                                 e.printStackTrace();
                             }
                         }
@@ -161,13 +199,16 @@ public class DrinkActivity extends AppCompatActivity {
 
             }
         }) {
-
             @Override
             public String getBodyContentType() {
                 return "application/json; charset=utf-8";
             }
-
-
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                HashMap<String, String> headers = new HashMap<String, String>();
+                headers.put("Authorization", "Bearer" + user.token);
+                return headers;
+            }
         };
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(jsonObjectRequest);
@@ -175,7 +216,7 @@ public class DrinkActivity extends AppCompatActivity {
 
     private void ActionToolbar() {
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Đồ uống");
+        getSupportActionBar().setTitle("Thông báo");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         Drawable newbackbtn = getResources().getDrawable(R.drawable.ic_back);
         getSupportActionBar().setHomeAsUpIndicator(newbackbtn);
@@ -185,20 +226,20 @@ public class DrinkActivity extends AppCompatActivity {
                 finish();
             }
         });
-
     }
 
-    private void GetIdProductCategory() {
-        iddrink = getIntent().getIntExtra("idCategory", -1);
-        Log.d("giatriloaisanpham", iddrink + "");
-    }
+//    private void GetIdProductCategory() {
+//        idbracelet = getIntent().getIntExtra("idCategory", -1);
+//        Log.d("giatriloaisanpham", idbracelet + "");
+//    }
+
 
     private void Mappings() {
         toolbar = findViewById(R.id.toolbar);
         listview = findViewById(R.id.lv_act_produclist);
-        arraydrink = new ArrayList<>();
-        drinkAdapter = new ProductViewAdapter(getApplicationContext(), arraydrink);
-        listview.setAdapter(drinkAdapter);
+        arraynotify = new ArrayList<>();
+        notifyAdapter = new NotificationAdapter(getApplicationContext(), arraynotify);
+        listview.setAdapter(notifyAdapter);
         LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
         footerview = inflater.inflate(R.layout.progress_bar, null);
         myHandler = new MyHandler();
