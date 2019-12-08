@@ -251,12 +251,6 @@ public class NotificationActivity extends AppCompatActivity {
         });
     }
 
-//    private void GetIdProductCategory() {
-//        idbracelet = getIntent().getIntExtra("idCategory", -1);
-//        Log.d("giatriloaisanpham", idbracelet + "");
-//    }
-
-
     private void Mappings() {
         text = findViewById((R.id.text));
         toolbar = findViewById(R.id.toolbar);

@@ -15,22 +15,23 @@
             android:layout_height="wrap_content"
             android:textSize="15dp"
             android:text="user"
+            android:textStyle="bold"
             android:textColor="@color/cardview_dark_background"
             android:id="@+id/tv3_lvi_user"/>
+        <RatingBar
+            android:id="@+id/rb_lvi_product"
+            style="?android:attr/ratingBarStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:numStars="5" />
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/tv3_lvi_user"
             android:layout_marginTop="@dimen/activity_vertical_margin">
-            <RatingBar
-                android:id="@+id/rb_lvi_product"
-                style="?android:attr/ratingBarStyleSmall"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:numStars="5" />
             <TextView
-                android:layout_width="250dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="15dp"
                 android:text="description"
