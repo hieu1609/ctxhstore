@@ -39,10 +39,8 @@ public class CartActivity extends AppCompatActivity {
         ActionToolbar();
         CheckData();
         EventUtil();
-        if(listViewCart != null) {
-            text.setVisibility(View.GONE);
-        }
         EventButton();
+
     }
 
     private void EventButton() {
@@ -82,6 +80,7 @@ public class CartActivity extends AppCompatActivity {
             listViewCart.setVisibility(View.INVISIBLE);
         }
         else {
+            text.setVisibility(View.GONE);
             cartAdapter.notifyDataSetChanged();
             listViewCart.setVisibility(View.VISIBLE);
         }

@@ -7,11 +7,15 @@ import androidx.appcompat.widget.Toolbar;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AbsListView;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -47,6 +51,11 @@ public class Received extends AppCompatActivity {
     ListView listview;
     ItemOrder OrderAdapter;
     public static ArrayList<Order> arrayOrder;
+    View footerview;
+    MyHandler myHandler;
+    boolean isLoading = false;
+    boolean limitData = false;
+    int page = 1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,17 +64,44 @@ public class Received extends AppCompatActivity {
         if (CheckConnection.haveNetworkConnection(getApplicationContext())) {
             Mappings();
             ActionToolbar();
-            GetData();
+            GetData(page);
+            LoadMoreData();
         } else {
             CheckConnection.ShowToastShort(getApplicationContext(), "Bạn hãy kiểm tra lại kết nối Internet");
             finish();
         }
     }
-    private void GetData() {
+
+    private void LoadMoreData() {
+        listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent intent = new Intent(getApplicationContext(), ItemOrder.class);
+                intent.putExtra("thongtinsanpham", arrayOrder.get(i));
+                startActivity(intent);
+            }
+        });
+        listview.setOnScrollListener(new AbsListView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(AbsListView absListView, int i) {
+            }
+
+            @Override
+            public void onScroll(AbsListView absListView, int firstItem, int visibleItem, int totalItem) {
+                if (firstItem + visibleItem == totalItem && totalItem != 0 && isLoading == false && limitData == false) {
+                    isLoading = true;
+                    Received.ThreadData threadData = new Received.ThreadData();
+                    threadData.start();
+                }
+            }
+        });
+    }
+    private void GetData(int page) {
 
         final HashMap<String, Object> postParams = new HashMap<String, Object>();
+        postParams.put("page", String.valueOf(page));
         final JSONObject jsonObject = new JSONObject(postParams);
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, Server.urlreceived, jsonObject, new Response.Listener<JSONObject>() {
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, Server.urlreceived, jsonObject, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 int id = 0;
@@ -73,8 +109,16 @@ public class Received extends AppCompatActivity {
                 int count = 0;
                 int price = 0;
                 String date = "";
+                if (response != null) {
+                    listview.removeFooterView(footerview);
                     try {
                         JSONArray data = (JSONArray) response.getJSONArray("data");
+                        if (data.length() == 0) {
+                            limitData = true;
+                            listview.removeFooterView(footerview);
+                            CheckConnection.ShowToastShort(getApplicationContext(), "Đã hết dữ liệu");
+                            return;
+                        }
                         for (int i = 0; i < data.length(); i++) {
                             try {
                                 JSONObject item = (JSONObject) data.get(i);
@@ -83,17 +127,17 @@ public class Received extends AppCompatActivity {
                                 count = item.getInt("product_number");
                                 price = item.getInt("product_price");
                                 date = item.getString("created_at");
-                                arrayOrder.add(new Order(1,id, name, count, price,date));
+                                Received.arrayOrder.add(new Order(1, id, name, count, price, date));
                                 OrderAdapter.notifyDataSetChanged();
-
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
                         }
-                    } catch (JSONException e) {
+                    } catch(JSONException e){
                         e.printStackTrace();
                     }
                 }
+            }
 
         }, new Response.ErrorListener() {
             @Override
@@ -120,11 +164,12 @@ public class Received extends AppCompatActivity {
     private void Mappings() {
         toolbar = findViewById(R.id.toolbar);
         listview = findViewById(R.id.lv_act_produclist);
-        if (arrayOrder == null){
-            arrayOrder = new ArrayList<>();
-        }
+        arrayOrder = new ArrayList<>();
         OrderAdapter = new ItemOrder(Received.this, arrayOrder);
         listview.setAdapter(OrderAdapter);
+        LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
+        footerview = inflater.inflate(R.layout.progress_bar, null);
+        myHandler = new MyHandler();
     }
     private void ActionToolbar() {
         setSupportActionBar(toolbar);
@@ -140,5 +185,35 @@ public class Received extends AppCompatActivity {
                 finish();
             }
         });
+    }
+    public class MyHandler extends Handler {
+        @Override
+        public void handleMessage(@NonNull Message msg) {
+            switch (msg.what) {
+                case 0:
+                    listview.addFooterView(footerview);
+                    break;
+                case 1:
+                    GetData(++page);
+                    isLoading = false;
+                    break;
+            }
+            super.handleMessage(msg);
+        }
+    }
+
+    public class ThreadData extends Thread {
+        @Override
+        public void run() {
+            myHandler.sendEmptyMessage(0);
+            try {
+                Thread.sleep(3000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            Message message = myHandler.obtainMessage(1);
+            myHandler.sendMessage(message);
+            super.run();
+        }
     }
 }
