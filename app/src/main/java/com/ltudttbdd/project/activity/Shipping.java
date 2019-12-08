@@ -106,13 +106,13 @@ public class Shipping extends AppCompatActivity {
                         listview.removeFooterView(footerview);
                         try {
                             JSONArray data = (JSONArray) response.getJSONArray("data");
+                            if (data.length() == 0) {
+                                limitData = true;
+                                listview.removeFooterView(footerview);
+                                CheckConnection.ShowToastShort(getApplicationContext(), "Đã hết dữ liệu");
+                                return;
+                            }
                             for (int i = 0; i < data.length(); i++) {
-                                if (data.length() == 0) {
-                                    limitData = true;
-                                    listview.removeFooterView(footerview);
-                                    CheckConnection.ShowToastShort(getApplicationContext(), "Đã hết dữ liệu");
-                                    return;
-                                }
                                 try {
                                     JSONObject item = (JSONObject) data.get(i);
                                     id = item.getInt("order_id");
