@@ -25,7 +25,7 @@ import java.text.DecimalFormat;
 public class CartActivity extends AppCompatActivity {
 
     ListView listViewCart;
-    static TextView txtTotalPrice;
+    static TextView txtTotalPrice, text;
     Button btnCartPayment;
     Button btnReturnHome;
     Toolbar toolbarCart;
@@ -39,6 +39,9 @@ public class CartActivity extends AppCompatActivity {
         ActionToolbar();
         CheckData();
         EventUtil();
+        if(listViewCart != null) {
+            text.setVisibility(View.GONE);
+        }
         EventButton();
     }
 
@@ -99,6 +102,7 @@ public class CartActivity extends AppCompatActivity {
     }
 
     private void Mappings() {
+        text = findViewById(R.id.text);
         listViewCart = findViewById(R.id.listviewcart);
         txtTotalPrice = findViewById(R.id.textviewtotalprice);
         btnCartPayment = findViewById(R.id.buttoncartpayment);
@@ -106,5 +110,6 @@ public class CartActivity extends AppCompatActivity {
         toolbarCart = findViewById(R.id.toolbar);
         cartAdapter = new CartAdapter(CartActivity.this, MainActivity.arrayCart);
         listViewCart.setAdapter(cartAdapter);
+
     }
 }

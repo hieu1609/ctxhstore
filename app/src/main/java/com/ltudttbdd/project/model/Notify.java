@@ -36,4 +36,12 @@ public class Notify implements Serializable {
     public String getNotiContent() {
         return notifyContent;
     }
+
+    public int getSeen() {
+        return seen;
+    }
+
+    public void setSeen(int seen) {
+        this.seen = seen;
+    }
 }

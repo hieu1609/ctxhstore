@@ -139,8 +139,7 @@ public class RatingActivity extends AppCompatActivity {
                                 logger.putExtra("thongtinsanpham", arrayproduct);
                                 startActivity(logger);
                                 finish();
-                                }
-                            catch (JSONException e) {
+                            } catch (JSONException e) {
                                     e.printStackTrace();
                             }
                         }

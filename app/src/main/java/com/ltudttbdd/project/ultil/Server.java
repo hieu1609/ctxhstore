@@ -17,9 +17,8 @@ public class Server {
     public static String urleditUserProfile = "http://" + host + "/ctxhstore/public/api/user/editUserProfile";
     public static String urlrating = "http://" + host + "/ctxhstore/public/api/user/postReview";
     public static String urlmail = "http://" + host + "/ctxhstore/public/api/auth/request/reset-password";
-    public static String urlreset = "http://" + host + "/ctxhstore/public/api/auth/accept/reset-password";
     public static String urlGetNotification = "http://" + host + "/ctxhstore/public/api/user/getNotifications";
-    public static String urlSeenNotification = "http://" + host + "/ctxhstore/public/api/user/seenNotifications";
+    public static String urlSeenNotification = "http://" + host + "/ctxhstore/public/api/user/seenNotification";
     public static String urlcomment = "http://" + host + "/ctxhstore/public/api/data/getCommentByProductId";
     public static String urlfeedback = "http://" + host + "/ctxhstore/public/api/user/postFeedback";
     public static String urlreceived = "http://" + host + "/ctxhstore/public/api/user/getPurchasesReceived";

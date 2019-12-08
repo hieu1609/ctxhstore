@@ -3,17 +3,13 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingHorizontal="10dp"
-    android:paddingVertical="5dp">
+    android:paddingVertical="5dp"
+    android:background="@drawable/white_light_rect">
     <RelativeLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingHorizontal="10dp"
-        android:paddingVertical="10dp"
-        android:background="@drawable/white_light_rect">
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true">
+        android:paddingVertical="10dp">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -31,7 +27,15 @@
                 android:textSize="16dp"
                 android:text="Content"
                 android:layout_centerVertical="true"
-                android:id="@+id/textview_content"/>
-        </RelativeLayout>
+                android:id="@+id/textview_content" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@id/textview_content"
+            android:layout_marginTop="5dp"
+            android:textSize="16dp"
+            android:layout_centerVertical="true"
+            android:id="@+id/daxem" />
     </RelativeLayout>
 </RelativeLayout>

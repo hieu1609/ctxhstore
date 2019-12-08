@@ -164,6 +164,7 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menucart:
+
                 Intent intent = new Intent(getApplicationContext(), CartActivity.class);
                 startActivity(intent);
                 break;

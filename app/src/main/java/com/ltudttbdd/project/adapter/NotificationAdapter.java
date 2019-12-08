@@ -32,20 +32,31 @@ public class NotificationAdapter extends BaseAdapter {
 
     public class ViewHolder {
         TextView txtNotiTitle;
-        TextView txtNotiContent;
+        TextView txtNotiContent, text;
     }
 
     @Override
     public View getView(int i, View view, ViewGroup viewGroup){
-        ViewHolder viewHolder;
+        ViewHolder viewHolder = null;
         if(view==null){
             viewHolder = new ViewHolder();
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
             view = inflater.inflate(R.layout.item_notification, null);
             viewHolder.txtNotiTitle = view.findViewById(R.id.textview_title);
             viewHolder.txtNotiContent = view.findViewById(R.id.textview_content);
+            viewHolder.text = view.findViewById(R.id.daxem);
             view.setTag(viewHolder);
         }
+        else {
+            viewHolder =  (ViewHolder) view.getTag();
+        }
+        Notify notify = (Notify) getItem(i);
+        viewHolder.txtNotiContent.setText(notify.getNotiContent());
+        viewHolder.txtNotiTitle.setText(notify.getNotiTitle());
+        if(notify.getSeen() == 1) {
+            viewHolder.text.setText("Đã xem");
+        }
         return view;
+
     }
 }
