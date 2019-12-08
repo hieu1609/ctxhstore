@@ -82,6 +82,7 @@
             android:id="@+id/resetpass"
             android:gravity="center"
             android:layout_below="@id/confirmbutton"
+            android:layout_marginHorizontal="25dp"
             android:layout_alignParentLeft="true"
             android:drawableBottom="@drawable/button_top_bottom1"
             android:layout_marginTop="@dimen/activity_vertical_margin"
