@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="@android:dimen/app_icon_size"
         android:background="@color/colorInformation"
-        app:title="Thay đổi mật khẩu"
+        app:title="Phản hồi"
         app:titleTextColor="#ffffff">
     </androidx.appcompat.widget.Toolbar>
     <RelativeLayout

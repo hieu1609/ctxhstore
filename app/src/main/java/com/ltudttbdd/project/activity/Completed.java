@@ -1,12 +1,18 @@
 package com.ltudttbdd.project.activity;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AbsListView;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.android.volley.AuthFailureError;
@@ -38,6 +44,11 @@ public class Completed extends AppCompatActivity {
     ListView listview;
     ItemOrder OrderAdapter;
     ArrayList<Order> arrayOrdrer;
+    View footerview;
+    MyHandler myHandler;
+    boolean isLoading = false;
+    boolean limitData = false;
+    int page = 1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,17 +58,44 @@ public class Completed extends AppCompatActivity {
             if (CheckConnection.haveNetworkConnection(getApplicationContext())) {
                 Mappings();
                 ActionToolbar();
-                GetData();
+                GetData(page);
+                LoadMoreData();
             } else {
                 CheckConnection.ShowToastShort(getApplicationContext(), "Bạn hãy kiểm tra lại kết nối Internet");
                 finish();
             }
         }
-        private void GetData() {
+    private void LoadMoreData() {
+        listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent intent = new Intent(getApplicationContext(), ItemOrder.class);
+                intent.putExtra("thongtinsanpham", arrayOrdrer.get(i));
+                startActivity(intent);
+            }
+        });
+        listview.setOnScrollListener(new AbsListView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(AbsListView absListView, int i) {
+
+            }
+
+            @Override
+            public void onScroll(AbsListView absListView, int firstItem, int visibleItem, int totalItem) {
+                if (firstItem + visibleItem == totalItem && totalItem != 0 && isLoading == false && limitData == false) {
+                    isLoading = true;
+                    Completed.ThreadData threadData = new Completed.ThreadData();
+                    threadData.start();
+                }
+            }
+        });
+    }
+        private void GetData(int page) {
 
             final HashMap<String, Object> postParams = new HashMap<String, Object>();
+            postParams.put("page", String.valueOf(page));
             final JSONObject jsonObject = new JSONObject(postParams);
-            JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, Server.urlcompleted, jsonObject, new Response.Listener<JSONObject>() {
+            JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, Server.urlcompleted, jsonObject, new Response.Listener<JSONObject>() {
                 @Override
                 public void onResponse(JSONObject response) {
                     int id = 0;
@@ -65,28 +103,35 @@ public class Completed extends AppCompatActivity {
                     int count = 0;
                     int price = 0;
                     String date = "";
-                    try {
-                        JSONArray data = (JSONArray) response.getJSONArray("data");
-                        for (int i = 0; i < data.length(); i++) {
-                            try {
-                                JSONObject item = (JSONObject) data.get(i);
-                                id = item.getInt("order_id");
-                                name = item.getString("product_name");
-                                count = item.getInt("product_number");
-                                price = item.getInt("product_price");
-                                date = item.getString("created_at");
-                                arrayOrdrer.add(new Order(4,id, name, count, price,date));
-                                OrderAdapter.notifyDataSetChanged();
-
-                            } catch (JSONException e) {
-                                e.printStackTrace();
+                    if (response != null) {
+                        listview.removeFooterView(footerview);
+                        try {
+                            JSONArray data = (JSONArray) response.getJSONArray("data");
+                            if (data.length() == 0) {
+                                limitData = true;
+                                listview.removeFooterView(footerview);
+                                CheckConnection.ShowToastShort(getApplicationContext(), "Đã hết dữ liệu");
+                                return;
                             }
+                            for (int i = 0; i < data.length(); i++) {
+                                try {
+                                    JSONObject item = (JSONObject) data.get(i);
+                                    id = item.getInt("order_id");
+                                    name = item.getString("product_name");
+                                    count = item.getInt("product_number");
+                                    price = item.getInt("product_price");
+                                    date = item.getString("created_at");
+                                    arrayOrdrer.add(new Order(4, id, name, count, price, date));
+                                    OrderAdapter.notifyDataSetChanged();
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
                         }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
                     }
                 }
-
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
@@ -115,6 +160,9 @@ public class Completed extends AppCompatActivity {
             arrayOrdrer = new ArrayList<>();
             OrderAdapter = new ItemOrder(getApplicationContext(), arrayOrdrer);
             listview.setAdapter(OrderAdapter);
+            LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
+            footerview = inflater.inflate(R.layout.progress_bar, null);
+            myHandler = new MyHandler();
         }
         private void ActionToolbar() {
             setSupportActionBar(toolbar);
@@ -130,5 +178,35 @@ public class Completed extends AppCompatActivity {
                     finish();
                 }
             });
+        }
+    public class MyHandler extends Handler {
+        @Override
+        public void handleMessage(@NonNull Message msg) {
+            switch (msg.what) {
+                case 0:
+                    listview.addFooterView(footerview);
+                    break;
+                case 1:
+                    GetData(++page);
+                    isLoading = false;
+                    break;
+            }
+            super.handleMessage(msg);
+        }
+    }
+
+    public class ThreadData extends Thread {
+        @Override
+        public void run() {
+            myHandler.sendEmptyMessage(0);
+            try {
+                Thread.sleep(3000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            Message message = myHandler.obtainMessage(1);
+            myHandler.sendMessage(message);
+            super.run();
+        }
     }
 }

@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="@android:dimen/app_icon_size"
         android:background="@color/colorInformation"
-        app:title="Thông tin người dùng"
+        app:title="Thiết lập tài khoản"
         app:titleTextColor="#ffffff">
     </androidx.appcompat.widget.Toolbar>
     <LinearLayout
@@ -24,7 +24,7 @@
             android:layout_marginTop="5dp"
             android:textSize="30sp"
             android:textColor="#000000"
-            android:text="Thông tin người dùng"
+            android:text="Thiết lập tài khoản"
             android:textStyle="bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
